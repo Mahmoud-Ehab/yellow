@@ -1,12 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { SplashScreen } from './js/screens/SplashScreen';
+import { useFonts } from 'expo-font';
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    'Jua-Regular': require('./assets/Jua-Regular.ttf'),
+  });
+
   return (
     <View style={styles.container}>
-      <SplashScreen />
-      <StatusBar style="light" />
+      <StatusBar 
+        animated={true}
+        showHideTransition='fade'
+        hidden={true}
+      />
+      <ScrollView style={{width: '100%'}} contentContainerStyle={{height: "100%"}}>
+        <SplashScreen />
+      </ScrollView>
     </View>
   );
 }
