@@ -1,34 +1,29 @@
-import { StyleSheet, View } from 'react-native';
-import { colors } from '../styles/colors';
-import { shadows } from '../styles/shadows';
+import { View } from 'react-native';
+import { Image } from 'expo-image';
+import { getSplashScreenStyle } from '../styles/SplashScreenStyle';
+import { Textarea } from '../mini-components/Textarea';
 
 export function SplashScreen() {
-    const style = getStyle();
+    const style = getSplashScreenStyle();
     return (
         <View style={style.main}>
             <View style={style.container}>
+                <View style={style.containerTopPart}>
+                    <Image
+                        style={style.logo}
+                        source={require('../../assets/logo.svg')}
+                        contentFit="cover"
+                        transition={1000}
+                    />
+                    <View style={style.form}>
+                        <Textarea label='Your Nickname' style={style.textinput} />
+                        <Textarea label='Ip Address' style={style.textinput} />
+                    </View>
+                </View>
+                <View style={style.containerBotPart}>
+
+                </View>
             </View>
         </View>
     );
 }
-
-const getStyle = () => StyleSheet.create({
-    main: {
-        height: "100%",
-        width: "100%",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: colors.primary
-    },
-    container: {    
-        height: "95%",
-        width: "90%",
-        borderTopEndRadius: 800,
-        borderTopStartRadius: 800,
-        borderBottomStartRadius: 1000,
-        borderBottomEndRadius: 1000,
-        backgroundColor: colors.secondary,
-        transform: "@media (max-width: 480px) rotateX(-15deg) translateY(40px)",
-        ...shadows.normal
-    }
-});

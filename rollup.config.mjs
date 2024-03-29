@@ -20,7 +20,8 @@ export default [
       ],
       external: [
         'react/jsx-runtime', 
-        'react-native'
+        'react-native',
+        'expo-image'
       ]
     },
 ];  

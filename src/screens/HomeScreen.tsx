@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { colors } from '../styles/colors';
 
-export function SplashScreen() {
+export function HomeScreen() {
     const style = getStyle();
     return (
         <View style={style.main}>
