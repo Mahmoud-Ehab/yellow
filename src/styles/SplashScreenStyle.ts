@@ -17,6 +17,7 @@ export const getSplashScreenStyle = () => StyleSheet.create({
         height: "95%",
         width: "90%",
         flexDirection: "column",
+        alignItems: 'center',
         borderTopEndRadius: 800,
         borderTopStartRadius: 800,
         borderBottomStartRadius: 1000,
@@ -48,12 +49,9 @@ export const getSplashScreenStyle = () => StyleSheet.create({
         height: '100%',
         width: '100%',
     },
-    textinput: {
-        width: isMobileDevice() ? '80%' : '50%',
-        margin: 20
-    },
     containerBotPart: {
         flex: 1,
-        width: '100%',
+        justifyContent: 'center',
+        width: isMobileDevice() ? '80%' : '25%',
     },
 });
