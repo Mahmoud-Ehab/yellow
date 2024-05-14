@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { colors } from './colors';
 import { isMobileDevice } from './mediaQuery';
-import { shadows } from './shadows';
+import { fonts } from './fonts';
 
 export const getTextInputStyle = () => StyleSheet.create({
     main: {
@@ -26,8 +26,8 @@ export const getTextInputStyle = () => StyleSheet.create({
         textAlign: 'center',
         width: '100%',
         padding: "2%",
-        fontSize: 20,
-        fontFamily: 'Jua-Regular',
+        fontSize: isMobileDevice() ? 15 : 20,
+        fontFamily: fonts.Jua,
         color: colors.darkPrimary,
         backgroundColor: colors.primary,
 
@@ -36,6 +36,6 @@ export const getTextInputStyle = () => StyleSheet.create({
         flex: 2,
         justifyContent: 'center',
         backgroundColor: 'transparent',
-        fontFamily: 'Jua-Regular',
+        fontFamily: fonts.Jua,
     }
 });

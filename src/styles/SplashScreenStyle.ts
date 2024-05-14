@@ -54,4 +54,22 @@ export const getSplashScreenStyle = () => StyleSheet.create({
         justifyContent: 'center',
         width: isMobileDevice() ? '80%' : '25%',
     },
+    buttonBody: {
+        borderTopEndRadius: 800,
+        borderTopStartRadius: 800,
+        borderBottomStartRadius: 1000,
+        borderBottomEndRadius: 1000,
+        borderBottomColor: colors.primary,
+        borderBottomWidth: 3,
+        ...shadows.normal,
+    },
+    buttonLabel: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontFamily: 'Jua-Regular',
+        fontSize: isMobileDevice() ? 30 : 40,
+        padding: isMobileDevice() ? "15%" : "10%",
+        color: colors.primary,
+        overflow: 'visible',
+    }
 });

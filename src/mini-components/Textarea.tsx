@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, KeyboardTypeOptions } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { colors } from '../styles/colors';
 import { useState } from 'react';
@@ -11,6 +11,7 @@ type Props = {
         textinput: object,
     };
     placeholder?: string;
+    keyboardType?: KeyboardTypeOptions;
     onChangeText?: (value: string) => void;
 }
 
@@ -35,6 +36,7 @@ export function Textarea(props: Props) {
                 placeholderTextColor={colors.primary}
                 onChangeText={text => setTextHandle(text)}
                 textColor={colors.primary}
+                keyboardType={props.keyboardType || 'default'}
             />
         </View>
     );
