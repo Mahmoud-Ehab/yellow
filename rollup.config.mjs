@@ -24,4 +24,17 @@ export default [
         'expo-image'
       ]
     },
+	{
+		input: ["./src/globals.ts"],
+		output: [
+			{
+				dir: "js",
+				format: "cjs"
+			}
+		],
+		plugins: [
+        	commonjs(),
+        	typescript(),
+      	]
+	}
 ];  
