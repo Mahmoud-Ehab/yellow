@@ -21,7 +21,8 @@ export default [
       external: [
         'react/jsx-runtime', 
         'react-native',
-        'expo-image'
+        'expo-image',
+		'../globals'
       ]
     },
 	{

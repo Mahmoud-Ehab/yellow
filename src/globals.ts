@@ -22,7 +22,7 @@ class Globals {
 	newGlobal(global: GlobalObj) {
 		this.pruneGlobal(global);
 		if (this.getGlobalsNames().includes(global.name)) {
-			console.warn("The global value " + name + " already exists!");
+			console.warn("The global value " + global.name + " already exists!");
 			return;
 		}
 		this.globals.push(global);
@@ -50,6 +50,6 @@ export const [getGlobal, newGlobal, updateGlobal, getGlobalsNames] = [
 	name => globals.getGlobal(name),
 	global => globals.newGlobal(global),
 	global => globals.updateGlobal(global),
-	getGlobalsNames => globals.getGlobalsNames()
+	() => globals.getGlobalsNames()
 ];
 

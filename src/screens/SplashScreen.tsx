@@ -4,10 +4,15 @@ import { Image } from 'expo-image';
 import { getSplashScreenStyle } from '../styles/SplashScreenStyle';
 import { Textarea } from '../mini-components/Textarea';
 import { getTextInputStyle } from '../styles/TextInputStyle';
+import { getGlobal } from '../globals';
 
 export function SplashScreen() {
     const style = getSplashScreenStyle();
     const textinputStyle = getTextInputStyle();
+	
+	const getStartedHandler = () => {
+		getGlobal("nav").navToHome();
+	}
     
     return (
         <View style={style.main}>
@@ -36,7 +41,8 @@ export function SplashScreen() {
                 <View style={style.containerBotPart}>
                     <Button 
                     style={style.buttonBody}
-                    labelStyle={style.buttonLabel}>
+                    labelStyle={style.buttonLabel}
+					onPress={getStartedHandler}>
                         Get Started
                     </Button>
                 </View>
