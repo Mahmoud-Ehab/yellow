@@ -1,21 +1,21 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { colors } from '../styles/colors';
+import { View, ScrollView } from 'react-native';
+
+import { getHomeScreenStyle } from '../styles/HomeScreenStyle';
 
 export function HomeScreen() {
-    const style = getStyle();
+    const style = getHomeScreenStyle();
     return (
         <View style={style.main}>
-            <Text>Test</Text>
+            <View style={style.leftPart}>
+				<View style={style.userBox}>
+				</View>
+				<ScrollView style={style.roomsList}>
+				</ScrollView>
+			</View>
+
+			<View style={style.rightPart}>
+			</View>
         </View>
     );
 }
 
-const getStyle = () => StyleSheet.create({
-    main: {
-        height: "100%",
-        width: "100%",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: colors.primary
-    },
-});
