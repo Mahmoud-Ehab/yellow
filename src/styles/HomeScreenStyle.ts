@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors } from './colors';
+import { isMobileDevice } from './mediaQuery';
 
 export const getHomeScreenStyle = () => StyleSheet.create({
 	main: {
@@ -18,11 +19,24 @@ export const getHomeScreenStyle = () => StyleSheet.create({
 			backgroundColor: colors.primary 
 	},
 		userBox: { 
-			height: "30%", 
+			height: "30%",
+			justifyContent: "center",
+			alignItems: "center", 
 			backgroundColor: colors.darkPrimary
 		},
-			userBoxImg: {},
-			userBoxText: {},
+			userBoxImg: {
+				flex: 2,
+				width: "80%",
+			},
+			userBoxTextContainer: {
+				flex: 1,
+				justifyContent: "center",
+				alignItems: "center",
+			},
+				userBoxText: {
+					fontSize: isMobileDevice() ? 15 : 20,
+					color: colors.secondary
+				},
 		roomsList: { 
 			height: "70%" 
 		},

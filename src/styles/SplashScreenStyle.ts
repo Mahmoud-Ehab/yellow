@@ -50,7 +50,7 @@ export const getSplashScreenStyle = () => StyleSheet.create({
         width: '100%',
     },
     containerBotPart: {
-        flex: 1,
+        flex: isMobileDevice() ? 0.75 : 1,
         justifyContent: 'center',
         width: isMobileDevice() ? '80%' : '25%',
     },
