@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font';
-import { newGlobal } from './js/globals'
+import { newGlobal } from './js/inits/globals.init'
 
 import { SplashScreen } from './js/screens/SplashScreen';
 import { HomeScreen } from './js/screens/HomeScreen';

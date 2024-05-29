@@ -4,7 +4,7 @@ import { Image } from 'expo-image';
 import { getSplashScreenStyle } from '../styles/SplashScreenStyle';
 import { Textarea } from '../mini-components/Textarea';
 import { getTextInputStyle } from '../styles/TextInputStyle';
-import { getGlobal } from '../globals';
+import { getGlobal } from '../inits/globals.init';
 
 export function SplashScreen() {
     const style = getSplashScreenStyle();

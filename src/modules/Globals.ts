@@ -1,10 +1,10 @@
-declare type GlobalObj = {
+export declare type GlobalObj = {
 	name: String,
 	value: any,
 	type: String
 }
 
-class Globals {
+export class Globals {
 	private globals: Array<GlobalObj> = []
 	
 	private pruneGlobal(global: GlobalObj) {
@@ -44,12 +44,4 @@ class Globals {
 		return names;
 	}
 }
-
-const globals = new Globals();
-export const [getGlobal, newGlobal, updateGlobal, getGlobalsNames] = [
-	name => globals.getGlobal(name),
-	global => globals.newGlobal(global),
-	global => globals.updateGlobal(global),
-	() => globals.getGlobalsNames()
-];
 
