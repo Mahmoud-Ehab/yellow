@@ -1,24 +1,24 @@
 # About
 
-Yellow is an open-source, cross-platform, decentralized chat application. It can be used locally or globally; all that needed, to establish a connection between two users, is to share their ip addresses to on another. The front-end is mainly implemented with React Native, however, with a flexible design that would let it feasible to integrate Electron.js afterforward. On the other hand, the back-end is implemented with Express.js and Socket.io using the architecture specified in the back-end of [SFAWD]("https://moehab.substack.com/i/118612228/backend"). When a Yellow application (React/ElectorJS Application) gets started, it initially shall start its own socket server in the background.
+Yellow is an open-source, cross-platform, decentralized chat application. It can be used locally or globally; all that needed, to establish a connection between two users, is to share their ip addresses to on another. The front-end is mainly implemented with React Native, however, with a flexible design that would let it feasible to integrate Electron.js afterforward. On the other hand, the back-end is implemented with Express.js and Socket.io using the architecture specified in the back-end of [SFAWD](https://moehab.substack.com/i/118612228/backend). When a Yellow application (React/ElectorJS Application) gets started, it initially shall start its own socket server in the background.
 
 # UI Prototype
 
 ## GetStarted Screen
-![Desktop GetStarted Screen](./docs/prototype/mobile-getstarted.png)
+![Desktop GetStarted Screen](./docs/prototype/desktop-getstarted.png)
 ![Mobile GetStarted Screen](./docs/prototype/mobile-getstarted.png)
 
 ## Home Screen
 ![Desktop Home Screen](./docs/prototype/desktop-home.png)
 ![Mobile Home Screen](./docs/prototype/mobile-home.png)
 
-### Chat Screen Fragment
-![Desktop Chat Screen Fragment](./docs/prototype/desktop-chat.png)
-![Mobile Chat Screen Fragment](./docs/prototype/mobile-chat.png)
-
 ### Notifications
 ![Desktop Notifications](./docs/prototype/desktop-notification.png)
 ![Mobile Notifications](./docs/prototype/mobile-notification.png)
+
+### Chat Screen Fragment
+![Desktop Chat Screen Fragment](./docs/prototype/desktop-chat.png)
+![Mobile Chat Screen Fragment](./docs/prototype/mobile-chat.png)
 
 # Project Structure
 ```
