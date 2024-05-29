@@ -72,22 +72,22 @@ Yellow is an open-source, cross-platform, decentralized chat application. It can
 
 ## front-end
 ### JSX & CSS
-[✓] Implement GetStarted Screen interface.\
-[ ] Implement Home Screen interface.\
-[ ] Implement Chat Fragment interface.\
-[ ] Implement NotificationsContainer & NotificationView.
+- [x] Implement GetStarted Screen interface.
+- [ ] Implement Home Screen interface.
+- [ ] Implement Chat Fragment interface.
+- [ ] Implement NotificationsContainer & NotificationView.
 
 ### Classes
-[✓] Implement Globals module.\
-[✓] Implement ScreensNavigator.\
-[ ] Implement Notifier Object.\
-[ ] Implement FileManager module:\
+- [x] Implement Globals module.
+- [x] Implement ScreensNavigator.
+- [ ] Implement Notifier Object.
+- [ ] Implement FileManager module:
 	- [ ] Add typical read and write methods.
 	- [ ] Add simulWrite method; that changes local file content, simultaneously, when a value changes. 
-[ ] Implement StateManager module:\
-	- [ ] Define [StateFile](./docs/statefile.md), and add functionalities (in StateManager) to add/remove StateFile(s).\
-	- [ ] Add method `getData` (or just `get`) that combines all loaded StateFiles data into one js-object.\
-	- [ ] Write a 'main' script, so to speak, that initializes the StateManager, loads it with StateFiles, and exports it to the app.\
+- [ ] Implement StateManager module:
+	- [ ] Define [StateFile](./docs/statefile.md), and add functionalities (in StateManager) to add/remove StateFile(s).
+	- [ ] Add method `getData` (or just `get`) that combines all loaded StateFiles data into one js-object.
+	- [ ] Write a 'main' script, so to speak, that initializes the StateManager, loads it with StateFiles, and exports it to the app.
 
 ## back-end
 ...
