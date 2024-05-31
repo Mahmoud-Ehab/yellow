@@ -1,6 +1,7 @@
 import { View, Text, ScrollView } from 'react-native';
 import { Image } from 'expo-image';
 import { getHomeScreenStyle } from '../styles/HomeScreenStyle';
+import { getGlobal } from '../inits/globals.init';
 
 export function HomeScreen() {
     const style = getHomeScreenStyle();
@@ -15,7 +16,8 @@ export function HomeScreen() {
 						transition={250}
 					/>
 					<View style={style.userBoxTextContainer}>
-						<Text style={style.userBoxText}>Test</Text>
+						<Text style={style.userBoxText}>{getGlobal("myUserInfo").name}</Text>
+						<Text style={style.userBoxText}>{getGlobal("myUserInfo").ip}</Text>	
 					</View>
 				</View>
 				<ScrollView style={style.roomsList}>

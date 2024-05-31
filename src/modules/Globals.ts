@@ -13,7 +13,7 @@ export class Globals {
 	}
 
 	getGlobal(name: String) {
-		const global = this.globals.find(global => global.name === name);
+		const global = this.globals.find(global => global.name === name.toLowerCase());
 		if (global === undefined)
 			throw Error("There's no global value with name: " + name);
 		return global.value;

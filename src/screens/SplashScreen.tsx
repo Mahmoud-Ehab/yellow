@@ -1,16 +1,30 @@
+import { useState } from 'react';
 import { View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Image } from 'expo-image';
 import { getSplashScreenStyle } from '../styles/SplashScreenStyle';
 import { Textarea } from '../mini-components/Textarea';
 import { getTextInputStyle } from '../styles/TextInputStyle';
-import { getGlobal } from '../inits/globals.init';
+import { getGlobal, newGlobal } from '../inits/globals.init';
 
 export function SplashScreen() {
-    const style = getSplashScreenStyle();
-    const textinputStyle = getTextInputStyle();
+	const style = getSplashScreenStyle();
+	const textinputStyle = getTextInputStyle();
+
+	const [userName, setUserName] = useState("");
+	const [userIp, setUserIp] = useState("");
 	
 	const getStartedHandler = () => {
+		if (!userName || !userIp)
+			return;
+
+		newGlobal({
+			name: "myUserInfo",
+			value: {
+				name: userName, 
+				ip: userIp
+			}
+		});
 		getGlobal("nav").navToHome();
 	}
     
@@ -42,7 +56,7 @@ export function SplashScreen() {
                     <Button 
                     style={style.buttonBody}
                     labelStyle={style.buttonLabel}
-					onPress={getStartedHandler}>
+						onPress={getStartedHandler}>
                         Get Started
                     </Button>
                 </View>
