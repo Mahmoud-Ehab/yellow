@@ -5,7 +5,8 @@ import { Image } from 'expo-image';
 import { getSplashScreenStyle } from '../styles/SplashScreenStyle';
 import { Textarea } from '../mini-components/Textarea';
 import { getTextInputStyle } from '../styles/TextInputStyle';
-import { getGlobal, newGlobal } from '../inits/globals.init';
+import { newGlobal } from '../inits/globals.init';
+import { NAV_VALUES, screensNavigator } from '../inits/screensNavigator.init';
 
 export function SplashScreen() {
 	const style = getSplashScreenStyle();
@@ -16,16 +17,18 @@ export function SplashScreen() {
 	
 	const getStartedHandler = () => {
 		if (!userName || !userIp)
-			return;
+			return Error("You shall write username and user ip to get started.");
 
 		newGlobal({
 			name: "myUserInfo",
 			value: {
 				name: userName, 
 				ip: userIp
-			}
+			},
+            type: "userinfo"
 		});
-		getGlobal("nav").navToHome();
+
+        screensNavigator.navTo(NAV_VALUES.HOME);
 	}
     
     return (
@@ -43,12 +46,14 @@ export function SplashScreen() {
                             label='Your Nickname' 
                             style={textinputStyle} 
                             placeholder='Jack Smith' 
+                            onChangeText={(value) => setUserName(value)}
                         />
                         <Textarea 
                             label='Ip Address' 
                             style={textinputStyle} 
                             placeholder='000.000.0.000' 
                             keyboardType='numeric'
+                            onChangeText={(value) => setUserIp(value)}
                         />
                     </View>
                 </View>

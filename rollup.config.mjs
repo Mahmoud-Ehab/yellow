@@ -22,11 +22,15 @@ export default [
         'react/jsx-runtime', 
         'react-native',
         'expo-image',
-		'../inits/globals.init'
+        '../inits/globals.init',
+        '../inits/screensNavigator.init'
       ]
     },
 	{
-		input: ["./src/inits/globals.init.ts"],
+		input: [
+      "./src/inits/globals.init.ts",
+      "./src/inits/screensNavigator.init.ts"
+    ],
 		output: [
 			{
 				dir: "js/inits",

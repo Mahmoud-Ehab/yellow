@@ -2,28 +2,18 @@ import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font';
-import { newGlobal } from './js/inits/globals.init'
 
 import { SplashScreen } from './js/screens/SplashScreen';
 import { HomeScreen } from './js/screens/HomeScreen';
+import { NAV_VALUES, screensNavigator } from './js/inits/screensNavigator.init';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
     'Jua-Regular': require('./assets/Jua-Regular.ttf'),
   });
+  
   const [navValue, setNavValue] = useState(0);
-
-  const navValues = {
-	HOME: 1
-  }
-
-  newGlobal({
-	name: "nav",
-	value: {
-		navToHome: () => setNavValue(navValues.HOME),
-	},
-	type: "navcontroller"
-  });	
+  screensNavigator.setOnNav("onGetStarted", setNavValue);
   
   return (
     <View style={styles.container}>
@@ -33,7 +23,7 @@ export default function App() {
         hidden={true}
       />
       <ScrollView style={{width: '100%'}} contentContainerStyle={{height: "100%"}}>
-        {navValue === navValues.HOME ? <HomeScreen /> : <SplashScreen />}
+        {navValue === NAV_VALUES.HOME ? <HomeScreen /> : <SplashScreen />}
       </ScrollView>
     </View>
   );

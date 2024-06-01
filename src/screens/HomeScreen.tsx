@@ -11,7 +11,7 @@ export function HomeScreen() {
 				<View style={style.userBox}>
 					<Image 
 						style={style.userBoxImg}
-						source={require('../../assets/user.png')}
+						source={require('../../assets/user.svg')}
 						contentFit="contain"
 						transition={250}
 					/>

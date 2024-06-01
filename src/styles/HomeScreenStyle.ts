@@ -26,6 +26,7 @@ export const getHomeScreenStyle = () => StyleSheet.create({
 		},
 			userBoxImg: {
 				flex: 2,
+				margin: 5,
 				width: "80%",
 			},
 			userBoxTextContainer: {
