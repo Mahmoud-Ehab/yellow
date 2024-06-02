@@ -2,9 +2,15 @@ import { View, Text, ScrollView } from 'react-native';
 import { Image } from 'expo-image';
 import { getHomeScreenStyle } from '../styles/HomeScreenStyle';
 import { getGlobal } from '../inits/globals.init';
+import { RoomsListItem } from '../components/RoomsListItem';
+import { Textarea } from '../mini-components/Textarea';
+import { Button } from 'react-native-paper';
+import { getTextInputStyle } from '../styles/TextInputStyle2';
 
 export function HomeScreen() {
     const style = getHomeScreenStyle();
+	const textareaStyle = getTextInputStyle();
+
     return (
         <View style={style.main}>
             <View style={style.leftPart}>
@@ -21,12 +27,35 @@ export function HomeScreen() {
 					</View>
 				</View>
 				<ScrollView style={style.roomsList}>
+					<RoomsListItem 
+						imgsrc={require('../../assets/user.svg')} 
+						username="User 1" 
+						ipaddr="192.168.1.123" 
+					/>
 				</ScrollView>
 			</View>
 
 			<View style={style.rightPart}>
+				<Image 
+					style={style.rightPartImg}
+					source={require('../../assets/home.png')}
+					contentFit="contain"
+					transition={500}
+				/>
+				<View style={style.addFriendSection}>
+					<Textarea 
+						label={''} 
+						style={textareaStyle}
+						placeholder='Friend Ip Address' 
+						keyboardType='numeric'
+					/>
+					<Button 
+                    style={style.addBtn}
+                    labelStyle={style.addBtnLabel}>
+                        Add
+                    </Button>
+				</View>
 			</View>
         </View>
     );
 }
-

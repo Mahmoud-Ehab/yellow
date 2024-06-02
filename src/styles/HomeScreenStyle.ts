@@ -1,6 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { colors } from './colors';
 import { isMobileDevice } from './mediaQuery';
+import { fonts } from './fonts';
+import { shadows } from './shadows';
 
 export const getHomeScreenStyle = () => StyleSheet.create({
 	main: {
@@ -9,7 +11,7 @@ export const getHomeScreenStyle = () => StyleSheet.create({
     	width: "100%",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: colors.lightPrimary
+        backgroundColor: colors.lightPrimary,
     },
 
 	leftPart: { 
@@ -36,18 +38,33 @@ export const getHomeScreenStyle = () => StyleSheet.create({
 			},
 				userBoxText: {
 					fontSize: isMobileDevice() ? 15 : 20,
+					fontFamily: fonts.Jua,
 					color: colors.secondary
 				},
 		roomsList: { 
 			height: "70%" 
 		},
-			roomRow: {},
-				roomRowImg: {},
-				roomRowText: {},
-		
 	
 	rightPart: {
 		flex: 6,
+		justifyContent: 'center',
+		alignItems: 'center',
 		height: "100%",
 	},
+		rightPartImg: {
+			width: "40%",
+			height: "40%"
+		},
+		addFriendSection: {
+			display: "flex",
+			flexDirection: 'row',
+			justifyContent: 'center',
+			alignItems: 'center',
+		},
+		addBtn: {
+			backgroundColor: colors.primary
+		},
+		addBtnLabel: {
+			color: colors.secondary
+		}
  });

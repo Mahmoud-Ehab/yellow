@@ -61,7 +61,7 @@ export function SplashScreen() {
                     <Button 
                     style={style.buttonBody}
                     labelStyle={style.buttonLabel}
-						onPress={getStartedHandler}>
+					onPress={getStartedHandler}>
                         Get Started
                     </Button>
                 </View>
