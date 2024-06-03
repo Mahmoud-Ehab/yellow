@@ -1,11 +1,18 @@
-import { View, Text, ScrollView } from 'react-native';
-import { Image } from 'expo-image';
+import { View, Text } from 'react-native';
+import { Image, ImageSource } from 'expo-image';
 import { getRoomsListItemStyle } from '../styles/RoomsListItemStyle';
 
-export function RoomsListItem({ imgsrc, username, ipaddr }) {
+type Props = {
+    imgsrc: string | number | ImageSource | ImageSource[] | string[],
+    username: String,
+    ipaddr: String,
+    overrideStyle?: object
+}
+
+export function RoomsListItem({ imgsrc, username, ipaddr, overrideStyle }: Props) {
     const style = getRoomsListItemStyle();
     return (
-        <View style={style.main}>
+        <View style={{...style.main, ...overrideStyle}}>
             <Image 
                 style={style.img}
                 source={imgsrc}

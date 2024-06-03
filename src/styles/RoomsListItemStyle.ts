@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import { colors } from './colors';
 import { fonts } from './fonts';
 import { shadows } from './shadows';
+import { isTabletDevice } from './mediaQuery';
 
 export const getRoomsListItemStyle = () => StyleSheet.create({
     main: {
@@ -10,8 +11,8 @@ export const getRoomsListItemStyle = () => StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 10,
-        marginTop: 25,
-        marginBottom: 25,
+        marginTop: 10,
+        marginBottom: 10,
         backgroundColor: colors.secondary,
         cursor: "pointer",
         ...shadows.normal

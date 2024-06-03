@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { colors } from './colors';
-import { isMobileDevice } from './mediaQuery';
 import { fonts } from './fonts';
 import { shadows } from './shadows';
 

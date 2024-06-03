@@ -1,12 +1,11 @@
 import { StyleSheet } from 'react-native';
 import { colors } from './colors';
-import { isMobileDevice } from './mediaQuery';
+import { isMobileDevice, isTabletDevice } from './mediaQuery';
 import { fonts } from './fonts';
-import { shadows } from './shadows';
 
 export const getHomeScreenStyle = () => StyleSheet.create({
 	main: {
-		flexDirection: 'row',
+		flexDirection: isTabletDevice() ? 'column' : 'row',
     	height: "100%",
     	width: "100%",
         alignItems: "center",
@@ -18,48 +17,62 @@ export const getHomeScreenStyle = () => StyleSheet.create({
 			flex: 1, 
 			flexDirection: 'column', 
 			height: "100%", 
+			width: isTabletDevice() ? '100%' : 'auto',
 			backgroundColor: colors.primary 
 	},
 		userBox: { 
+			flexDirection: isTabletDevice() ? 'row' : 'column',
 			height: "30%",
 			justifyContent: "center",
 			alignItems: "center", 
 			backgroundColor: colors.darkPrimary
 		},
 			userBoxImg: {
-				flex: 2,
+				flex: isTabletDevice() ? 1 : 2,
 				margin: 5,
 				width: "80%",
+				height: isTabletDevice() ? '80%' : 'auto',
 			},
 			userBoxTextContainer: {
-				flex: 1,
+				flex: isTabletDevice() ? 2 : 1,
 				justifyContent: "center",
 				alignItems: "center",
 			},
 				userBoxText: {
-					fontSize: isMobileDevice() ? 15 : 20,
+					fontSize: 20,
 					fontFamily: fonts.Jua,
 					color: colors.secondary
 				},
-		roomsList: { 
-			height: "70%" 
+		roomsList: {
+			flexDirection: isTabletDevice() ? 'row' : 'column',
+			justifyContent: isTabletDevice() ? 'space-between' : 'flex-start',
+			flexWrap: isTabletDevice() ? 'wrap' : 'nowrap',
+			height: "auto",
+			paddingTop: 10,
+			paddingBottom: 10,
 		},
+			roomsListItem: {
+				width: isTabletDevice() ? '45%' : 'auto'
+			},
 	
 	rightPart: {
-		flex: 6,
+		flex: isTabletDevice() ? 1 : 6,
 		justifyContent: 'center',
 		alignItems: 'center',
 		height: "100%",
+		width: isTabletDevice() ? '100%' : 'auto',
+		padding: isTabletDevice() ? 25 : 0,
 	},
 		rightPartImg: {
-			width: "40%",
-			height: "40%"
+			width: isTabletDevice() ? "100%" : "40%",
+			height: isTabletDevice() ? "70%" : "40%"
 		},
 		addFriendSection: {
 			display: "flex",
 			flexDirection: 'row',
 			justifyContent: 'center',
 			alignItems: 'center',
+			width: isTabletDevice() ? "75%" : "auto"
 		},
 		addBtn: {
 			backgroundColor: colors.primary

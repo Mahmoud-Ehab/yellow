@@ -26,11 +26,24 @@ export function HomeScreen() {
 						<Text style={style.userBoxText}>{getGlobal("myUserInfo").ip}</Text>	
 					</View>
 				</View>
-				<ScrollView style={style.roomsList}>
+				<ScrollView contentContainerStyle={style.roomsList}>
 					<RoomsListItem 
+						overrideStyle={style.roomsListItem}
 						imgsrc={require('../../assets/user.svg')} 
 						username="User 1" 
 						ipaddr="192.168.1.123" 
+					/>
+					<RoomsListItem 
+						overrideStyle={style.roomsListItem}
+						imgsrc={require('../../assets/user.svg')} 
+						username="User 2" 
+						ipaddr="192.168.1.321" 
+					/>
+					<RoomsListItem 
+						overrideStyle={style.roomsListItem}
+						imgsrc={require('../../assets/user.svg')} 
+						username="User 3" 
+						ipaddr="192.168.1.213" 
 					/>
 				</ScrollView>
 			</View>
