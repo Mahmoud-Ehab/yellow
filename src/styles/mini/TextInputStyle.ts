@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { colors } from './colors';
-import { isMobileDevice } from './mediaQuery';
-import { fonts } from './fonts';
+import { colors } from '../colors';
+import { isMobileDevice } from '../mediaQuery';
+import { fonts } from '../fonts';
 
 export const getTextInputStyle = () => StyleSheet.create({
     main: {

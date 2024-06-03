@@ -1,11 +1,11 @@
 import { View, Text, ScrollView } from 'react-native';
 import { Image } from 'expo-image';
-import { getHomeScreenStyle } from '../styles/HomeScreenStyle';
+import { getHomeScreenStyle } from '../styles/screens/HomeScreenStyle';
 import { getGlobal } from '../inits/globals.init';
 import { RoomsListItem } from '../components/RoomsListItem';
 import { Textarea } from '../mini-components/Textarea';
 import { Button } from 'react-native-paper';
-import { getTextInputStyle } from '../styles/TextInputStyle2';
+import { getTextInputStyle } from '../styles/mini/TextInputStyle2';
 
 export function HomeScreen() {
     const style = getHomeScreenStyle();

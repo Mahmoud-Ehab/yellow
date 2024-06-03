@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Image } from 'expo-image';
-import { getSplashScreenStyle } from '../styles/SplashScreenStyle';
+import { getSplashScreenStyle } from '../styles/screens/SplashScreenStyle';
 import { Textarea } from '../mini-components/Textarea';
-import { getTextInputStyle } from '../styles/TextInputStyle';
+import { getTextInputStyle } from '../styles/mini/TextInputStyle';
 import { newGlobal } from '../inits/globals.init';
 import { NAV_VALUES, screensNavigator } from '../inits/screensNavigator.init';
 

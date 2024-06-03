@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
 import { Image, ImageSource } from 'expo-image';
-import { getRoomsListItemStyle } from '../styles/RoomsListItemStyle';
+import { getRoomsListItemStyle } from '../styles/components/RoomsListItemStyle';
 
 type Props = {
     imgsrc: string | number | ImageSource | ImageSource[] | string[],

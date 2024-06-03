@@ -1,8 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { colors } from './colors';
-import { fonts } from './fonts';
-import { shadows } from './shadows';
-import { isTabletDevice } from './mediaQuery';
+import { colors } from '../colors';
+import { fonts } from '../fonts';
+import { shadows } from '../shadows';
 
 export const getRoomsListItemStyle = () => StyleSheet.create({
     main: {

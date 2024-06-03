@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { colors } from './colors';
-import { isMobileDevice, isTabletDevice } from './mediaQuery';
-import { fonts } from './fonts';
+import { colors } from '../colors';
+import { isTabletDevice } from '../mediaQuery';
+import { fonts } from '../fonts';
 
 export const getHomeScreenStyle = () => StyleSheet.create({
 	main: {
@@ -22,7 +22,7 @@ export const getHomeScreenStyle = () => StyleSheet.create({
 	},
 		userBox: { 
 			flexDirection: isTabletDevice() ? 'row' : 'column',
-			height: "30%",
+			height: isTabletDevice() ? 100 : '30%',
 			justifyContent: "center",
 			alignItems: "center", 
 			backgroundColor: colors.darkPrimary
@@ -62,10 +62,11 @@ export const getHomeScreenStyle = () => StyleSheet.create({
 		height: "100%",
 		width: isTabletDevice() ? '100%' : 'auto',
 		padding: isTabletDevice() ? 25 : 0,
+		overflow: 'hidden',
 	},
 		rightPartImg: {
 			width: isTabletDevice() ? "100%" : "40%",
-			height: isTabletDevice() ? "70%" : "40%"
+			height: isTabletDevice() ? 350 : "40%"
 		},
 		addFriendSection: {
 			display: "flex",
