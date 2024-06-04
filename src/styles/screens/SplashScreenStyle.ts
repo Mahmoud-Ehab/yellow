@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { colors } from './colors';
-import { shadows } from './shadows';
-import { isMobileDevice } from './mediaQuery';
+import { colors } from '../colors';
+import { shadows } from '../shadows';
+import { isMobileDevice } from '../mediaQuery';
 
 export const getSplashScreenStyle = () => StyleSheet.create({
     main: {

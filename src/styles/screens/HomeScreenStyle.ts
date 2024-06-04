@@ -2,8 +2,9 @@ import { StyleSheet } from 'react-native';
 import { colors } from '../colors';
 import { isTabletDevice } from '../mediaQuery';
 import { fonts } from '../fonts';
+import { shadows } from '../../../js/screens/fonts-CgopVOoX';
 
-export const getHomeScreenStyle = () => StyleSheet.create({
+export const getHomeScreenStyle = (props: { sliderValue: number }) => StyleSheet.create({
 	main: {
 		flexDirection: isTabletDevice() ? 'column' : 'row',
     	height: "100%",
@@ -14,32 +15,36 @@ export const getHomeScreenStyle = () => StyleSheet.create({
     },
 
 	leftPart: { 
-			flex: 1, 
+			flex: isTabletDevice() ? props.sliderValue : 1, 
 			flexDirection: 'column', 
 			height: "100%", 
 			width: isTabletDevice() ? '100%' : 'auto',
-			backgroundColor: colors.primary 
+			backgroundColor: colors.primary,
+			...shadows.normal
 	},
 		userBox: { 
 			flexDirection: isTabletDevice() ? 'row' : 'column',
 			height: isTabletDevice() ? 100 : '30%',
 			justifyContent: "center",
 			alignItems: "center", 
+			paddingLeft: isTabletDevice() ? 25 : 0,
+			paddingRight: isTabletDevice() ? 25 : 0,
 			backgroundColor: colors.darkPrimary
 		},
 			userBoxImg: {
 				flex: isTabletDevice() ? 1 : 2,
-				margin: 5,
-				width: "80%",
+				width: "75%",
 				height: isTabletDevice() ? '80%' : 'auto',
+				margin: 5,
 			},
 			userBoxTextContainer: {
-				flex: isTabletDevice() ? 2 : 1,
+				flex: isTabletDevice() ? 3 : 1,
 				justifyContent: "center",
 				alignItems: "center",
 			},
 				userBoxText: {
 					fontSize: 20,
+					margin: 5,
 					fontFamily: fonts.Jua,
 					color: colors.secondary
 				},
@@ -54,6 +59,18 @@ export const getHomeScreenStyle = () => StyleSheet.create({
 			roomsListItem: {
 				width: isTabletDevice() ? '45%' : 'auto'
 			},
+
+	screenDivider: {
+		display: isTabletDevice() ? "flex" : "none",
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: "100%",
+		height: 0,
+	},
+		screenDividerImg: {
+			width: 50,
+			height: 50,
+		},
 	
 	rightPart: {
 		flex: isTabletDevice() ? 1 : 6,
@@ -61,7 +78,7 @@ export const getHomeScreenStyle = () => StyleSheet.create({
 		alignItems: 'center',
 		height: "100%",
 		width: isTabletDevice() ? '100%' : 'auto',
-		padding: isTabletDevice() ? 25 : 0,
+		padding: isTabletDevice() ? 15 : 0,
 		overflow: 'hidden',
 	},
 		rightPartImg: {
@@ -73,7 +90,7 @@ export const getHomeScreenStyle = () => StyleSheet.create({
 			flexDirection: 'row',
 			justifyContent: 'center',
 			alignItems: 'center',
-			width: isTabletDevice() ? "75%" : "auto"
+			width: isTabletDevice() ? "100%" : "auto",
 		},
 		addBtn: {
 			backgroundColor: colors.primary
