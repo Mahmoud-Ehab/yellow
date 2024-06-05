@@ -7,12 +7,22 @@ type Props = {
     username: String,
     ipaddr: String,
     overrideStyle?: object
+    onPress?: Function;
 }
 
-export function RoomsListItem({ imgsrc, username, ipaddr, overrideStyle }: Props) {
+export function RoomsListItem({ imgsrc, username, ipaddr, overrideStyle, onPress }: Props) {
     const style = getRoomsListItemStyle();
+
+    const onPressHandler = () => {
+        if (onPress)
+            onPress({username, ipaddr});
+    }
+
     return (
-        <View style={{...style.main, ...overrideStyle}}>
+        <View 
+        style={{...style.main, ...overrideStyle}} 
+        onTouchStart={onPressHandler} 
+        onPointerDown={onPressHandler}>
             <Image 
                 style={style.img}
                 source={imgsrc}

@@ -1,21 +1,41 @@
 import { useState } from 'react';
-import { View, Text, ScrollView, GestureResponderEvent } from 'react-native';
+import { 
+	View, 
+	Text, 
+	ScrollView, 
+	GestureResponderEvent 
+} from 'react-native';
+
 import { Image } from 'expo-image';
-import { getHomeScreenStyle } from '../styles/screens/HomeScreenStyle';
-import { getGlobal } from '../inits/globals.init';
-import { RoomsListItem } from '../components/RoomsListItem';
-import { Textarea } from '../mini-components/Textarea';
 import { Button } from 'react-native-paper';
+
+
+import { getGlobal } from '../inits/globals.init';
+
+import { Textarea } from '../mini-components/Textarea';
+import { RoomsListItem } from '../components/RoomsListItem';
+
+import { getHomeScreenStyle } from '../styles/screens/HomeScreenStyle';
 import { getTextInputStyle } from '../styles/mini/TextInputStyle2';
+
 import { Slider } from '../modules/Slider';
+import { ChatFragment } from '../components/ChatFragment';
+import { getSliderFlexStyle } from '../styles/features/sliderFlexStyle';
+import { getRoomBtnStyle } from '../styles/mini/RoomBtnStyle';
 
 const slider = new Slider(0.2, 3, 1);
+
+type UserInfo = {
+	username: string;
+	ipaddr: string;
+	imgsrc: string;
+}
 
 export function HomeScreen() {
 	// {flex: number} of the style.leftPart
 	const [sliderValue, setSliderValue] = useState(slider.value);
-
-    const style = getHomeScreenStyle({ sliderValue });
+    const style = getHomeScreenStyle();
+	const sliderStyle = getSliderFlexStyle(sliderValue, style.leftPart);
 	const textareaStyle = getTextInputStyle();
 
 	const onSliderStart = (e: GestureResponderEvent) => {
@@ -26,9 +46,38 @@ export function HomeScreen() {
 		setSliderValue(slider.value)
 	}
 
+	const [selectedUser, setSelectedUser] = useState({username: "", ipaddr: ""});
+	const onOpenChat = (user: UserInfo) => {
+		if (user.ipaddr === selectedUser.ipaddr)
+			setSelectedUser({username: "", ipaddr: ""});
+		else
+			setSelectedUser(user);
+	}
+
+	const userBtnStyle = (ipaddr: string) => 
+		getRoomBtnStyle(selectedUser.ipaddr === ipaddr, style.roomsListItem).main;
+
+	const [usersList, setUsersList] = useState([
+		{
+			username: "User 1",
+			ipaddr: "102.123.1.123",
+			imgsrc: "../../assets/user.svg"
+		},
+		{
+			username: "User 2",
+			ipaddr: "102.123.1.321",
+			imgsrc: "../../assets/user.svg"
+		},
+		{
+			username: "User 3",
+			ipaddr: "102.123.1.231",
+			imgsrc: "../../assets/user.svg"
+		}
+	]);
+
     return (
         <View style={style.main}>
-            <View style={style.leftPart}>
+            <View style={sliderStyle.main}>
 				<View style={style.userBox}>
 					<Image 
 						style={style.userBoxImg}
@@ -42,24 +91,15 @@ export function HomeScreen() {
 					</View>
 				</View>
 				<ScrollView contentContainerStyle={style.roomsList} scrollEnabled={sliderValue > 1}>
-					<RoomsListItem 
-						overrideStyle={style.roomsListItem}
-						imgsrc={require('../../assets/user.svg')} 
-						username="User 1" 
-						ipaddr="192.168.1.123" 
-					/>
-					<RoomsListItem 
-						overrideStyle={style.roomsListItem}
-						imgsrc={require('../../assets/user.svg')} 
-						username="User 2" 
-						ipaddr="192.168.1.321" 
-					/>
-					<RoomsListItem 
-						overrideStyle={style.roomsListItem}
-						imgsrc={require('../../assets/user.svg')} 
-						username="User 3"
-						ipaddr="192.168.1.213" 
-					/>
+					{usersList.map((user) => (
+						<RoomsListItem 
+							overrideStyle={userBtnStyle(user.ipaddr)}
+							imgsrc={require("../../assets/user.svg")} 
+							username={user.username} 
+							ipaddr={user.ipaddr} 
+							onPress={onOpenChat}
+						/>
+					))}
 				</ScrollView>
 			</View>
 
@@ -72,26 +112,29 @@ export function HomeScreen() {
 				/>
 			</View>
 
-			<View style={style.rightPart}>
-				<Image 
-					style={style.rightPartImg}
-					source={require('../../assets/home.png')}
-					contentFit="contain"
-					transition={500}
-				/>
-				<View style={style.addFriendSection}>
-					<Textarea 
-						label={''} 
-						style={textareaStyle}
-						placeholder='Friend Ip Address' 
-						keyboardType='numeric'
+			<View style={style.rightPart}>{
+				selectedUser.ipaddr ? <ChatFragment /> :
+				<>
+					<Image 
+						style={style.rightPartImg}
+						source={require('../../assets/home.png')}
+						contentFit="contain"
+						transition={500}
 					/>
-					<Button 
-                    style={style.addBtn}
-                    labelStyle={style.addBtnLabel}>
-                        Add
-                    </Button>
-				</View>
+					<View style={style.addFriendSection}>
+						<Textarea 
+							label={''} 
+							style={textareaStyle}
+							placeholder='Friend Ip Address' 
+							keyboardType='numeric'
+						/>
+						<Button 
+						style={style.addBtn}
+						labelStyle={style.addBtnLabel}>
+							Add
+						</Button>
+					</View>
+				</>}
 			</View>
         </View>
     );

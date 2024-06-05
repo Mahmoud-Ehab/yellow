@@ -4,7 +4,7 @@ import { isTabletDevice } from '../mediaQuery';
 import { fonts } from '../fonts';
 import { shadows } from '../shadows';
 
-export const getHomeScreenStyle = (props: { sliderValue: number }) => StyleSheet.create({
+export const getHomeScreenStyle = () => StyleSheet.create({
 	main: {
 		flexDirection: isTabletDevice() ? 'column' : 'row',
     	height: "100%",
@@ -15,7 +15,7 @@ export const getHomeScreenStyle = (props: { sliderValue: number }) => StyleSheet
     },
 
 	leftPart: { 
-			flex: isTabletDevice() ? props.sliderValue : 1, 
+			flex: isTabletDevice() ? 1 : 1, 
 			flexDirection: 'column', 
 			height: "100%", 
 			width: isTabletDevice() ? '100%' : 'auto',

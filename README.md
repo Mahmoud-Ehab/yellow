@@ -74,7 +74,7 @@ Yellow is an open-source, cross-platform, decentralized chat application. It can
 ### JSX & CSS
 - [x] Implement GetStarted Screen interface.
 - [x] Implement Home Screen interface.
-- [ ] Implement Chat Fragment interface.
+- [ ] Implement Chat fragment (component) interface.
 - [ ] Implement NotificationsContainer & NotificationView.
 
 ### Classes
