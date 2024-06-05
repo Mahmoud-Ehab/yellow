@@ -26,7 +26,7 @@ export class Slider {
         }
     }
 
-    moveTo(movingValue: number, alpha?: number, maxDelta?: number) {
+    moveTo(movingValue: number, alpha?: number) {
         if (!this.initValue) {
             this.setInitValue(movingValue)
             return;
@@ -34,13 +34,6 @@ export class Slider {
 
         if (!alpha) alpha = 1;
         let delta = (this.initValue - movingValue) / movingValue;
-
-        if (delta > 0)
-            if (maxDelta && delta > maxDelta)
-                delta = maxDelta;
-        else
-            if (maxDelta && delta < maxDelta)
-                delta = maxDelta;
 
         this.setCurValue(this.curValue + delta * alpha);
         

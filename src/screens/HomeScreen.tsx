@@ -9,7 +9,7 @@ import { Button } from 'react-native-paper';
 import { getTextInputStyle } from '../styles/mini/TextInputStyle2';
 import { Slider } from '../modules/Slider';
 
-const slider = new Slider(0.1, 3, 1);
+const slider = new Slider(0.2, 3, 1);
 
 export function HomeScreen() {
 	// {flex: number} of the style.leftPart
@@ -22,7 +22,7 @@ export function HomeScreen() {
 		slider.setInitValue(e.nativeEvent.pageY);
 	}
 	const onSliderMove = (e: GestureResponderEvent) => {
-		slider.moveTo(e.nativeEvent.pageY, -1, 0.1);
+		slider.moveTo(e.nativeEvent.pageY, -1);
 		setSliderValue(slider.value)
 	}
 
@@ -41,7 +41,7 @@ export function HomeScreen() {
 						<Text style={{...style.userBoxText, fontSize: 15}}>{getGlobal("myUserInfo").ip}</Text>	
 					</View>
 				</View>
-				<ScrollView contentContainerStyle={style.roomsList}>
+				<ScrollView contentContainerStyle={style.roomsList} scrollEnabled={sliderValue > 1}>
 					<RoomsListItem 
 						overrideStyle={style.roomsListItem}
 						imgsrc={require('../../assets/user.svg')} 
@@ -57,18 +57,19 @@ export function HomeScreen() {
 					<RoomsListItem 
 						overrideStyle={style.roomsListItem}
 						imgsrc={require('../../assets/user.svg')} 
-						username="User 3" 
+						username="User 3"
 						ipaddr="192.168.1.213" 
 					/>
 				</ScrollView>
-				<View style={style.screenDivider} onTouchStart={onSliderStart} onTouchMove={onSliderMove}>
-					<Image 
-						style={style.screenDividerImg}
-						source={require('../../assets/dividerScroll.svg')}
-						contentFit="contain"
-						transition={250}
-					/>
-				</View>
+			</View>
+
+			<View style={style.screenDivider} onTouchStart={onSliderStart} onTouchMove={onSliderMove}>
+				<Image 
+					style={style.screenDividerImg}
+					source={require('../../assets/dividerScroll.svg')}
+					contentFit="contain"
+					transition={250}
+				/>
 			</View>
 
 			<View style={style.rightPart}>

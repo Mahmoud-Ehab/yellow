@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { colors } from '../colors';
 import { isTabletDevice } from '../mediaQuery';
 import { fonts } from '../fonts';
-import { shadows } from '../../../js/screens/fonts-CgopVOoX';
+import { shadows } from '../shadows';
 
 export const getHomeScreenStyle = (props: { sliderValue: number }) => StyleSheet.create({
 	main: {
@@ -65,11 +65,12 @@ export const getHomeScreenStyle = (props: { sliderValue: number }) => StyleSheet
 		justifyContent: 'center',
 		alignItems: 'center',
 		width: "100%",
-		height: 0,
+		height: 20,
 	},
 		screenDividerImg: {
 			width: 50,
 			height: 50,
+			transform: 'translateY(-10px)'
 		},
 	
 	rightPart: {
