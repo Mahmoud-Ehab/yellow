@@ -91,8 +91,9 @@ export function HomeScreen() {
 					</View>
 				</View>
 				<ScrollView contentContainerStyle={style.roomsList} scrollEnabled={sliderValue > 1}>
-					{usersList.map((user) => (
+					{usersList.map((user, i) => (
 						<RoomsListItem 
+							key={i}
 							overrideStyle={userBtnStyle(user.ipaddr)}
 							imgsrc={require("../../assets/user.svg")} 
 							username={user.username} 
