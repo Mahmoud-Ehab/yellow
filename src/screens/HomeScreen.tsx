@@ -113,7 +113,10 @@ export function HomeScreen() {
 			</View>
 
 			<View style={style.rightPart}>{
-				selectedUser.ipaddr ? <ChatFragment /> :
+				selectedUser.ipaddr ? <ChatFragment 
+					username={selectedUser.username} 
+					ipaddr={selectedUser.ipaddr}
+				/> :
 				<>
 					<Image 
 						style={style.rightPartImg}
