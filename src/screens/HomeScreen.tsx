@@ -83,7 +83,6 @@ export function HomeScreen() {
 						style={style.userBoxImg}
 						source={require('../../assets/user.svg')}
 						contentFit="contain"
-						transition={250}
 					/>
 					<View style={style.userBoxTextContainer}>
 						<Text style={{...style.userBoxText, fontSize: 30}}>{getGlobal("myUserInfo").name}</Text>
@@ -109,7 +108,6 @@ export function HomeScreen() {
 					style={style.screenDividerImg}
 					source={require('../../assets/dividerScroll.svg')}
 					contentFit="contain"
-					transition={250}
 				/>
 			</View>
 
@@ -123,7 +121,6 @@ export function HomeScreen() {
 						style={style.rightPartImg}
 						source={require('../../assets/home.png')}
 						contentFit="contain"
-						transition={500}
 					/>
 					<View style={style.addFriendSection}>
 						<Textarea 

@@ -17,7 +17,8 @@ export const getChatFragmentStyle = () => StyleSheet.create({
     },
         conStatusBtn: {
             flex: 1,
-            height: 45
+            height: 45,
+            cursor: 'pointer',
         },
         topBarText: {
             flex: 8,
@@ -28,7 +29,26 @@ export const getChatFragmentStyle = () => StyleSheet.create({
         },
         threeDotsBtn: {
             flex: 1,
-            height: 45
+            height: 45,
+            cursor: 'pointer',
+        },
+
+    popUpView: {
+        position: 'absolute',
+        padding: 10,
+        right: isTabletDevice() ? 0 : 40,
+        top: isTabletDevice() ? 40 : 65,
+        borderRadius: 15,
+        backgroundColor: colors.secondary,
+        ...shadows.normal
+    },
+        closeChatBtn: { 
+            fontFamily: fonts.Jua,
+            color: colors.darkPrimary,
+        },
+        deleteContactBtn: { 
+            fontFamily: fonts.Jua,
+            color: colors.red 
         },
     
     chatContainer: {
