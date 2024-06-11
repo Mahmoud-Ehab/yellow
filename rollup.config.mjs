@@ -23,13 +23,15 @@ export default [
         'react-native',
         'expo-image',
         '../inits/globals.init',
-        '../inits/screensNavigator.init'
+        '../inits/screensNavigator.init',
+        '../inits/notifier.init',
       ]
     },
 	{
 		input: [
       "./src/inits/globals.init.ts",
-      "./src/inits/screensNavigator.init.ts"
+      "./src/inits/screensNavigator.init.ts",
+      "./src/inits/notifier.init.ts",
     ],
 		output: [
 			{

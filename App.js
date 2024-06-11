@@ -1,11 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font';
 
 import { SplashScreen } from './js/screens/SplashScreen';
 import { HomeScreen } from './js/screens/HomeScreen';
 import { NAV_VALUES, screensNavigator } from './js/inits/screensNavigator.init';
+import { NotificationsContainer } from './src/components/NotificationsContainer';
+import { notifier } from './js/inits/notifier.init';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -13,8 +15,11 @@ export default function App() {
   });
   
   const [navValue, setNavValue] = useState(0);
-  screensNavigator.setOnNav("onGetStarted", setNavValue);
-  
+
+  useEffect(() => {
+    screensNavigator.setOnNav("onGetStarted", setNavValue);
+  }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar 
@@ -25,6 +30,7 @@ export default function App() {
       <ScrollView style={{width: '100%'}} contentContainerStyle={{height: "100%"}}>
         {navValue === NAV_VALUES.HOME ? <HomeScreen /> : <SplashScreen />}
       </ScrollView>
+      <NotificationsContainer notifier={notifier} />
     </View>
   );
 }
