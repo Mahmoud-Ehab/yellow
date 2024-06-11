@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Image } from 'expo-image';
-import { getSplashScreenStyle } from '../styles/screens/SplashScreenStyle';
+import { getGetStartedScreenStyle } from '../styles/screens/GetStartedScreenStyle';
 import { Textarea } from '../mini-components/Textarea';
 import { getTextInputStyle } from '../styles/mini/TextInputStyle';
 import { newGlobal } from '../inits/globals.init';
 import { NAV_VALUES, screensNavigator } from '../inits/screensNavigator.init';
 
-export function SplashScreen() {
-	const style = getSplashScreenStyle();
+export function GetStartedScreen() {
+	const style = getGetStartedScreenStyle();
 	const textinputStyle = getTextInputStyle();
 
 	const [userName, setUserName] = useState("");
@@ -59,7 +59,7 @@ export function SplashScreen() {
                 </View>
                 <View style={style.containerBotPart}>
                     <Button 
-                    style={style.buttonBody}
+                    contentStyle={style.buttonBody}
                     labelStyle={style.buttonLabel}
 					onPress={getStartedHandler}>
                         Get Started

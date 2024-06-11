@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../colors';
-import { isMobileDevice } from '../mediaQuery';
+import { isTabletDevice } from '../mediaQuery';
 import { fonts } from '../fonts';
 
 export const getTextInputStyle = () => StyleSheet.create({
@@ -9,8 +9,8 @@ export const getTextInputStyle = () => StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         width: '80%',
-        height: isMobileDevice() ? '50%' : '25%',
-        margin: isMobileDevice() ? "2.5%" : "5%",
+        height: isTabletDevice() ? '50%' : '25%',
+        margin: isTabletDevice() ? "2.5%" : "5%",
         borderWidth: 2,
         borderColor: colors.primary,
         borderRadius: 20,
@@ -26,7 +26,7 @@ export const getTextInputStyle = () => StyleSheet.create({
         textAlign: 'center',
         width: '100%',
         padding: "2%",
-        fontSize: isMobileDevice() ? 15 : 20,
+        fontSize: isTabletDevice() ? 15 : 20,
         fontFamily: fonts.Jua,
         color: colors.darkPrimary,
         backgroundColor: colors.primary,

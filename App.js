@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font';
 
-import { SplashScreen } from './js/screens/SplashScreen';
+import { GetStartedScreen } from './js/screens/GetStartedScreen';
 import { HomeScreen } from './js/screens/HomeScreen';
 import { NAV_VALUES, screensNavigator } from './js/inits/screensNavigator.init';
 import { NotificationsContainer } from './src/components/NotificationsContainer';
@@ -28,7 +28,7 @@ export default function App() {
         hidden={true}
       />
       <ScrollView style={{width: '100%'}} contentContainerStyle={{height: "100%"}}>
-        {navValue === NAV_VALUES.HOME ? <HomeScreen /> : <SplashScreen />}
+        {navValue === NAV_VALUES.HOME ? <HomeScreen /> : <GetStartedScreen />}
       </ScrollView>
       <NotificationsContainer notifier={notifier} />
     </View>

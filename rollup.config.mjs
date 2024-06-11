@@ -5,7 +5,7 @@ import commonjs from '@rollup/plugin-commonjs';
 export default [
     {
       input: [
-        './src/screens/SplashScreen.tsx', 
+        './src/screens/GetStartedScreen.tsx', 
         './src/screens/HomeScreen.tsx'
       ],
       output: [

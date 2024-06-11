@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../colors';
 import { shadows } from '../shadows';
-import { isMobileDevice } from '../mediaQuery';
+import { isTabletDevice } from '../mediaQuery';
 
-export const getSplashScreenStyle = () => StyleSheet.create({
+export const getGetStartedScreenStyle = () => StyleSheet.create({
     main: {
         height: "100%",
         width: "100%",
@@ -15,7 +15,7 @@ export const getSplashScreenStyle = () => StyleSheet.create({
 
     container: {    
         height: "95%",
-        width: "90%",
+        width: "95%",
         flexDirection: "column",
         alignItems: 'center',
         borderTopEndRadius: 800,
@@ -23,53 +23,47 @@ export const getSplashScreenStyle = () => StyleSheet.create({
         borderBottomStartRadius: 1000,
         borderBottomEndRadius: 1000,
         backgroundColor: colors.secondary,
-        transform: "@media (max-width: 480px) rotateX(-15deg) translateY(40px)",
-        ...shadows.normal
+        ...shadows.normal,
     },
 
     containerTopPart: {
         flex: 3,
-        flexDirection: isMobileDevice() ? 'column' : 'row',
-        alignItems: 'center',
+        flexDirection: isTabletDevice() ? 'column' : 'row',
         justifyContent: 'flex-start',
+        alignItems: 'center',
         width: '100%',
-        paddingLeft: isMobileDevice() ? 0 : 150,
-        paddingRight: isMobileDevice() ? 0 : 150,
+        paddingHorizontal: isTabletDevice() ? 0 : 30,
     },
     logo: {
-        flex: isMobileDevice() ? 3 : 1,
-        height: isMobileDevice() ? '150%' : '100%',
-        width: isMobileDevice() ? '150%' : '100%',
+        flex: isTabletDevice() ? 3 : 1,
+        width: '100%',
+        height: '100%',
     },
     form: {
-        flex: isMobileDevice() ? 1 : 1.5,
+        flex: isTabletDevice() ? 1 : 1,
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingRight: isTabletDevice() ? 0 : "10%",
         height: '100%',
-        width: '100%',
+        width: '80%',
     },
     containerBotPart: {
-        flex: isMobileDevice() ? 0.75 : 1,
+        flex: isTabletDevice() ? 0.75 : 1,
         justifyContent: 'center',
-        width: isMobileDevice() ? '80%' : '25%',
+        width: isTabletDevice() ? '80%' : '25%',
     },
     buttonBody: {
-        borderTopEndRadius: 800,
-        borderTopStartRadius: 800,
-        borderBottomStartRadius: 1000,
-        borderBottomEndRadius: 1000,
+        borderRadius: 50,
         borderBottomColor: colors.primary,
-        borderBottomWidth: 3,
-        ...shadows.normal,
+        borderBottomWidth: isTabletDevice() ? 0 : 3,
     },
     buttonLabel: {
         justifyContent: 'center',
         alignItems: 'center',
         fontFamily: 'Jua-Regular',
-        fontSize: isMobileDevice() ? 30 : 40,
-        padding: isMobileDevice() ? "15%" : "10%",
+        fontSize: isTabletDevice() ? 30 : 40,
+        padding: isTabletDevice() ? 15 : "10%",
         color: colors.primary,
-        overflow: 'visible',
     }
 });
