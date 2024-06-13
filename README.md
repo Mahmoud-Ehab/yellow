@@ -50,7 +50,7 @@ Yellow is an open-source, cross-platform, decentralized chat application. It can
 │   ├── styles *** All CSS style js-objects are stored here
 │   │   ├── colors.ts
 │   │   ├── fonts.ts
-│   │   ├── mediaQuery.ts *** Exports set of functions to be used in css styles objects
+│   │   ├── mediaQuery.ts *** Exports set of functions to be used in css styles objects (e.g. isMobileDevice(): boolean)
 │   │   ├── HomeScreenStyle.ts
 │   │   ├── TextInputStyle.ts
 │   │   └── ...
@@ -81,13 +81,13 @@ Yellow is an open-source, cross-platform, decentralized chat application. It can
 - [x] Implement Globals module.
 - [x] Implement ScreensNavigator.
 - [x] Implement Notifier Object.
-- [ ] Implement FileManager module:
-	- [ ] Add typical read and write methods.
-	- [ ] Add simulWrite method; that changes local file content, simultaneously, when a value changes. 
+- [x] Implement FileManager module:
+	- [x] Add typical read and write methods.
+	- [x] Add simulFile method; that changes local file content, simultaneously, when the virtual file content changes. 
 - [ ] Implement StateManager module:
 	- [ ] Define [StateFile](./docs/statefile.md), and add functionalities (in StateManager) to add/remove StateFile(s).
 	- [ ] Add method `getData` (or just `get`) that combines all loaded StateFiles data into one js-object.
-	- [ ] Write a 'main' script, so to speak, that initializes the StateManager, loads it with StateFiles, and exports it to the app.
+	- [ ] Write a 'init' file, so to speak, that initializes the StateManager, loads it with StateFiles, and exports it to the app.
 
 ## back-end
 ...
