@@ -9,8 +9,54 @@ Lastly, saved files shall have a conventional naming syntax that would facilitat
 
 # StateFile Implementation
 
+A one feasible implementation of the concepts and features mentioned above is concretely discussed in this section.
+
 ## Naming Syntax & File Structure
 
-## Storing and Cracking Data
+In this implementation, the physical state file name and the information it contains, or some of, are strictly coupled. First of all, a state file is a JSON file. It basically has three attributes: _meta_, _data_, and _unittype_. _data_ is a list of units of data, where each data unit structure shall have accordance with _unittype_; meanly it must has, at least, the same fields as _unittype_. _meta_ is where the coupling established between the name and the contents; it has two fields (the name of the substate and the crack order), as mentioned before, that are essentailly manifested in the file name. And accordingly, the file name syntax is `sf.[order].[substate_name].json`.
+
+The prefix `sf` makes it way easier for the StateManager to look for state files and automatically load the application state. Once a state file is found, it gets validated by checking the order and the substate name in both the file name and its content. Once a state file is validated, it gets loaded by a StateFile object. Last thing to mention, is that the order is involved in the name in order to make it possible for the StateManager to load just the lastest crack of data of the corresponding substate.
+
+
+## Storing, Loading and Cracking Data
+
+As much the implementation discussed above, it's obvious that StateFiles store data in json files. This section, however, is discussing how exactly a StateFile object shall store, load and crack data. Technically speaking, the first two are implemented in the constructor, whilst various methods ought to be designated for cracking.
+
+### Storing & Loading Data
+
+The constructor of a StateFile object has two parameters: one of them is the directory path in which cracks are saved, and the other is the name of the substate. The constructor first checks if any `sf.*.[substate_name].json` file exists, if some are found then it pushes each one path in a private array `cracks_paths`, with respect to the order, and loads the last one by a private `loadCrack` method. On the other hand, if no sf file is found, the constructor initializes and creates an empty sf file with order equals to 0 and unittype to an empty object (that indicates 'any' type).
+
+The `loadCrack` method, in turn, validates the sf file and then pushes, if the validation yields true, the data attribute list to the private local variable `cracks_data` of the StateFile (`cracks_data` is an array of arrays of unittype objects). In case the validation output is false, the method log a warning and doesn't load any data.
+
+Recall that, when StateFile already finds sf files, in the construction phase, it assigns the unittype of the first sf file to the private local variable `unittype`. In case no file exists, it assigns an empty object instead. Furthermore, we may define a public method for users to extend the unittype. `extend` method takes parameter of type object and extends the local unittype attributes with it. And accordingly, every crack file unittype and data unit in the data list shall be modified.
+
+### Cracking Data
+
+Data is cracked or divided by sealing crack files and initializing new ones. A sealed crack files, that has a _sealed_ attribute equals to true in the meta part, cannot have more data units. 
+
+By default, a crack file gets sealed when it reaches a limit of 100 data unit within it. That limit can be changed by users by invoking the method `setLimit`. Or customly, crack files may be sealed directly by invoking the method `seal`, or the method `split` that will seal the last crack file right after moving half of its data unit to a new crack file.
+
+One final noteworthy propery to mention here is that it's quite reasonable, more reliable, and less error-prone that a StateFile object contains at most one unsealed crack file. And that unsealed crack file shall be the last in the list that leaves behind the old sealed ones.
+
 
 ## Access and Manipulate Data
+
+Users can retrieve a specifc data unit either by specifying an index or a search condition. In the same manner, users can retrieve a set of units of data, however the first way shall involve a range of two indexes. And for this purpose, for methods may be defined: `get(index)`, `getWhere(condition)`, `getList(index, index)`, and `getListWhere(condition)`. The best definition or implementation, so to speak, of the search condition parameter might be a lambda function that takes a unit data and returns a boolean value. Furthermore, `getIndexOf(condition)` returns the index of the first data unit which applies the condition, or -1 in case nothing is found.
+
+Adding data units, updating existing ones values, or removing them... each of these operations corresponds respectively with the methods: `add(unittype)`, `update(index | condition, unittype)`, and `remove(index | condition)`; in case an index is provided the method should update/remove only one unit, in case of a condition, on the other hand, it shall update/remove a set of units.
+
+Just one rather subtle feature is left. When data is manipulated, should StateFile writes data automatically on the disk? or should it leave it for the user to manually invoke instead?... _simul_ is another StateFile private local variable of type boolean with true as its default value. When simul is true the StateFile will save data automatically, however, it shall rewrite only the crack file that holds the added/updated/removed data unit. On the other hand, when simul is false, the only way to save data permanently is by invoking the `save` method which will rewrite all crack files.
+
+
+## Typer
+
+In order to store unit types in json, parse, extend, and compare them, we ought to define a specific class that hardcodes basic types.
+
+Typer is used by StateFile to generate a unittype object, to extend a unittype object, or to check if a specific object applies to a specific type. One straight forward property Typer shall have, in order to implement these three mechanisms, is a hardcoded enumeration of types.
+
+
+# StateManager
+
+Users can create StateFiles and access them only by using StateManager. A StateManager creates StateFiles with `createState` method and stores it in a local variable. And users can access and remove StateFiles with methods: `get(substate_name)` and `remove(substate_name)`. 
+
+Removed StateFiles are only removed from the local variable of the StateManager, however, to remove them entirely from persistence, users may invoke `delete(substate_name, passkey)` method. The _passkey_ parameter bestows some security for users, so that sf files don't get easly or accedentally deleted. It's compared to the passkey attached in each sf file meta part, if there isn't a passkey in there, then the sf file considered undeletable by the StateManager.
