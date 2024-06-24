@@ -1,8 +1,8 @@
-import { File, FileManager } from './modules/FileManager';
+import { FileManager } from './modules/FileManager';
 
 const fileManager = new FileManager({});
 
-const newfile = new File("./testing", "");
+const newfile = fileManager.createFile("./testing", "");
 newfile.setContent("Some new content");
 
 fileManager.addFile("testing", newfile);

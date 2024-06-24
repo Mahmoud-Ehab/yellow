@@ -1,7 +1,7 @@
 import fs from "node:fs"
 import fsp from "node:fs/promises"
 
-export class File {
+class File {
     private fpath: string;
     private fcontent: string;
 
@@ -44,6 +44,10 @@ export class FileManager {
         this.files = files;
     }
 
+    createFile(path: string, content: string) {
+        return new File(path, content);
+    }
+    
     // It's assumed that no two names (files) share the same path
     addFile(name: string, file: File) {
         if (name in Object.keys(this.files))
@@ -95,7 +99,7 @@ export class FileManager {
         file.setOnAppend(() => {});
     }
 
-    private async read(filepath: string): Promise<string> {
+    async read(filepath: string): Promise<string> {
         try {
             const fileContent = await fsp.readFile(filepath, { encoding: 'utf8' })
             return fileContent;
@@ -105,7 +109,7 @@ export class FileManager {
         }
     }
     
-    private async write(filepath: string, content: string) {
+    async write(filepath: string, content: string) {
         try {
             const data = new Uint8Array(Buffer.from(content));
             await fsp.writeFile(filepath, data);
@@ -115,7 +119,7 @@ export class FileManager {
         }
     }
 
-    private async append(filepath: string, content: string) {
+    async append(filepath: string, content: string) {
         try {
             const data = new Uint8Array(Buffer.from(content));
             await fsp.appendFile(filepath, data);
