@@ -11,6 +11,8 @@ Lastly, saved files shall have a conventional naming syntax that would facilitat
 
 A one feasible implementation of the concepts and features mentioned above is concretely discussed in this section.
 
+![StateFile Class Diagram](./diagrams/StateFile.ClassDiagram.jpg)
+
 ## Naming Syntax & File Structure
 
 In this implementation, the physical state file name and the information it contains, or some of, are strictly coupled. First of all, a state file is a JSON file. It basically has three attributes: _meta_, _data_, and _unittype_. _data_ is a list of units of data, where each data unit structure shall have accordance with _unittype_; meanly it must has, at least, the same fields as _unittype_. _meta_ is where the coupling established between the name and the contents; it has two fields (the name of the substate and the crack order), as mentioned before, that are essentailly manifested in the file name. And accordingly, the file name syntax is `sf.[order].[substate_name].json`.
@@ -24,7 +26,7 @@ As much the implementation discussed above, it's obvious that StateFiles store d
 
 ### Storing & Loading Data
 
-The constructor of a StateFile object has two parameters: one of them is the directory path in which cracks are saved, and the other is the name of the substate. The constructor first checks if any `sf.*.[substate_name].json` file exists, if some are found then it pushes each one path in a private array `cracks_paths`, with respect to the order, and loads the last one by a private `loadCrack` method. On the other hand, if no sf file is found, the constructor initializes and creates an empty sf file with order equals to 0 and unittype to an empty object (that indicates 'any' type).
+The constructor of a StateFile object has two parameters: one of them is the directory path in which cracks are saved, and the other is the name of the substate. The constructor first checks if any `sf.*.[substate_name].json` file exists, if some are found then it pushes each one path in a private array `cracks_paths`, with respect to the order, and loads the last one by a private `loadCrack` method. On the other hand, if no sf file is found, the constructor initializes and creates an empty sf file with order equals to zero and unittype to an empty object (that indicates 'any' type).
 
 The `loadCrack` method, in turn, validates the sf file and then pushes, if the validation yields true, the data attribute list to the private local variable `cracks_data` of the StateFile (`cracks_data` is an array of arrays of unittype objects). In case the validation output is false, the method log a warning and doesn't load any data.
 
@@ -57,6 +59,6 @@ Typer is used by StateFile to generate a unittype object, to extend a unittype o
 
 # StateManager
 
-Users can create StateFiles and access them only by using StateManager. A StateManager creates StateFiles with `createState` method and stores it in a local variable. And users can access and remove StateFiles with methods: `get(substate_name)` and `remove(substate_name)`. 
+Users can create StateFiles and access them only by using StateManager. A StateManager creates StateFiles with `add(substate_name)` method and stores it in a local variable. And users can access and remove StateFiles with methods: `get(substate_name)` and `remove(substate_name)`. Beforehand, and at the construction of StateManager, users shall provide the root directory path for sf files.
 
 Removed StateFiles are only removed from the local variable of the StateManager, however, to remove them entirely from persistence, users may invoke `delete(substate_name, passkey)` method. The _passkey_ parameter bestows some security for users, so that sf files don't get easly or accedentally deleted. It's compared to the passkey attached in each sf file meta part, if there isn't a passkey in there, then the sf file considered undeletable by the StateManager.
