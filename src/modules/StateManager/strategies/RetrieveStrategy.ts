@@ -1,5 +1,5 @@
 import { StateFileContainer } from "../StateFileContainer";
-import { condition } from "../types";
+import { Condition } from "../types";
 
 export class RetrieveStrategy<DataUnit> {
     private sfc: StateFileContainer<DataUnit>;
@@ -12,7 +12,7 @@ export class RetrieveStrategy<DataUnit> {
         return JSON.parse(JSON.stringify(this.getMut(index)));
     }
 
-    getWhere(cond: condition<DataUnit>): DataUnit {
+    getWhere(cond: Condition<DataUnit>): DataUnit {
         for (let i = 0; true; i++) {
             const obj = this.get(i);
             if (Object.keys(obj).length <= 0)
@@ -29,7 +29,7 @@ export class RetrieveStrategy<DataUnit> {
         return list;
     }
 
-    getListWhere(cond: condition<DataUnit>): Array<DataUnit> {
+    getListWhere(cond: Condition<DataUnit>): Array<DataUnit> {
         const list = [];
         for (let i = 0; true; i++) {
             const obj = this.get(i);
@@ -41,7 +41,7 @@ export class RetrieveStrategy<DataUnit> {
         return list;
     }
 
-    getIndexOf(cond: condition<DataUnit>): number[] {
+    getIndexOf(cond: Condition<DataUnit>): number[] {
         const indexes = [];
         for (let i = 0; true; i++) {
             const obj = this.get(i);

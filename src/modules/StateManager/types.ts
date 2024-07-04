@@ -14,4 +14,4 @@ export type SF = {
     unittype: Type
 }
 
-export type condition<DataUnit> = (obj: DataUnit) => boolean;
+export type Condition<DataUnit> = (obj: DataUnit) => boolean;

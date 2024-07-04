@@ -1,5 +1,5 @@
 import { Type } from "./types";
-import { condition } from "./types";
+import { Condition } from "./types";
 
 export interface StateFile<DataUnit> {
     len(): number;
@@ -9,16 +9,16 @@ export interface StateFile<DataUnit> {
     extendUnitType(extension: Type): void;
     
     get(index: number): DataUnit;
-    getWhere(cond: condition<DataUnit>): DataUnit;
+    getWhere(cond: Condition<DataUnit>): DataUnit;
     getList(from: number, to: number): Array<DataUnit>;
-    getListWhere(cond: condition<DataUnit>): Array<DataUnit>;
-    getIndexOf(cond: condition<DataUnit>): number[];
+    getListWhere(cond: Condition<DataUnit>): Array<DataUnit>;
+    getIndexOf(cond: Condition<DataUnit>): number[];
 
     add(obj: DataUnit): void;
     update(index: number, newdata: DataUnit): boolean;
-    updateWhere(cond: condition<DataUnit>, newdata: DataUnit): boolean[];
+    updateWhere(cond: Condition<DataUnit>, newdata: DataUnit): boolean[];
     remove(index: number): boolean;
-    removeWhere(cond: condition<DataUnit>): boolean[];
+    removeWhere(cond: Condition<DataUnit>): boolean[];
 
     loadAll(): void;
     loadOne(): boolean;

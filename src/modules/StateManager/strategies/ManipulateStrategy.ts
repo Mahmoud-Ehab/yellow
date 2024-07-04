@@ -1,5 +1,5 @@
 import { StateFileContainer } from "../StateFileContainer";
-import { condition } from "../types";
+import { Condition } from "../types";
 
 export class ManipulateStrategy<DataUnit> {
     private sfc: StateFileContainer<DataUnit>;
@@ -39,7 +39,7 @@ export class ManipulateStrategy<DataUnit> {
         })
     }
 
-    updateWhere(cond: condition<DataUnit>, newdata: DataUnit): boolean[] {
+    updateWhere(cond: Condition<DataUnit>, newdata: DataUnit): boolean[] {
         if (!this.sfc.typer.checkObj(newdata as object, this.sfc.unittype))
             throw Error("StateFile: updateWhere: newdata type is invalid.");
 
@@ -77,7 +77,7 @@ export class ManipulateStrategy<DataUnit> {
         return false;
     }
 
-    removeWhere(cond: condition<DataUnit>): boolean[] {
+    removeWhere(cond: Condition<DataUnit>): boolean[] {
         const successes = [];
         const indexes = this.sfc.retriever.getIndexOf(cond);
         for (let i of indexes)
