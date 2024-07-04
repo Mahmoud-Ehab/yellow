@@ -1,4 +1,4 @@
-import { Type } from "./Typer";
+import { Type } from "./types";
 import { condition } from "./types";
 
 export interface StateFile<DataUnit> {

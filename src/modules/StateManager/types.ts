@@ -1,4 +1,6 @@
-import { Type } from "./Typer";
+export type Type = {
+    [key: string]: "string" | "number" | "boolean" | Type
+}
 
 export type Meta = {
     substate: string,

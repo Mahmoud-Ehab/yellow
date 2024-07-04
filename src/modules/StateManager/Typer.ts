@@ -1,6 +1,4 @@
-export type Type = {
-    [key: string]: "string" | "number" | "boolean" | Type
-}
+import { Type } from "./types";
 
 export class Typer {
     private types = {
