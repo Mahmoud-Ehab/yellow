@@ -1,10 +1,10 @@
 import { FileManager } from "../FileManager";
-import { Type, Typer } from "./Typer";
+import { Typer } from "./Typer";
 import { LoadStrategy } from "./strategies/LoadStrategy";
 import { ManipulateStrategy } from "./strategies/ManipulateStrategy";
 import { RetrieveStrategy } from "./strategies/RetrieveStrategy";
 import { SaveStrategy } from "./strategies/SaveStrategy";
-import { Meta, SF } from "./types";
+import { Meta, SF, Type } from "./types";
 
 export class StateFileContainer<DataUnit> {
     meta: Meta;
