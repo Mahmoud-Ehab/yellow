@@ -11,7 +11,7 @@ Lastly, saved files shall have a conventional naming syntax that would facilitat
 
 A one feasible implementation of the concepts and features mentioned above is concretely discussed in this section.
 
-![StateFile Class Diagram](./diagrams/StateFile.ClassDiagram.jpg)
+![StateFile Class Diagram](./diagrams/StateFile.ClassDiagram.drawio.png)
 
 ## Naming Syntax & File Structure
 
