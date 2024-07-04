@@ -87,10 +87,13 @@ Yellow is an open-source, cross-platform, decentralized chat application. It can
 - [x] Implement StateManager module:
 	- [x] Define and implement [StateFile](./docs/statefile.md), and add functionalities (in StateManager) to add/remove StateFile(s).
 	- [x] Write an 'init' file, so to speak, that initializes the StateManager, loads it with StateFiles, and exports it to the app.
-	- [ ] Add method `getData` (or just `get`) that combines all loaded StateFiles data into one js-object.
  
 ## back-end
-...
+- [ ] Implement basic server with Express and SFAWD architecture.
+- [ ] Integrate StateFile into the architecture.
+- [ ] Define (SFAWD) Endpoints for messages and connections (users list) loading and saving.
+- [ ] Implement (SFAWD) RequestDispatcher with the Endpoints.
+- [ ] Implement WebSocket connection in the server...
 
 
 # Get Started
