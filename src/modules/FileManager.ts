@@ -44,8 +44,8 @@ export class FileManager {
         this.files = files;
     }
 
-    createFile(path: string, content: string) {
-        return new File(path, content);
+    createFile(path: string, content?: string) {
+        return new File(path, content || "");
     }
     
     // It's assumed that no two names (files) share the same path
@@ -56,14 +56,11 @@ export class FileManager {
         if (fs.existsSync(file.path)) {
             console.warn("Already found file " + file.path + " in storage.");
             this.files[name] = file;
-            this.read(file.path)
-                .then(content => file.setContent(content))
-                .catch((err) => {throw Error(err)}) 
+            file.setContent(this.read(file.path))
         }
         else {
             this.files[name] = file;
-            this.write(file.path, file.content)
-                .catch((err) => {throw Error(err)})
+            this.write(file.path, file.content);
         }
     }
 
@@ -88,10 +85,9 @@ export class FileManager {
     */
     simulFile(file: File) {
         // ensure that the file on disk is up-to-date
-        this.write(file.path, file.content);
+        this.writeFile(file);
         file.setOnAppend((change) => {
-            this.append(file.path, change)
-                .catch(err => {throw Error(err)})
+            this.append(file.path, change);
         });
     }
 
@@ -99,9 +95,30 @@ export class FileManager {
         file.setOnAppend(() => {});
     }
 
-    async read(filepath: string): Promise<string> {
+    writeFile(file: File) {
+        this.write(file.path, file.content);
+    }
+
+    exploreDir(dirpath: string): Array<string> {
+        const arr = [];
+        fs.readdirSync(dirpath).forEach(file => {
+            arr.push(file);
+        });
+        return arr;
+    }
+
+    createDir(dirpath: string) {
+        if (!fs.existsSync(dirpath))
+            fs.mkdirSync(dirpath);
+    }
+
+    deleteDir(dirpath: string) {
+        fs.rmdirSync(dirpath, { recursive: true })
+    }
+
+    private read(filepath: string): string {
         try {
-            const fileContent = await fsp.readFile(filepath, { encoding: 'utf8' })
+            const fileContent = fs.readFileSync(filepath, { encoding: 'utf8' })
             return fileContent;
         }
         catch(err) {
@@ -109,20 +126,20 @@ export class FileManager {
         }
     }
     
-    async write(filepath: string, content: string) {
+    private write(filepath: string, content: string) {
         try {
             const data = new Uint8Array(Buffer.from(content));
-            await fsp.writeFile(filepath, data);
+            fs.writeFileSync(filepath, data);
         }
         catch(err) {
             throw Error(err);
         }
     }
 
-    async append(filepath: string, content: string) {
+    private append(filepath: string, content: string) {
         try {
             const data = new Uint8Array(Buffer.from(content));
-            await fsp.appendFile(filepath, data);
+            fs.appendFileSync(filepath, data);
         }
         catch(err) {
             throw Error(err);
