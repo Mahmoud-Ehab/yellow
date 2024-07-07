@@ -9,7 +9,7 @@ Lastly, saved files shall have a conventional naming syntax that would facilitat
 
 # Implementation
 
-A one feasible implementation of the concepts and features mentioned above is concretely discussed and illustrated in the following sections and diagram.
+One feasible implementation of the concepts and features mentioned above is concretely discussed in the following sections and illustrated in the diagram below.
 
 1. Naming Syntax & File Structure
 2. Storing, Loading and Cracking Data
@@ -18,11 +18,12 @@ A one feasible implementation of the concepts and features mentioned above is co
 5. StateManager
 6. FileManager
 
+
 ![StateFile Class Diagram](./diagrams/StateFile.ClassDiagram.drawio.png)
 
 ## 1. Naming Syntax & File Structure
 
-In this implementation, the physical state file name and the information it contains, or some of, are strictly coupled. First of all, a state file is a JSON file that basically has three attributes: _meta_, _data_, and _unittype_. _data_ is a list of units of data, where each data unit structure shall have accordance with _unittype_; meanly it must has, at least, the same fields as _unittype_. _meta_ is where the coupling established between the name and the contents; it has, at least, two fields (the name of the substate and the crack order), as mentioned before, that are essentailly manifested in the file name. And accordingly, the file name syntax is `sf.[order].[substate_name].json`.
+In this implementation, the physical state file name and the information it contains, or some of, are strictly coupled. First of all, a state file is a JSON file that basically has three attributes: _meta_, _data_, and _unittype_. _data_ is a list of units of data, where each data unit structure shall be in accordance with _unittype_; meanly it must has, at least, the same fields as _unittype_. _meta_ is where the coupling established between the name and the contents; it has, at least, two fields (the name of the substate and the crack order), as mentioned before, that are essentailly manifested in the file name. And accordingly, the file name syntax is `sf.[order].[substate_name].json`.
 
 The prefix `sf` makes it way easier for a StateFile to look for state files and automatically load the application state. Once a state file is found, it gets validated by checking the order and the substate name in both the file name and its content. Once a state file is validated, it gets loaded by a StateFile object. Last thing to mention, is that the order is involved in the name in order to make it possible for the StateFile to load just the lastest crack of data of the corresponding substate.
 
