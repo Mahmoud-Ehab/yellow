@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-07-04T18:14:43.537Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="TFWbG6xeNQLeZlhB5cCU" version="24.6.4" type="device">
+<mxfile host="app.diagrams.net" modified="2024-07-06T20:15:17.009Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="VCsn2fqVGokZ71oXCluj" version="24.6.4" type="device">
   <diagram name="Page-1" id="WnFcWuogcMRmPLR-6F3W">
-    <mxGraphModel dx="2388" dy="2596" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="823" dy="1616" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -17,21 +17,21 @@
         <mxCell id="htW4GhhkwbEn7PklnQyX-12" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=12;edgeStyle=orthogonalEdgeStyle;labelBackgroundColor=none;fontColor=default;strokeWidth=2;fontFamily=Times New Roman;" parent="1" source="BZ4quUG-rRGMp8gci7xr-5" target="htW4GhhkwbEn7PklnQyX-3" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="330" y="60" />
-              <mxPoint x="750" y="60" />
+              <mxPoint x="490" y="240" />
+              <mxPoint x="750" y="240" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="htW4GhhkwbEn7PklnQyX-13" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=12;edgeStyle=orthogonalEdgeStyle;labelBackgroundColor=none;fontColor=default;strokeWidth=2;fontFamily=Times New Roman;" parent="1" source="BZ4quUG-rRGMp8gci7xr-5" target="htW4GhhkwbEn7PklnQyX-11" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="300" y="40" />
-              <mxPoint x="1040" y="40" />
+              <mxPoint x="540" y="300" />
+              <mxPoint x="1000" y="300" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="BZ4quUG-rRGMp8gci7xr-5" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;&amp;lt;Interface&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;StateFile&amp;lt;DataUnit&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;hr style=&quot;border-style:solid;&quot; size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; len(): number&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; setLimit(limit: number): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; addMetaAttr(attr: string, value: string): boolean&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; rmvMetaAttr(attr: string): boolean&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; extendUnitType(extension: Type): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; get(index: number): DataUnit;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; getWhere(cond: condition&amp;lt;DataUnit&amp;gt;): DataUnit&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; getList(from: number, to: number): Array&amp;lt;DataUnit&amp;gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; getListWhere(cond: condition&amp;lt;DataUnit&amp;gt;): Array&amp;lt;DataUnit&amp;gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; getIndexOf(cond: condition&amp;lt;DataUnit&amp;gt;): number[]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; add(obj: DataUnit): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; update(index: number, newdata: DataUnit): boolean&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; updateWhere(cond: condition&amp;lt;DataUnit&amp;gt;, newdata: DataUnit): boolean[]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; remove(index: number): boolean&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; removeWhere(cond: condition&amp;lt;DataUnit&amp;gt;): boolean[]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; loadAll(): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; loadOne(): boolean&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; unloadOne(): boolean&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; seal(newCrackData?: Array&amp;lt;DataUnit&amp;gt;): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; split(): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; save(): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;strokeWidth=2;fontFamily=Times New Roman;" parent="1" vertex="1">
-          <mxGeometry x="100" y="362.5" width="420" height="430" as="geometry" />
+          <mxGeometry x="310" y="500" width="420" height="430" as="geometry" />
         </mxCell>
         <mxCell id="htW4GhhkwbEn7PklnQyX-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=12;labelBackgroundColor=none;fontColor=default;strokeWidth=2;fontFamily=Times New Roman;" parent="1" source="BZ4quUG-rRGMp8gci7xr-7" target="htW4GhhkwbEn7PklnQyX-17" edge="1">
           <mxGeometry relative="1" as="geometry">
@@ -42,7 +42,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="BZ4quUG-rRGMp8gci7xr-7" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Typer&lt;/b&gt;&lt;/p&gt;&lt;hr style=&quot;border-style:solid;&quot; size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;-&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;types: enum of types&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;hr style=&quot;border-style:solid;&quot; size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;+ generateType(object): Type&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ extendType(original: Type, extension: Type): void&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ check(object, Type): boolean&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;strokeWidth=2;fontFamily=Times New Roman;" parent="1" vertex="1">
-          <mxGeometry x="1560" y="362.5" width="320" height="115" as="geometry" />
+          <mxGeometry x="1560" y="331.25" width="320" height="115" as="geometry" />
         </mxCell>
         <mxCell id="htW4GhhkwbEn7PklnQyX-3" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;&amp;lt;Type&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Type&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;font-size:10px;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;Map&amp;lt;string, &quot;number&quot; | &quot;string&quot; | &quot;boolean&quot; | Type&amp;gt;&lt;/i&gt;&lt;/p&gt;" style="shape=rect;html=1;overflow=fill;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;strokeWidth=2;fontFamily=Times New Roman;" parent="1" vertex="1">
           <mxGeometry x="670" y="125" width="230" height="70" as="geometry" />
@@ -95,7 +95,7 @@
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="990" y="340" />
-              <mxPoint x="1055" y="340" />
+              <mxPoint x="1110" y="340" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -106,7 +106,7 @@
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="820" y="320" />
-              <mxPoint x="1010" y="320" />
+              <mxPoint x="1060" y="320" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -157,7 +157,7 @@
             <mxPoint x="1345" y="460" as="targetPoint" />
             <Array as="points">
               <mxPoint x="1480" y="640" />
-              <mxPoint x="1480" y="420" />
+              <mxPoint x="1480" y="389" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -172,7 +172,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="htW4GhhkwbEn7PklnQyX-37" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&amp;lt;Class&amp;gt;&lt;/font&gt;&lt;div style=&quot;font-size: 18px;&quot;&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;StateFileContainer&lt;/font&gt;&lt;/div&gt;" style="html=1;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;strokeWidth=2;fontFamily=Times New Roman;" parent="1" vertex="1">
+        <mxCell id="htW4GhhkwbEn7PklnQyX-37" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&amp;lt;Class&amp;gt;&lt;/font&gt;&lt;div style=&quot;font-size: 18px;&quot;&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;StateFileFactory&lt;/font&gt;&lt;/div&gt;" style="html=1;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;strokeWidth=2;fontFamily=Times New Roman;" parent="1" vertex="1">
           <mxGeometry x="960" y="800" width="240" height="120" as="geometry" />
         </mxCell>
         <mxCell id="htW4GhhkwbEn7PklnQyX-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=12;labelBackgroundColor=none;fontColor=default;strokeWidth=2;fontFamily=Times New Roman;" parent="1" source="htW4GhhkwbEn7PklnQyX-37" target="BZ4quUG-rRGMp8gci7xr-5" edge="1">
@@ -195,7 +195,7 @@
             <mxPoint x="1100" y="820" as="sourcePoint" />
             <mxPoint x="1100" y="720" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="290" y="1120" />
+              <mxPoint x="520" y="1120" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -203,27 +203,21 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="htW4GhhkwbEn7PklnQyX-46" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;&amp;lt;Interface&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;FileManager&lt;/b&gt;&lt;/p&gt;&lt;hr style=&quot;border-style:solid;&quot; size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; createFile(path: string, content?: string): File&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; addFile(name: string, file: File)&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; getFile(name: string)&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; writeFile(file: File)&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;rmvFile(name: string)&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;simulFile(file: File)&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;unsimulFile(file: File)&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;exploreDir(dirpath: string): Array&amp;lt;string&amp;gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;createDir(dirpath: string)&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;deleteDir(dirpath: string)&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;strokeWidth=2;fontFamily=Times New Roman;" parent="1" vertex="1">
-          <mxGeometry x="1580" y="750" width="280" height="230" as="geometry" />
+          <mxGeometry x="1580" y="718.75" width="280" height="230" as="geometry" />
         </mxCell>
         <mxCell id="htW4GhhkwbEn7PklnQyX-47" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;&amp;lt;Interface&amp;gt;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;File&lt;/b&gt;&lt;/p&gt;&lt;hr style=&quot;border-style:solid;&quot; size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; File(path, content): File&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; path(): string&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; content(): string&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; setContent(path: string): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; appendContent(content: string): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp; setOnAppend(callback: function): void&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;strokeWidth=2;fontFamily=Times New Roman;" parent="1" vertex="1">
-          <mxGeometry x="1580" y="550" width="280" height="150" as="geometry" />
+          <mxGeometry x="1580" y="518.75" width="280" height="150" as="geometry" />
         </mxCell>
         <mxCell id="htW4GhhkwbEn7PklnQyX-53" value="" style="endArrow=none;dashed=1;html=1;rounded=0;strokeWidth=4;labelBackgroundColor=none;fontColor=default;fillColor=#f8cecc;strokeColor=#b85450;fontFamily=Times New Roman;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="40" y="280" as="sourcePoint" />
-            <mxPoint x="1960" y="280" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="htW4GhhkwbEn7PklnQyX-54" value="" style="endArrow=none;dashed=1;html=1;rounded=0;strokeWidth=4;labelBackgroundColor=none;fontColor=default;fillColor=#f8cecc;strokeColor=#b85450;fontFamily=Times New Roman;" parent="1" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="560" as="sourcePoint" />
-            <mxPoint x="560" y="1240" as="targetPoint" />
+            <mxPoint x="280" y="280" as="sourcePoint" />
+            <mxPoint x="1920" y="280" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="htW4GhhkwbEn7PklnQyX-55" value="" style="endArrow=none;dashed=1;html=1;rounded=0;strokeWidth=4;labelBackgroundColor=none;fontColor=default;fillColor=#f8cecc;strokeColor=#b85450;fontFamily=Times New Roman;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="40" y="1009" as="sourcePoint" />
-            <mxPoint x="1960" y="1009" as="targetPoint" />
+            <mxPoint x="280" y="1009" as="sourcePoint" />
+            <mxPoint x="1920" y="1009" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="htW4GhhkwbEn7PklnQyX-56" value="" style="endArrow=none;dashed=1;html=1;rounded=0;strokeWidth=4;labelBackgroundColor=none;fontColor=default;fillColor=#f8cecc;strokeColor=#b85450;fontFamily=Times New Roman;" parent="1" edge="1">
