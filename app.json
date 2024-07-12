@@ -22,7 +22,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.moehab.yellow"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -31,9 +32,11 @@
       [
         "expo-font",
         {
-          "fonts": ["./assets/Jua-Regular.ttf"]
+          "fonts": [
+            "./assets/Jua-Regular.ttf"
+          ]
         }
       ]
-    ]  
+    ]
   }
 }

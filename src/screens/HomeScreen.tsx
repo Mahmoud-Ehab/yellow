@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { 
 	View, 
 	Text, 
@@ -28,7 +28,6 @@ const slider = new Slider(0.2, 3, 1);
 type UserInfo = {
 	username: string;
 	ipaddr: string;
-	imgsrc: string;
 }
 
 export function HomeScreen() {
@@ -57,23 +56,30 @@ export function HomeScreen() {
 	const userBtnStyle = (ipaddr: string) => 
 		getRoomBtnStyle(selectedUser.ipaddr === ipaddr, style.roomsListItem).main;
 
-	const [usersList, setUsersList] = useState([
-		{
-			username: "User 1",
-			ipaddr: "102.123.1.123",
-			imgsrc: "../../assets/user.svg"
-		},
-		{
-			username: "User 2",
-			ipaddr: "102.123.1.321",
-			imgsrc: "../../assets/user.svg"
-		},
-		{
-			username: "User 3",
-			ipaddr: "102.123.1.231",
-			imgsrc: "../../assets/user.svg"
-		}
-	]);
+	const [usersList, setUsersList] = useState([]);
+
+	useEffect(() => {
+		reloadContacts();
+	}, [])
+
+	const reloadContacts = () => {
+		fetch("http://192.168.1.18:5000/contacts")
+		.then(res => res.json())
+		.then(res => {
+			setUsersList(res["response"])
+		})
+		.catch((err) => console.error(err))
+	}
+
+	const addContact = (user: UserInfo) => {
+		fetch("http://192.168.1.18:5000/contacts/add", {
+			method: "POST",
+			body: JSON.stringify(user),
+			headers: {
+				"Content-Type": "application/json",
+			}
+		}).catch((err) => console.error(err))
+	}
 
     return (
         <View style={style.main}>
@@ -131,7 +137,13 @@ export function HomeScreen() {
 						/>
 						<Button 
 						style={style.addBtn}
-						labelStyle={style.addBtnLabel}>
+						labelStyle={style.addBtnLabel}
+						onPress={() => {
+							addContact({
+								username: "NewContact",
+								ipaddr: "123.123.123.123"
+							})
+						}}>
 							Add
 						</Button>
 					</View>

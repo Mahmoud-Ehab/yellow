@@ -19,7 +19,7 @@ One feasible implementation of the concepts and features mentioned above is conc
 6. FileManager
 
 
-![StateFile Class Diagram](./diagrams/StateFile.ClassDiagram.drawio.png)
+![StateFile Class Diagram](./diagrams/StateFile.ClassDiagram.drawio.svg)
 
 ## 1. Naming Syntax & File Structure
 

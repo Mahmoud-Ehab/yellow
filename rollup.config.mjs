@@ -68,8 +68,7 @@ export default [
       typescript(),
     ],
     external: [
-      "node:fs",
-      "node:fs/promises"
+      "cracksdb"
     ]
 	},
 ];  
