@@ -55,7 +55,7 @@ export default [
   // Compilations for nodeApp.js
   {
 		input: [
-      "./src/node.app.ts",
+      "./src/server.ts",
     ],
 		output: [
 			{

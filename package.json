@@ -4,9 +4,9 @@
   "description": "A cross-platform peer-to-peer chat application made with javascript.",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
-    "start-node": "node ./js/node.app.mjs",
-    "start-node-dev": "nodemon ./js/node.app.mjs",
+    "start-app": "expo start",
+    "start-server": "node ./js/server.mjs",
+    "start-server-dev": "nodemon ./js/server.mjs",
     "compile": "rollup --config",
     "compile-dev": "rollup --config --watch",
     "build-web": "expo run:web",
