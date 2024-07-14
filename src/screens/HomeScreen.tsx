@@ -22,6 +22,7 @@ import { Slider } from '../modules/Slider';
 import { ChatFragment } from '../components/ChatFragment';
 import { getSliderFlexStyle } from '../styles/features/sliderFlexStyle';
 import { getRoomBtnStyle } from '../styles/mini/RoomBtnStyle';
+import { notifier } from '../inits/notifier.init';
 
 const slider = new Slider(0.2, 3, 1);
 
@@ -33,6 +34,8 @@ type UserInfo = {
 export function HomeScreen() {
 	// {flex: number} of the style.leftPart
 	const [sliderValue, setSliderValue] = useState(slider.value);
+	const [addContactText, setAddContactText] = useState("");
+
     const style = getHomeScreenStyle();
 	const sliderStyle = getSliderFlexStyle(sliderValue, style.leftPart);
 	const textareaStyle = getTextInputStyle();
@@ -63,7 +66,7 @@ export function HomeScreen() {
 	}, [])
 
 	const reloadContacts = () => {
-		fetch("http://192.168.1.18:5000/contacts")
+		fetch("http://localhost:5000/contacts")
 		.then(res => res.json())
 		.then(res => {
 			setUsersList(res["response"])
@@ -71,14 +74,57 @@ export function HomeScreen() {
 		.catch((err) => console.error(err))
 	}
 
-	const addContact = (user: UserInfo) => {
-		fetch("http://192.168.1.18:5000/contacts/add", {
-			method: "POST",
-			body: JSON.stringify(user),
-			headers: {
-				"Content-Type": "application/json",
-			}
-		}).catch((err) => console.error(err))
+	const addContact = (ipaddr: string) => {
+		notifier.notify({
+			text: `connecting ${ipaddr}...`,
+			type: "warning"
+		})
+		fetch(`http://${ipaddr}:5000/`, { signal: AbortSignal.timeout(5000) })
+		.then(res => res.json())
+		.then(payload => {
+			if (!payload.response.username || !payload.response.ipaddr)
+				throw Error(ipaddr + " is not a Yellow server!")
+			notifier.notify({
+				text: `Found ${payload.response.username} at ${payload.response.ipaddr}`,
+				type: "success"
+			})
+			fetch("http://localhost:5000/contacts/add", {
+				method: "POST",
+				body: JSON.stringify(payload.response),
+				headers: {
+					"Content-Type": "application/json",
+				}
+			})
+			.then((res) => {
+				if (res.status === 200) {
+					notifier.notify({
+						text: `${payload.response.username} has been added in your contacts.`,
+						type: "success"
+					})
+					setUsersList(prev => [...prev, {...payload.response}])
+				}
+				else if (res.status === 409) {
+					notifier.notify({
+						text: `${payload.response.username} is already in contacts.`,
+						type: "success"
+					})
+				}
+			})
+			.catch((err) => {
+				console.error(err)
+				notifier.notify({
+					text: "couldn't add " + payload.response.username + "for some reason.",
+					type: "error"
+				})
+			})
+		})
+		.catch(err => {
+			notifier.notify({
+				text: "couldn't reach " + ipaddr,
+				type: "error"
+			})
+			console.error(err)
+		})
 	}
 
     return (
@@ -130,7 +176,9 @@ export function HomeScreen() {
 					/>
 					<View style={style.addFriendSection}>
 						<Textarea 
-							label={''} 
+							label={""} 
+							value={addContactText}
+							onChangeText={(text) => setAddContactText(text)}
 							style={textareaStyle}
 							placeholder='Friend Ip Address' 
 							keyboardType='numeric'
@@ -138,12 +186,7 @@ export function HomeScreen() {
 						<Button 
 						style={style.addBtn}
 						labelStyle={style.addBtnLabel}
-						onPress={() => {
-							addContact({
-								username: "NewContact",
-								ipaddr: "123.123.123.123"
-							})
-						}}>
+						onPress={() => addContact(addContactText)}>
 							Add
 						</Button>
 					</View>
