@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { View, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Image } from 'expo-image';
 import { getGetStartedScreenStyle } from '../styles/screens/GetStartedScreenStyle';
@@ -14,21 +14,50 @@ export function GetStartedScreen() {
 
 	const [userName, setUserName] = useState("");
 	const [userIp, setUserIp] = useState("");
+    const [connected, setConnected] = useState(true);
+
+    useEffect(() => {
+        fetch("http://localhost:5000/")
+        .then(res => res.json())
+        .then(res => res.response)
+        .then(payload => {
+            setUserName(payload.username)
+            setUserIp(payload.ipaddr)
+            setConnected(true)
+        })
+        .catch(err => {
+            setConnected(false);
+            console.error(err);
+        })
+    }, [])
 	
 	const getStartedHandler = () => {
 		if (!userName || !userIp)
 			return Error("You shall write username and user ip to get started.");
 
-		newGlobal({
-			name: "myUserInfo",
-			value: {
-				name: userName, 
-				ip: userIp
-			},
-            type: "userinfo"
-		});
-
-        screensNavigator.navTo(NAV_VALUES.HOME);
+        fetch("http://localhost:5000/", {
+            method: "POST",
+            body: JSON.stringify({
+				username: userName, 
+				ipaddr: userIp
+			}),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        .then(() => {
+            newGlobal({
+                name: "myUserInfo",
+                value: {
+                    name: userName, 
+                    ip: userIp
+                },
+                type: "userinfo"
+            });
+    
+            screensNavigator.navTo(NAV_VALUES.HOME);
+        })
+        .catch((err) => console.error(err))
 	}
     
     return (
@@ -43,12 +72,14 @@ export function GetStartedScreen() {
                     />
                     <View style={style.form}>
                         <Textarea 
+                            value={userName}
                             label='Your Nickname' 
                             style={textinputStyle} 
                             placeholder='Jack Smith' 
                             onChangeText={(value) => setUserName(value)}
                         />
                         <Textarea 
+                            value={userIp}
                             label='Ip Address' 
                             style={textinputStyle} 
                             placeholder='000.000.0.000' 
@@ -61,8 +92,9 @@ export function GetStartedScreen() {
                     <Button 
                     contentStyle={style.buttonBody}
                     labelStyle={style.buttonLabel}
-					onPress={getStartedHandler}>
-                        Get Started
+					onPress={getStartedHandler}
+                    disabled={!connected}>
+                        {connected ? "Get Started" : "Cannot reach the server!"}
                     </Button>
                 </View>
             </View>
