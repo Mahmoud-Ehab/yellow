@@ -39,8 +39,8 @@ app.post('/contacts/add', (req, res) => {
             res.status(400).end();
             return;
         }
-        const exists = contacts.getWhere((obj) => obj.ipaddr === req.body["ipaddr"]);
-        if (exists) {
+        const found = contacts.getWhere((obj) => obj.ipaddr === req.body["ipaddr"]);
+        if (Object.keys(found).length > 0) {
             res.status(409).end();
             return;
         }
