@@ -1,10 +1,11 @@
 import { Text, View, StyleSheet, KeyboardTypeOptions } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { colors } from '../styles/colors';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type Props = {
     label: string;
+    value?: string;
     style?: {
         main: object,
         label: object,
@@ -18,6 +19,11 @@ type Props = {
 export function Textarea(props: Props) {
     const style = getStyle(props.style);
     const [text, setText] = useState("");
+
+    useEffect(() => {
+        if (props.value)
+            setText(props.value);
+    }, [props.value])
 
     const setTextHandle = (text: string) => {
         setText(text);
