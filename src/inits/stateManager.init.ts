@@ -1,4 +1,4 @@
-import { FileManager, StateManager, StateFile } from "cracksdb"
+import { FileManager, StateManager, StateFile } from "cracksdb" 
 
 type Contact = {
     username: string,
@@ -27,5 +27,6 @@ export const user = {
             username,
             ipaddr
         })
+        myinfo.save()
     }
 }
