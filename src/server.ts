@@ -77,6 +77,19 @@ app.delete('/contacts/remove', (req, res) => {
     }
 })
 
-server.listen(5000, () => {
-  console.log('listening on localhost:5000');
-})
+export const startServer = () => {
+  server.listen(5000, () => {
+    console.log('listening on localhost:5000');
+  })
+}
+
+export const closeServer = () => {
+  server.close((err) => {
+    if (err) {
+      console.log("server has shutdown due to an error...")
+      console.error(err)
+      return
+    }
+    console.log("server has shutdown gracefully.")
+  })
+}

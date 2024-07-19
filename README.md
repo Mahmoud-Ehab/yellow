@@ -1,6 +1,7 @@
 # About
 
-Yellow is an open-source, cross-platform, decentralized chat application. It can be used locally or globally; all that needed, to establish a connection between two users, is to share their ip addresses to on another. The front-end is mainly implemented with React Native, however, with a flexible design that would let it feasible to integrate Electron.js afterforward. On the other hand, the back-end is implemented with Express.js and Socket.io using the architecture specified in the back-end of [SFAWD](https://moehab.substack.com/i/118612228/backend). When a Yellow application (React/ElectorJS Application) gets started, it initially shall start its own socket server in the background.
+Yellow is an open-source, cross-platform, decentralized chat application. It can be used locally or globally; all that needed, to establish a connection between two users, is to share their ip addresses to on another. The front-end is mainly implemented with React Native, however, with a flexible design that would let it feasible to integrate Electron.js afterforward. On the other hand, the back-end is implemented with Express.js and Socket.io. When a Yellow application (React/ElectorJS Application) gets started, it initially shall start its own socket server in the background.
+
 
 # UI Prototype
 
@@ -89,10 +90,7 @@ Yellow is an open-source, cross-platform, decentralized chat application. It can
 	- [x] Write an 'init' file, so to speak, that initializes the StateManager, loads it with StateFiles, and exports it to the app.
  
 ## back-end
-- [ ] Implement basic server with Express and SFAWD architecture.
-- [ ] Integrate StateFile into the architecture.
-- [ ] Define (SFAWD) Endpoints for messages and connections (users list) loading and saving.
-- [ ] Implement (SFAWD) RequestDispatcher with the Endpoints.
+- [x] Implement basic server with Express.
 - [ ] Implement WebSocket connection in the server...
 
 
