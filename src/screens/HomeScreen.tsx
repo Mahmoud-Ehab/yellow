@@ -36,7 +36,7 @@ export function HomeScreen() {
 	const [sliderValue, setSliderValue] = useState(slider.value);
 	const [addContactText, setAddContactText] = useState("");
 
-    const style = getHomeScreenStyle();
+  const style = getHomeScreenStyle();
 	const sliderStyle = getSliderFlexStyle(sliderValue, style.leftPart);
 	const textareaStyle = getTextInputStyle();
 
@@ -137,8 +137,8 @@ export function HomeScreen() {
 						contentFit="contain"
 					/>
 					<View style={style.userBoxTextContainer}>
-						<Text style={{...style.userBoxText, fontSize: 30}}>{getGlobal("myUserInfo").name}</Text>
-						<Text style={{...style.userBoxText, fontSize: 15}}>{getGlobal("myUserInfo").ip}</Text>	
+						<Text style={{...style.userBoxText, fontSize: '125%'}}>{getGlobal("myUserInfo").name}</Text>
+						<Text style={{...style.userBoxText, fontSize: '100%'}}>{getGlobal("myUserInfo").ip}</Text>	
 					</View>
 				</View>
 				<ScrollView contentContainerStyle={style.roomsList} scrollEnabled={sliderValue > 1}>

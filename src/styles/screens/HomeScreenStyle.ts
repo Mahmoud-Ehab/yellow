@@ -9,9 +9,9 @@ export const getHomeScreenStyle = () => StyleSheet.create({
 		flexDirection: isTabletDevice() ? 'column' : 'row',
     	height: "100%",
     	width: "100%",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: colors.lightPrimary,
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: colors.lightPrimary,
     },
 
 	leftPart: { 

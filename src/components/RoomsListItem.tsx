@@ -30,8 +30,8 @@ export function RoomsListItem({ imgsrc, username, ipaddr, overrideStyle, onPress
                 transition={250}
             />
             <View style={style.textContainer}>
-                <Text style={{...style.text, fontSize: 22}}>{username}</Text>
-                <Text style={{...style.text, fontSize: 14}}>{ipaddr}</Text>
+                <Text style={{...style.text, fontSize: '100%'}}>{username}</Text>
+                <Text style={{...style.text, fontSize: '85%'}}>{ipaddr}</Text>
             </View>
         </View>
     );

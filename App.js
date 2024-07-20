@@ -10,7 +10,7 @@ import { NotificationsContainer } from './src/components/NotificationsContainer'
 import { notifier } from './js/inits/notifier.init';
 
 export default function App() {
-  const [fontsLoaded] = useFonts({
+  const [_] = useFonts({
     'Jua-Regular': require('./assets/Jua-Regular.ttf'),
   })
   const [navValue, setNavValue] = useState(0)
