@@ -90,7 +90,11 @@ Yellow is an open-source, cross-platform, decentralized chat application. It can
 	- [x] Write an 'init' file, so to speak, that initializes the StateManager, loads it with StateFiles, and exports it to the app.
  
 ## back-end
-- [x] Implement basic server with Express.
+- [x] Implement basic server with Express, with endpoints only to establish connection and to retrieve user image.
+- [ ] Implement the server with a cross-playform liberary.
+- [x] Implement server actions: functions that the server exports to the enviroment. It shall be used by electron and react.
+- [x] Add controller interface that decoubles the application, while invoking server actions, from electron bridgeContext.
+- [x] Implement ElectronController and use it in the application with an init.ts file.
 - [ ] Implement WebSocket connection in the server...
 
 

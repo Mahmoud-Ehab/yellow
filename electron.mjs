@@ -1,6 +1,6 @@
 import { app, BrowserWindow } from 'electron'
 
-import { startServer, closeServer } from './js/server.mjs'
+import { startServer, closeServer, Actions } from './js/server.mjs'
 import path from 'path'
 import isDiv from 'electron-is-dev'
 
@@ -49,9 +49,18 @@ startServer();
 
 import { ipcMain } from 'electron'
 import { 
-  getContacts 
+  getInfo,
+  setInfo,
+  setImage,
+  getContacts,
+  addContact,
+  rmvContact,
 } from './js/server.mjs'
 
-ipcMain.handle('getContacts', () => {
-  return getContacts()
-})
+ipcMain.handle(Actions.GET_INFO, (_) => getInfo())
+ipcMain.handle(Actions.SET_INFO, (_, username, ipaddr) => setInfo(username, ipaddr))
+ipcMain.handle(Actions.SET_IMAGE, async (_, imgbuff) => await setImage(imgbuff))
+ipcMain.handle(Actions.GET_CONTACTS, (_) => getContacts())
+ipcMain.handle(Actions.ADD_CONTACT, (_, username, ipaddr) => addContact(username, ipaddr))
+ipcMain.handle(Actions.RMV_CONTACT, (_, username, ipaddr) => rmvContact(username, ipaddr))
+

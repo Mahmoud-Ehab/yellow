@@ -2,11 +2,15 @@ import { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Image } from 'expo-image';
+
 import { getGetStartedScreenStyle } from '../styles/screens/GetStartedScreenStyle';
 import { Textarea } from '../mini-components/Textarea';
 import { getTextInputStyle } from '../styles/mini/TextInputStyle';
-import { newGlobal } from '../inits/globals.init';
-import { NAV_VALUES, screensNavigator } from '../inits/screensNavigator.init';
+
+import { newGlobal } from '../../inits/globals.init';
+import { NAV_VALUES, screensNavigator } from '../../inits/screensNavigator.init';
+
+import { controller } from '../../inits/controller.init'
 
 export function GetStartedScreen() {
 	const style = getGetStartedScreenStyle();
@@ -14,9 +18,9 @@ export function GetStartedScreen() {
 
 	const [userName, setUserName] = useState("");
 	const [userIp, setUserIp] = useState("");
-    const [connected, setConnected] = useState(true);
-
-    useEffect(() => {
+  const [connected, setConnected] = useState(true);
+  
+  useEffect(() => {
         fetch("http://localhost:5000/")
         .then(res => res.json())
         .then(res => res.response)
@@ -35,29 +39,21 @@ export function GetStartedScreen() {
 		if (!userName || !userIp)
 			return Error("You shall write username and user ip to get started.");
 
-        fetch("http://localhost:5000/", {
-            method: "POST",
-            body: JSON.stringify({
-				username: userName, 
-				ipaddr: userIp
-			}),
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
-        .then(() => {
-            newGlobal({
-                name: "myUserInfo",
-                value: {
-                    name: userName, 
-                    ip: userIp
-                },
-                type: "userinfo"
-            });
-    
-            screensNavigator.navTo(NAV_VALUES.HOME);
-        })
-        .catch((err) => console.error(err))
+    controller.setInfo(userName, userIp, ({ err }) => {
+      if (err) {
+        console.error(err)
+        return;
+      }
+      newGlobal({
+        name: "myUserInfo",
+        value: {
+          name: userName, 
+          ip: userIp
+        },
+        type: "userinfo"
+      });
+      screensNavigator.navTo(NAV_VALUES.HOME);
+    })
 	}
     
     return (
@@ -66,7 +62,7 @@ export function GetStartedScreen() {
                 <View style={style.containerTopPart}>
                     <Image
                         style={style.logo}
-                        source={require('../../assets/logo.svg')}
+                        source={'../../../assets/logo.svg'}
                         contentFit="cover"
                         transition={1000}
                     />
@@ -92,7 +88,7 @@ export function GetStartedScreen() {
                     <Button 
                     contentStyle={style.buttonBody}
                     labelStyle={style.buttonLabel}
-					onPress={getStartedHandler}
+                    onPress={getStartedHandler}
                     disabled={!connected}>
                         {connected ? "Get Started" : "Cannot reach the server!"}
                     </Button>

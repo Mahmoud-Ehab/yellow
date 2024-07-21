@@ -6,12 +6,12 @@ export default [
   // Compilations of screen files.
   {
     input: [
-      './src/screens/GetStartedScreen.tsx', 
-      './src/screens/HomeScreen.tsx'
+      './src/ui/screens/GetStartedScreen.tsx', 
+      './src/ui/screens/HomeScreen.tsx'
     ],
     output: [
       {
-        dir: 'js/screens',
+        dir: 'js/ui/screens',
         format: 'cjs'
       }
     ],
@@ -27,9 +27,9 @@ export default [
       'react-responsive',
       'expo-image',
       '@expo/match-media',
-      '../inits/globals.init',
-      '../inits/screensNavigator.init',
-      '../inits/notifier.init',
+      '../../inits/globals.init',
+      '../../inits/screensNavigator.init',
+      '../../inits/notifier.init',
     ]
   },
 
@@ -68,7 +68,14 @@ export default [
       typescript(),
     ],
     external: [
-      "cracksdb"
+      "cracksdb",
+      "express",
+      "http",
+      "cors",
+      "body-parser",
+      "path",
+      "sharp",
+      "url"
     ]
 	},
 ];  

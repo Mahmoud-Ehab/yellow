@@ -27,6 +27,5 @@ export const user = {
             username,
             ipaddr
         })
-        myinfo.save()
     }
 }

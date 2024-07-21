@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font';
 
-import { GetStartedScreen } from './js/screens/GetStartedScreen';
-import { HomeScreen } from './js/screens/HomeScreen';
+import { GetStartedScreen } from './js/ui/screens/GetStartedScreen';
+import { HomeScreen } from './js/ui/screens/HomeScreen';
 import { NAV_VALUES, screensNavigator } from './js/inits/screensNavigator.init';
-import { NotificationsContainer } from './src/components/NotificationsContainer';
+import { NotificationsContainer } from './src/ui/components/NotificationsContainer';
 import { notifier } from './js/inits/notifier.init';
 
 export default function App() {

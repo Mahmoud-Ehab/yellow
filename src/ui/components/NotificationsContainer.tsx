@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { View, Text } from "react-native";
 import { getNotificationsStyle } from "../styles/components/NotificationsStyle";
-import { Notifier, Notification } from "../modules/Notifier";
+import { Notifier, Notification } from "../../modules/Notifier";
 
 type Props = {
     notifier: Notifier

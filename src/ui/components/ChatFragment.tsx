@@ -1,29 +1,66 @@
 import { useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { Image } from "expo-image";
+import { List } from "react-native-paper";
 
 import { Textarea } from "../mini-components/Textarea";
 
 import { getTextInputStyle } from "../styles/mini/TextInputStyle2";
 import { getChatFragmentStyle } from "../styles/components/ChatFragmentStyle";
-import { List } from "react-native-paper";
+
+import { controller } from "../../inits/controller.init"
+import { notifier } from "../../inits/notifier.init"
+import { getGlobal } from "../../inits/globals.init"
 
 export function ChatFragment({ username, ipaddr }) {
     const style = getChatFragmentStyle();
     const [pulv, setPulv] = useState(false); // pulv: PopUp List Visibility
+
+    const closeChatHandler = () => {
+      const closeChat = getGlobal("closeChatFunc");
+      if (closeChat) { 
+        closeChat();
+      }
+      else {
+        notifier.notify({text: "Something went wrong!", type: "error"});
+      }
+    }
+
+    const deleteContactHandler = () => {
+      const reloadContacts = getGlobal("reloadContactsFunc");
+      controller.rmvContact(ipaddr, ({ res, err }) => {
+        if (err) {
+          console.log(err)
+          return notifier.notify({ text: err, type: 'error' })
+        }
+        if (res === true) {
+          reloadContacts();
+          notifier.notify({ 
+            text: `${username} has been removed from contacts.`, 
+            type: 'success' 
+          })
+        }
+        else {
+          notifier.notify({ 
+            text: "Something went wrong!", 
+            type: 'error' 
+          })
+        }
+      })
+    }
 
     return (
         <View style={style.main}>
             <View style={style.topBar}>
                 <Image 
                     style={style.conStatusBtn} 
-                    source={require("../../assets/disconnected.png")} 
+                    source={"../../../assets/disconnected.png"} 
                     contentFit="contain"
                 />
                 <Text style={style.topBarText}>{ username }</Text>
                 <Image 
                     style={style.threeDotsBtn} 
-                    source={require("../../assets/threedots.png")} 
+                    source={"../../../assets/threedots.png"} 
                     contentFit="contain"
                     onPointerDown={() => setPulv(!pulv)}
                     onTouchStart={() => setPulv(!pulv)}
@@ -33,7 +70,7 @@ export function ChatFragment({ username, ipaddr }) {
             <View style={style.chatContainer} onPointerDown={() => setPulv(false)} onTouchStart={() => setPulv(false)}>
                 <Image 
                     style={style.chatImg} 
-                    source={require("../../assets/chatroom.png")} 
+                    source={"../../../assets/chatroom.png"} 
                     contentFit="contain"
                 />
                 <ScrollView style={{width: '100%', height: '100%'}} contentContainerStyle={style.msgsContainer}>
@@ -50,7 +87,7 @@ export function ChatFragment({ username, ipaddr }) {
                 />
                 <Image 
                     style={style.sendBtn} 
-                    source={require("../../assets/send.png")} 
+                    source={"../../../assets/send.png"} 
                     contentFit="contain"
                 />
             </View>
@@ -61,11 +98,13 @@ export function ChatFragment({ username, ipaddr }) {
                     titleStyle={style.closeChatBtn}
                     title="Close Chat" 
                     left={() => <List.Icon icon="close" color={style.closeChatBtn.color} />} 
+                    onPointerDown={() => closeChatHandler()}
                 />
                 <List.Item 
                     titleStyle={style.deleteContactBtn}
                     title="Delete Contact" 
                     left={() => <List.Icon icon="delete" color={style.deleteContactBtn.color} />} 
+                    onPointerDown={() => deleteContactHandler()}
                 />
             </List.Section> : <></>
             }

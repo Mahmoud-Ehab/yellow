@@ -10,7 +10,8 @@ import { Image } from 'expo-image';
 import { Button } from 'react-native-paper';
 
 
-import { getGlobal } from '../inits/globals.init';
+import { getGlobal, newGlobal } from '../../inits/globals.init';
+import { controller } from '../../inits/controller.init'
 
 import { Textarea } from '../mini-components/Textarea';
 import { RoomsListItem } from '../components/RoomsListItem';
@@ -18,11 +19,11 @@ import { RoomsListItem } from '../components/RoomsListItem';
 import { getHomeScreenStyle } from '../styles/screens/HomeScreenStyle';
 import { getTextInputStyle } from '../styles/mini/TextInputStyle2';
 
-import { Slider } from '../modules/Slider';
+import { Slider } from '../../modules/Slider';
 import { ChatFragment } from '../components/ChatFragment';
 import { getSliderFlexStyle } from '../styles/features/sliderFlexStyle';
 import { getRoomBtnStyle } from '../styles/mini/RoomBtnStyle';
-import { notifier } from '../inits/notifier.init';
+import { notifier } from '../../inits/notifier.init';
 
 const slider = new Slider(0.2, 3, 1);
 
@@ -32,7 +33,7 @@ type UserInfo = {
 }
 
 export function HomeScreen() {
-	// {flex: number} of the style.leftPart
+	// {flex: number} of style.leftPart
 	const [sliderValue, setSliderValue] = useState(slider.value);
 	const [addContactText, setAddContactText] = useState("");
 
@@ -49,74 +50,89 @@ export function HomeScreen() {
 	}
 
 	const [selectedUser, setSelectedUser] = useState({username: "", ipaddr: ""});
+
 	const onOpenChat = (user: UserInfo) => {
 		if (user.ipaddr === selectedUser.ipaddr)
-			setSelectedUser({username: "", ipaddr: ""});
+      closeChatroom();
 		else
 			setSelectedUser(user);
 	}
 
-	const userBtnStyle = (ipaddr: string) => 
-		getRoomBtnStyle(selectedUser.ipaddr === ipaddr, style.roomsListItem).main;
+	const userBtnStyle = (ipaddr: string) => { 
+		return getRoomBtnStyle(selectedUser.ipaddr === ipaddr, style.roomsListItem).main;
+  }
 
 	const [usersList, setUsersList] = useState([]);
 
 	useEffect(() => {
 		reloadContacts();
+    newGlobal({
+      name: "reloadContactsFunc",
+      value: () => reloadContacts(),
+      type: "function"
+    })
+    newGlobal({
+      name: "closeChatFunc",
+      value: () => closeChatroom(),
+      type: "function"
+    })
 	}, [])
 
 	const reloadContacts = () => {
-		fetch("http://localhost:5000/contacts")
-		.then(res => res.json())
-		.then(res => {
-			setUsersList(res["response"])
-		})
-		.catch((err) => console.error(err))
+    closeChatroom();
+	  controller.getContacts(({ res, err }) => {
+      if (err) {
+        notifier.notify({text: "Something went wrong!", type: "error"})
+        console.error(err)
+        return
+      }
+      if (Array.isArray(res)) {
+        setUsersList(res)
+      }
+      else {
+        console.error("reloadContact: getContacts res must be an array.")
+        notifier.notify({text: "Something went wrong!", type: "error"})
+      }
+    })	
 	}
+
+  const closeChatroom = () => {
+    setSelectedUser({username: "", ipaddr: ""})
+  }
 
 	const addContact = (ipaddr: string) => {
 		notifier.notify({
 			text: `connecting ${ipaddr}...`,
 			type: "warning"
 		})
+
 		fetch(`http://${ipaddr}:5000/`, { signal: AbortSignal.timeout(5000) })
 		.then(res => res.json())
 		.then(payload => {
-			if (!payload.response.username || !payload.response.ipaddr)
-				throw Error(ipaddr + " is not a Yellow server!")
+      if (!payload.response.username || !payload.response.ipaddr) {
+				throw Error(ipaddr + " is not a Yellow server!") 
+      }
+
 			notifier.notify({
 				text: `Found ${payload.response.username} at ${payload.response.ipaddr}`,
 				type: "success"
 			})
-			fetch("http://localhost:5000/contacts/add", {
-				method: "POST",
-				body: JSON.stringify(payload.response),
-				headers: {
-					"Content-Type": "application/json",
-				}
-			})
-			.then((res) => {
-				if (res.status === 200) {
+
+      controller.addContact(
+        payload.response.username,
+        payload.response.ipaddr,
+        ({ res, err }) => {
+          if (err) {
+            notifier.notify({ text: err, type: "error" })  
+            return;
+          }
+					setUsersList(prev => [...prev, {...payload.response}])
 					notifier.notify({
 						text: `${payload.response.username} has been added in your contacts.`,
 						type: "success"
 					})
-					setUsersList(prev => [...prev, {...payload.response}])
-				}
-				else if (res.status === 409) {
-					notifier.notify({
-						text: `${payload.response.username} is already in contacts.`,
-						type: "success"
-					})
-				}
-			})
-			.catch((err) => {
-				console.error(err)
-				notifier.notify({
-					text: "couldn't add " + payload.response.username + "for some reason.",
-					type: "error"
-				})
-			})
+        }
+      )
 		})
 		.catch(err => {
 			notifier.notify({
@@ -133,7 +149,7 @@ export function HomeScreen() {
 				<View style={style.userBox}>
 					<Image 
 						style={style.userBoxImg}
-						source={require('../../assets/user.svg')}
+						source={'../../../assets/user.svg'}
 						contentFit="contain"
 					/>
 					<View style={style.userBoxTextContainer}>
@@ -146,7 +162,7 @@ export function HomeScreen() {
 						<RoomsListItem 
 							key={i}
 							overrideStyle={userBtnStyle(user.ipaddr)}
-							imgsrc={require("../../assets/user.svg")} 
+							imgsrc={`http://${user.ipaddr}:5000/image`}
 							username={user.username} 
 							ipaddr={user.ipaddr} 
 							onPress={onOpenChat}
@@ -158,20 +174,22 @@ export function HomeScreen() {
 			<View style={style.screenDivider} onTouchStart={onSliderStart} onTouchMove={onSliderMove}>
 				<Image 
 					style={style.screenDividerImg}
-					source={require('../../assets/dividerScroll.svg')}
+					source={"../../../assets/dividerScroll.svg"}
 					contentFit="contain"
 				/>
 			</View>
 
 			<View style={style.rightPart}>{
-				selectedUser.ipaddr ? <ChatFragment 
+				selectedUser.ipaddr !== "" ? 
+        <ChatFragment 
 					username={selectedUser.username} 
 					ipaddr={selectedUser.ipaddr}
-				/> :
+				/> 
+        :
 				<>
 					<Image 
 						style={style.rightPartImg}
-						source={require('../../assets/home.png')}
+						source={"../../../assets/home.png"}
 						contentFit="contain"
 					/>
 					<View style={style.addFriendSection}>

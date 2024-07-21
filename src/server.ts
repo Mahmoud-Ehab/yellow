@@ -11,9 +11,18 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-type ActionReturn = {
+export type ActionReturn = {
   err?: string,
   res: object | Array<any> | boolean
+}
+
+export const Actions = {
+  GET_INFO: "getInfo",
+  SET_INFO: "setInfo",
+  SET_IMAGE: "setImage",
+  GET_CONTACTS: "getContacts",
+  ADD_CONTACT: "addContact",
+  RMV_CONTACT: "rmvContact"
 }
 
 const app = express();
@@ -83,8 +92,9 @@ export const rmvContact = (ipaddr: string): ActionReturn => {
         if (indexes.length === 0) {
             return {err: "contact not realy found!", res: false}
         }
-        for (let index of indexes)
+        for (let index of indexes) {
             contacts.remove(index)
+        }
         return {res: true}
     }
     catch(err) {
