@@ -137,8 +137,8 @@ export function HomeScreen() {
 						contentFit="contain"
 					/>
 					<View style={style.userBoxTextContainer}>
-						<Text style={{...style.userBoxText, fontSize: '125%'}}>{getGlobal("myUserInfo").name}</Text>
-						<Text style={{...style.userBoxText, fontSize: '100%'}}>{getGlobal("myUserInfo").ip}</Text>	
+						<Text style={{...style.userBoxText, fontSize: 24}}>{getGlobal("myUserInfo").name}</Text>
+						<Text style={{...style.userBoxText, fontSize: 18}}>{getGlobal("myUserInfo").ip}</Text>	
 					</View>
 				</View>
 				<ScrollView contentContainerStyle={style.roomsList} scrollEnabled={sliderValue > 1}>

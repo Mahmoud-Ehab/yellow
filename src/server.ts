@@ -2,7 +2,19 @@ import { user, contacts } from "./inits/stateManager.init";
 import express from "express"
 import http from 'http'
 import cors from "cors"
-import bodyParser from "body-parser";
+import bodyParser from "body-parser"
+import path from "path"
+import sharp from "sharp"
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+type ActionReturn = {
+  err?: string,
+  res: object | Array<any> | boolean
+}
 
 const app = express();
 const server = http.createServer(app);
@@ -14,68 +26,72 @@ app.get('/', (_, res) => {
     res.json({response: user.get()}).end();
 })
 
-app.get('/contacts', (_, res) => {
-    res.json({response: contacts.getListWhere(() => true)}).end();
+app.get('/image', (_, res) => {
+    res.sendFile(path.join(__dirname, '/usrimg.jpg'))
 })
 
-app.post('/', (req, res) => {
+export const getInfo = (): ActionReturn => {
+    return {res: user.get()}
+}
+
+export const setInfo = (username: string, ipaddr: string): ActionReturn => {
     try {
-        if (!req.body["username"] || !req.body["ipaddr"]) {
-            res.status(400).end();
-            return;
-        }
-        user.set(req.body["username"], req.body["ipaddr"])
-        res.status(200).end();
+        user.set(username, ipaddr)
+        return {res: true}
     }
     catch(err) {
         console.error(err);
-        res.status(500).end();
+        return {err, res: false}
     }
-})
+}
 
-app.post('/contacts/add', (req, res) => {
+export const setImage = async (input: Uint8Array): Promise<ActionReturn> => {
+  const data = await sharp(input)
+  .jpeg({ mozjpeg: true })
+  .toFile('usrimg.jpg')
+
+  return data ? {res: true} : {res: false, err: "something went wrong!"}
+}
+
+export const getContacts = (): ActionReturn => {
+    return {
+      res: contacts.getListWhere(() => true)
+    }
+}
+
+export const addContact = (username: string, ipaddr: string): ActionReturn => {
     try {
-        if (!req.body["username"] || !req.body["ipaddr"]) {
-            res.status(400).end();
-            return;
-        }
-        const found = contacts.getWhere((obj) => obj.ipaddr === req.body["ipaddr"]);
+        const found = contacts.getWhere((obj) => obj.ipaddr === ipaddr);
         if (Object.keys(found).length > 0) {
-            res.status(409).end();
-            return;
+            return {err: "contact already exists.", res: false};
         }
         contacts.add({
-            username: req.body["username"],
-            ipaddr: req.body["ipaddr"]
+            username,
+            ipaddr
         })
-        res.status(200).end();
+        return {res: true}
     }
     catch(err) {
         console.error(err);
-        res.status(500).end();
+        return {err, res: false}
     }
-})
+}
 
-app.delete('/contacts/remove', (req, res) => {
+export const rmvContact = (ipaddr: string): ActionReturn => {
     try {
-        if (!req.body["ipaddr"]) {
-            res.status(400).end();
-            return;
-        }
-        const indexes = contacts.getIndexOf((obj) => obj.ipaddr === req.body["ipaddr"]);
+        const indexes = contacts.getIndexOf((obj) => obj.ipaddr === ipaddr)
         if (indexes.length === 0) {
-            res.status(404).end();
-            return;
+            return {err: "contact not realy found!", res: false}
         }
         for (let index of indexes)
             contacts.remove(index)
-        res.status(200).end();
+        return {res: true}
     }
     catch(err) {
         console.error(err);
-        res.status(500).end();
+        return {err, res: false}
     }
-})
+}
 
 export const startServer = () => {
   server.listen(5000, () => {

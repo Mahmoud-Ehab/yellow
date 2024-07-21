@@ -1,7 +1,15 @@
-// electron.js
 import { app, BrowserWindow } from 'electron'
+
 import { startServer, closeServer } from './js/server.mjs'
+import path from 'path'
 import isDiv from 'electron-is-dev'
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+
 
 let mainWindow;
 
@@ -11,6 +19,7 @@ function createWindow() {
     height: 720,
     webPreferences: {
       nodeIntegration: true,
+      preload: path.join(__dirname, "electron.preload.mjs")
     },
   });
   
@@ -36,3 +45,13 @@ app.on('activate', () => {
 });
 
 startServer();
+
+
+import { ipcMain } from 'electron'
+import { 
+  getContacts 
+} from './js/server.mjs'
+
+ipcMain.handle('getContacts', () => {
+  return getContacts()
+})
