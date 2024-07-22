@@ -8,7 +8,7 @@ import {
 
 import { Image } from 'expo-image';
 import { Button } from 'react-native-paper';
-
+import * as ImagePicker from 'expo-image-picker';
 
 import { getGlobal, newGlobal } from '../../inits/globals.init';
 import { controller } from '../../inits/controller.init'
@@ -143,14 +143,33 @@ export function HomeScreen() {
 		})
 	}
 
+  const [imageURI, setImageURI] = useState(null);
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      const asset = result.assets[0]
+      setImageURI(asset.uri)
+      controller.setImage(asset.uri, () => {})
+    }
+  }
+
     return (
         <View style={style.main}>
             <View style={sliderStyle.main}>
 				<View style={style.userBox}>
 					<Image 
 						style={style.userBoxImg}
-						source={'../../../assets/user.svg'}
+						source={imageURI ? { uri: imageURI } : 'http://localhost:5000/image'}
 						contentFit="contain"
+            onPointerDown={pickImage}
 					/>
 					<View style={style.userBoxTextContainer}>
 						<Text style={{...style.userBoxText, fontSize: 24}}>{getGlobal("myUserInfo").name}</Text>

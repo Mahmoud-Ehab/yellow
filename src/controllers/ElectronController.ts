@@ -7,8 +7,8 @@ export class ElectronController implements Controller {
   setInfo(username: string, ipaddr: string, callback: Callback) {
     (window as any).electron.setInfo(username, ipaddr, callback)
   } 
-  setImage(input: Uint8Array, callback: Callback) {
-    (window as any).electron.setImage(input, callback)
+  setImage(imgUri: string, callback: Callback) {
+    (window as any).electron.setImage(imgUri, callback)
   }
   getContacts(callback: Callback) {
     (window as any).electron.getContacts(callback)

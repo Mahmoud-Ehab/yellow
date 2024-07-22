@@ -36,6 +36,7 @@ export const getHomeScreenStyle = () => StyleSheet.create({
 				width: "75%",
 				height: isTabletDevice() ? '80%' : 'auto',
 				margin: 5,
+        borderRadius: 15
 			},
 			userBoxTextContainer: {
 				flex: isTabletDevice() ? 3 : 1,

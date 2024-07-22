@@ -4,7 +4,7 @@ import http from 'http'
 import cors from "cors"
 import bodyParser from "body-parser"
 import path from "path"
-import sharp from "sharp"
+import fs from 'fs'
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -54,12 +54,18 @@ export const setInfo = (username: string, ipaddr: string): ActionReturn => {
     }
 }
 
-export const setImage = async (input: Uint8Array): Promise<ActionReturn> => {
-  const data = await sharp(input)
-  .jpeg({ mozjpeg: true })
-  .toFile('usrimg.jpg')
-
-  return data ? {res: true} : {res: false, err: "something went wrong!"}
+export const setImage = (imgUri: string): ActionReturn => {
+  try {
+    fs.writeFileSync(
+      path.join(__dirname, '/usrimg.jpg'),
+      Buffer.from(imgUri.split(',')[1], 'base64')
+    ) 
+    return {res: true}
+  }
+  catch(err) {
+    console.error(err)
+    return {res: false, err: "something went wrong!"}
+  }
 }
 
 export const getContacts = (): ActionReturn => {

@@ -23,9 +23,6 @@ export { contacts }
 export const user = {
     get: () => myinfo.get(0),
     set: (username: string, ipaddr: string) => {
-        myinfo.update(0, {
-            username,
-            ipaddr
-        })
+        myinfo.update(0, () => ({ username, ipaddr }))
     }
 }

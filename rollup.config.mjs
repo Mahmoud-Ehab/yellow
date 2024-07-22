@@ -27,6 +27,7 @@ export default [
       'react-responsive',
       'expo-image',
       '@expo/match-media',
+      'expo-image-picker',
       '../../inits/globals.init',
       '../../inits/screensNavigator.init',
       '../../inits/notifier.init',
