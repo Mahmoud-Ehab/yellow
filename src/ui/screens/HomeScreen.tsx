@@ -168,7 +168,7 @@ export function HomeScreen() {
 					<Image 
 						style={style.userBoxImg}
 						source={imageURI ? { uri: imageURI } : 'http://localhost:5000/image'}
-						contentFit="contain"
+						contentFit="cover"
             onPointerDown={pickImage}
 					/>
 					<View style={style.userBoxTextContainer}>

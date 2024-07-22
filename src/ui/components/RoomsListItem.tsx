@@ -26,12 +26,12 @@ export function RoomsListItem({ imgsrc, username, ipaddr, overrideStyle, onPress
             <Image 
                 style={style.img}
                 source={imgsrc}
-                contentFit="contain"
+                contentFit="cover"
                 transition={250}
             />
             <View style={style.textContainer}>
-                <Text style={{...style.text, fontSize: 20}}>{username}</Text>
-                <Text style={{...style.text, fontSize: 15}}>{ipaddr}</Text>
+                <Text style={{...style.text, fontSize: 18}}>{username}</Text>
+                <Text style={{...style.text, fontSize: 14}}>{ipaddr}</Text>
             </View>
         </View>
     );

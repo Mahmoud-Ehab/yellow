@@ -27,8 +27,7 @@ export const getHomeScreenStyle = () => StyleSheet.create({
 			height: isTabletDevice() ? 100 : '30%',
 			justifyContent: "center",
 			alignItems: "center", 
-			paddingLeft: isTabletDevice() ? 25 : 0,
-			paddingRight: isTabletDevice() ? 25 : 0,
+      padding: 25,
 			backgroundColor: colors.darkPrimary
 		},
 			userBoxImg: {
@@ -36,7 +35,8 @@ export const getHomeScreenStyle = () => StyleSheet.create({
 				width: "75%",
 				height: isTabletDevice() ? '80%' : 'auto',
 				margin: 5,
-        borderRadius: 15
+        borderRadius: 15,
+        ...shadows.normal
 			},
 			userBoxTextContainer: {
 				flex: isTabletDevice() ? 3 : 1,
@@ -45,7 +45,6 @@ export const getHomeScreenStyle = () => StyleSheet.create({
 			},
 				userBoxText: {
 					fontSize: 20,
-					margin: 5,
 					fontFamily: fonts.Jua,
 					color: colors.secondary
 				},
@@ -58,7 +57,8 @@ export const getHomeScreenStyle = () => StyleSheet.create({
 			paddingBottom: 10,
 		},
 			roomsListItem: {
-				width: isTabletDevice() ? '45%' : 'auto'
+				width: isTabletDevice() ? '45%' : 'auto',
+        height: 75,
 			},
 
 	screenDivider: {

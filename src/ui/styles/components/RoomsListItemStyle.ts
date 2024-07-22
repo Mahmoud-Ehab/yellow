@@ -7,9 +7,9 @@ export const getRoomsListItemStyle = () => StyleSheet.create({
     main: {
         display: "flex",
         flexDirection: "row",
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        padding: 10,
+        padding: 0,
         marginTop: 10,
         marginBottom: 10,
         backgroundColor: colors.secondary,
@@ -20,6 +20,7 @@ export const getRoomsListItemStyle = () => StyleSheet.create({
         flex: 1,
         width: "100%",
         height: "100%",
+        backgroundColor: "#123321"
     },
     textContainer: {
         flex: 2,
