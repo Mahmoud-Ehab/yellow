@@ -27,7 +27,7 @@ export const getHomeScreenStyle = () => StyleSheet.create({
 			height: isTabletDevice() ? 100 : '30%',
 			justifyContent: "center",
 			alignItems: "center", 
-      padding: 25,
+      padding: isTabletDevice() ? 5 : 25,
 			backgroundColor: colors.darkPrimary
 		},
 			userBoxImg: {
@@ -43,8 +43,13 @@ export const getHomeScreenStyle = () => StyleSheet.create({
 				justifyContent: "center",
 				alignItems: "center",
 			},
-				userBoxText: {
-					fontSize: 20,
+				userBoxText_Name: {
+					fontSize: isTabletDevice() ? 24 : 18,
+					fontFamily: fonts.Jua,
+					color: colors.secondary
+				},
+				userBoxText_Ip: {
+					fontSize: isTabletDevice() ? 20 : 14,
 					fontFamily: fonts.Jua,
 					color: colors.secondary
 				},
