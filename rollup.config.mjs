@@ -31,6 +31,7 @@ export default [
       '../../inits/globals.init',
       '../../inits/screensNavigator.init',
       '../../inits/notifier.init',
+      "socket.io-client",
     ]
   },
 
@@ -72,12 +73,14 @@ export default [
       "fs",
       "cracksdb",
       "express",
+      "socket.io",
       "http",
+      "https",
       "cors",
       "body-parser",
       "path",
       "sharp",
-      "url"
+      "url",
     ]
 	},
 ];  
