@@ -13,11 +13,18 @@ export class Globals {
 	}
 
 	getGlobal(name: String) {
-		const global = this.globals.find(global => global.name === name.toLowerCase());
-		if (global === undefined)
-			throw Error("There's no global value with name: " + name);
-		return global.value;
+		const global = this.getGlobalObj(name);
+		return global ? global.value : null;
 	}
+
+  private getGlobalObj(name: String) {
+		const global = this.globals.find(global => global.name === name.toLowerCase());
+		if (global === undefined) {
+			console.warn("There's no global value with name: " + name);
+      return null;
+    }
+		return global;
+  } 
 
 	newGlobal(global: GlobalObj) {
 		this.pruneGlobal(global);
@@ -30,11 +37,13 @@ export class Globals {
 
 	updateGlobal(newGlobal: GlobalObj) {
 		this.pruneGlobal(newGlobal);
-		const global = this.getGlobal(newGlobal.name);
+		const global = this.getGlobalObj(newGlobal.name);
 		if (global.type === newGlobal.type)
 			global.value = newGlobal.value;
-		else
+		else {
+      console.error(global.type, newGlobal.type)
 			throw Error("Incorrect type passed to " + newGlobal.name + " Global!");
+    }
 	}
 
 	getGlobalsNames(): String[] {
