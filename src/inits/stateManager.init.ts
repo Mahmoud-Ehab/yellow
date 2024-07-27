@@ -5,7 +5,7 @@ type Contact = {
     ipaddr: string,
 }
 
-export const SM = new StateManager("./js/sfs", new FileManager({}))
+const SM = new StateManager("./js/sfs", new FileManager({}))
 
 let myinfo: StateFile<Contact> = null;
 let contacts: StateFile<Contact> = null;
@@ -26,3 +26,8 @@ export const user = {
         myinfo.update(0, () => ({ username, ipaddr }))
     }
 }
+export const createMsgRoom = function (ipaddr: string) {
+  const sf = SM.add(ipaddr)
+  sf.extendUnitType({ message: "string" })
+  sf.setLimit(25)
+} 

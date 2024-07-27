@@ -69,6 +69,7 @@ export default [
       typescript(),
     ],
     external: [
+      "fs",
       "cracksdb",
       "express",
       "http",

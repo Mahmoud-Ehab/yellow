@@ -1,4 +1,4 @@
-import { user, contacts } from "./inits/stateManager.init";
+import { user, contacts, createMsgRoom } from "./inits/stateManager.init";
 import express from "express"
 import http from 'http'
 import cors from "cors"
@@ -84,6 +84,7 @@ export const addContact = (username: string, ipaddr: string): ActionReturn => {
             username,
             ipaddr
         })
+        createMsgRoom(ipaddr) // Initialize the permenant storage to save and retrieve messages
         return {res: true}
     }
     catch(err) {
