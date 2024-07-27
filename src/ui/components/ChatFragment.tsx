@@ -10,16 +10,38 @@ import { getChatFragmentStyle } from "../styles/components/ChatFragmentStyle";
 
 import { controller } from "../../inits/controller.init"
 import { notifier } from "../../inits/notifier.init"
-import { getGlobal } from "../../inits/globals.init"
+import { getGlobal, newGlobal, updateGlobal } from "../../inits/globals.init"
+
+import { io } from "socket.io-client"
 
 export function ChatFragment({ username, ipaddr }) {
     const style = getChatFragmentStyle();
     const [pulv, setPulv] = useState(false); // pulv: PopUp List Visibility
     const [connected, setConnected] = useState(false);
+    const [socket, setSocket] = useState(null);
 
     useEffect(() => {
       reconnect()
     }, [])
+
+    useEffect(() => {
+      if (!connected) { 
+        if (socket) { 
+          socket.disconnect()
+          setSocket(null);
+        }
+        return; 
+      }
+      const socket_tmp = io(`http://${ipaddr}:5000`)
+      setSocket(socket_tmp)
+
+      let func = getGlobal("closeSocketFunc") ? updateGlobal : newGlobal
+      func({
+        name: "closeSocketFunc",
+        value: () => socket_tmp.disconnect(),
+        type: "function"
+      })
+    }, [connected])
 
     const reconnect = async () => {
       notifier.notify({text: `Trying to reach ${ipaddr} in 10 seconds...`, type: "warning"});

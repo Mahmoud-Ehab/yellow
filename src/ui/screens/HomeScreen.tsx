@@ -96,8 +96,10 @@ export function HomeScreen() {
     })	
 	}
 
-  const closeChatroom = () => {
+  const closeChatroom = (callback?: Function) => {
     setSelectedUser({username: "", ipaddr: ""})
+    const closeSocket = getGlobal("closeSocketFunc")
+    if (closeSocket) closeSocket()
   }
 
 	const addContact = (ipaddr: string) => {

@@ -1,8 +1,3 @@
-import { user, contacts, createMsgRoom } from "./inits/stateManager.init";
-import express from "express"
-import http from 'http'
-import cors from "cors"
-import bodyParser from "body-parser"
 import path from "path"
 import fs from 'fs'
 
@@ -11,19 +6,12 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export type ActionReturn = {
-  err?: string,
-  res: object | Array<any> | boolean
-}
 
-export const Actions = {
-  GET_INFO: "getInfo",
-  SET_INFO: "setInfo",
-  SET_IMAGE: "setImage",
-  GET_CONTACTS: "getContacts",
-  ADD_CONTACT: "addContact",
-  RMV_CONTACT: "rmvContact"
-}
+/*** trivial express server with only two endpoints ***/
+import express from "express"
+import http from 'http'
+import cors from "cors"
+import bodyParser from "body-parser"
 
 const app = express();
 const server = http.createServer(app);
@@ -38,6 +26,24 @@ app.get('/', (_, res) => {
 app.get('/image', (_, res) => {
     res.sendFile(path.join(__dirname, '/usrimg.jpg'))
 })
+
+
+/*** Action functions that manipulate the database ***/
+import { user, contacts, createMsgRoom } from "./inits/stateManager.init";
+
+export type ActionReturn = {
+  err?: string,
+  res: object | Array<any> | boolean
+}
+
+export const Actions = {
+  GET_INFO: "getInfo",
+  SET_INFO: "setInfo",
+  SET_IMAGE: "setImage",
+  GET_CONTACTS: "getContacts",
+  ADD_CONTACT: "addContact",
+  RMV_CONTACT: "rmvContact"
+}
 
 export const getInfo = (): ActionReturn => {
     return {res: user.get()}
@@ -110,6 +116,23 @@ export const rmvContact = (ipaddr: string): ActionReturn => {
     }
 }
 
+
+/*** socket.io server for chatting rooms ***/
+import { Server } from "socket.io"
+
+const io = new Server(server, {
+  cors: {
+    origin: "*"
+  }
+})
+
+io.on("connection", (socket) => {
+  console.log("a user connected")
+  socket.on("disconnect", () => console.log("user disconnected"))
+})
+
+
+/*** export functions for starting and stopping the server ***/
 export const startServer = () => {
   server.listen(5000, () => {
     console.log('listening on localhost:5000');
