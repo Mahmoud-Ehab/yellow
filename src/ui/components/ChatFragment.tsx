@@ -79,7 +79,13 @@ export function ChatFragment({ username, ipaddr }) {
         return
       }
       controller.addMessages(ipaddr, [msg], ({ res }) => {
-        console.log("sending msg callback res: ", res)
+        if (res === true) {
+          setMessages(prev => [{
+            content: msg,
+            sender_ip: ipaddr
+          }, ...prev]);
+          setMsg("");
+        }
       })
     }
 
