@@ -8,4 +8,6 @@ contextBridge.exposeInMainWorld('electron', {
   getContacts: (callback) => ipcRenderer.invoke(Actions.GET_CONTACTS).then(res => callback(res)),
   addContact: (username, ipaddr, callback) => ipcRenderer.invoke(Actions.ADD_CONTACT, username, ipaddr).then(res => callback(res)),
   rmvContact: (ipaddr, callback) => ipcRenderer.invoke(Actions.RMV_CONTACT, ipaddr).then(res => callback(res)),
+  getMessages: (ipaddr, callback) => ipcRenderer.invoke(Actions.GET_MESSAGES, ipaddr).then(res => callback(res)),
+  addMessages: (ipaddr, msgs_texts, callback) => ipcRenderer.invoke(Actions.ADD_MESSAGES, ipaddr, msgs_texts).then(res => callback(res)),
 })

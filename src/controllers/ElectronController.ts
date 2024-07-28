@@ -19,4 +19,10 @@ export class ElectronController implements Controller {
   rmvContact(ipaddr: string, callback: Callback) {
     (window as any).electron.rmvContact(ipaddr, callback)
   }
+  getMessages(ipaddr: string, callback: Callback) {
+    (window as any).electron.getMessages(ipaddr, callback)
+  }
+  addMessages(ipaddr: string, msgs_texts: string[], callback: Callback) {
+    (window as any).electron.addMessages(ipaddr, msgs_texts, callback)
+  }
 }

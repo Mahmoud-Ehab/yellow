@@ -55,6 +55,8 @@ import {
   getContacts,
   addContact,
   rmvContact,
+  getMessages,
+  addMessages
 } from './js/server.mjs'
 
 ipcMain.handle(Actions.GET_INFO, (_) => getInfo())
@@ -64,3 +66,5 @@ ipcMain.handle(Actions.GET_CONTACTS, (_) => getContacts())
 ipcMain.handle(Actions.ADD_CONTACT, (_, username, ipaddr) => addContact(username, ipaddr))
 ipcMain.handle(Actions.RMV_CONTACT, (_, username, ipaddr) => rmvContact(username, ipaddr))
 
+ipcMain.handle(Actions.GET_MESSAGES, (_, ipaddr) => getMessages(ipaddr))
+ipcMain.handle(Actions.ADD_MESSAGES, (_, ipaddr, msgs_texts) => addMessages(ipaddr, msgs_texts))
