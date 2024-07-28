@@ -89,13 +89,17 @@ Yellow is an open-source, cross-platform, decentralized chat application. It can
 	- [x] Define and implement [StateFile](./docs/statefile.md), and add functionalities (in StateManager) to add/remove StateFile(s).
 	- [x] Write an 'init' file, so to speak, that initializes the StateManager, loads it with StateFiles, and exports it to the app.
  
-## back-end
+## back-end / functionalities / features
 - [x] Implement basic server with Express, with endpoints only to establish connection and to retrieve user image.
-- [ ] Implement the server with a cross-playform liberary.
+- [ ] Implement the server with a cross-playform library.
 - [x] Implement server actions: functions that the server exports to the enviroment. It shall be used by electron and react.
 - [x] Add controller interface that decoubles the application, while invoking server actions, from electron bridgeContext.
 - [x] Implement ElectronController and use it in the application with an init.ts file.
-- [ ] Implement WebSocket connection in the server...
+- [x] Implement WebSocket connection in the server.
+- [x] Implement Initial messaging chat implementation.
+- [ ] Refactor the server component.
+- [ ] Allow sending images in the chat.
+- [ ] Add group rooms in the application.
 
 
 # Get Started
@@ -115,11 +119,20 @@ npm run compile
 ## NPM start-react
 Once compilation is passed successfully, you can execute the following command to start your react application powered by Expo:
 ```
-npm run start-react
+npm run start-expo
 ```
 
 ## NPM start-electron
-Not implemented yet...
+Once you start expo application with `npm run start-expo` or have already compiled the html files with `npm run build-web`, you can try out the application with this command:
+```
+npm run start-electron
+```
+
+## NPM build-web
+You may use this command to export your static html/css/js files from expo.
+```
+npm run build-web 
+```
 
 ## NPM build-exe
 Not implemented yet...
