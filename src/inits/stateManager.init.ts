@@ -1,8 +1,14 @@
 import { FileManager, StateManager, StateFile } from "cracksdb" 
 
-type Contact = {
+export type Contact = {
     username: string,
     ipaddr: string,
+}
+
+export type Message = {
+  content: string,
+  sender_ip: string,
+  pending: boolean
 }
 
 const SM = new StateManager("./js/sfs", new FileManager({}))
@@ -20,14 +26,69 @@ catch(err) {
 }
 
 export { contacts }
+
 export const user = {
     get: () => myinfo.get(0),
     set: (username: string, ipaddr: string) => {
         myinfo.update(0, () => ({ username, ipaddr }))
     }
 }
+
 export const createMsgRoom = function (ipaddr: string) {
   const sf = SM.add(ipaddr)
-  sf.extendUnitType({ message: "string" })
+  sf.extendUnitType({ 
+    content: "string", 
+    sender_ip: "string", 
+    pending: "boolean" 
+  })
   sf.setLimit(25)
+  sf.setSimul(false)
+}
+
+export const getMsgs = (ipaddr: string, index: number) => {
+  const sf = SM.get(ipaddr)
+  if (!sf) {
+    return []
+  }
+  const i = index || 0
+  return sf.getList(0, 25 * (i + 1))
+}
+
+export const addMsgs = (ipaddr: string, messages: Array<Message>) => {
+  const sf = SM.get(ipaddr)
+  if (!sf) {
+    return false
+  }
+  for (let msg of messages) {
+    sf.add(msg)
+  }
+  return true
+}
+
+export const saveMsgs = (ipaddr: string) => {
+  const sf = SM.get(ipaddr)
+  if (!sf) {
+    return false
+  }
+  sf.save()
+  return true
+}
+
+export const getPendingMsgs = (ipaddr: string) => {
+  const sf = SM.get(ipaddr) as StateFile<Message>
+  if (!sf) {
+    return []
+  }
+  return sf.getListWhere(msg => msg.pending === true)
 } 
+
+export const adjustPendings = (ipaddr: string) => {
+  const sf = SM.get(ipaddr) as StateFile<Message>
+  if (!sf) {
+    return false
+  }
+  sf.updateWhere(
+    msg => msg.pending === true,
+    msg => ({...msg, pending: false})
+  )
+}
