@@ -12,6 +12,7 @@ import express from "express"
 import http from 'http'
 import cors from "cors"
 import bodyParser from "body-parser"
+import config from "../yellow.config.mjs"
 
 const app = express();
 const server = http.createServer(app);
@@ -26,6 +27,24 @@ app.get('/', (_, res) => {
 app.get('/image', (_, res) => {
     res.sendFile(path.join(__dirname, '/usrimg.jpg'))
 })
+
+/*** export functions for starting and stopping the server ***/
+export const startServer = () => {
+  server.listen(config.server_port, config.host_ip, () => {
+    console.log(`listening on ${config.protocol}://${config.host_ip}:${config.server_port}`);
+  })
+}
+
+export const closeServer = () => {
+  server.close((err) => {
+    if (err) {
+      console.log("server has shutdown due to an error...")
+      console.error(err)
+      return
+    }
+    console.log("server has shutdown gracefully.")
+  })
+}
 
 
 /*** Action functions that manipulate the database ***/
@@ -206,20 +225,3 @@ const sendMessages = (ipaddr: string, messages: Array<Message>) => {
   return true
 }
 
-/*** export functions for starting and stopping the server ***/
-export const startServer = () => {
-  server.listen(5000, () => {
-    console.log('listening on localhost:5000');
-  })
-}
-
-export const closeServer = () => {
-  server.close((err) => {
-    if (err) {
-      console.log("server has shutdown due to an error...")
-      console.error(err)
-      return
-    }
-    console.log("server has shutdown gracefully.")
-  })
-}

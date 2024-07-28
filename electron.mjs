@@ -9,7 +9,7 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-
+import config from "./yellow.config.mjs"
 
 let mainWindow;
 
@@ -23,8 +23,7 @@ function createWindow() {
     },
   });
   
-  // TODO: add the built html file location
-  const startURL = isDiv ? 'http://localhost:8081' : "file://" 
+  const startURL = isDiv ? `${config.protocol}://${config.host_ip}:${config.app_port}` : `file://${config.htmlpath}` 
   mainWindow.loadURL(startURL);
   mainWindow.on('closed', () => (mainWindow = null));
 }

@@ -25,6 +25,8 @@ import { getSliderFlexStyle } from '../styles/features/sliderFlexStyle';
 import { getRoomBtnStyle } from '../styles/mini/RoomBtnStyle';
 import { notifier } from '../../inits/notifier.init';
 
+import config from '../../../yellow.config.mjs';
+
 const slider = new Slider(0.2, 3, 1);
 
 type UserInfo = {
@@ -108,7 +110,7 @@ export function HomeScreen() {
 			type: "warning"
 		})
 
-		fetch(`http://${ipaddr}:5000/`, { signal: AbortSignal.timeout(5000) })
+		fetch(`${config.protocol}://${ipaddr}:${config.server_port}/`, { signal: AbortSignal.timeout(5000) })
 		.then(res => res.json())
 		.then(payload => {
       if (!payload.response.username || !payload.response.ipaddr) {
@@ -167,12 +169,13 @@ export function HomeScreen() {
         <View style={style.main}>
             <View style={sliderStyle.main}>
 				<View style={style.userBox}>
-					<Image 
-						style={style.userBoxImg}
-						source={imageURI ? { uri: imageURI } : 'http://localhost:5000/image'}
-						contentFit="cover"
-            onPointerDown={pickImage}
-					/>
+          <View style={style.userBoxImgContainer} onPointerDown={pickImage}>
+            <Image 
+              style={style.userBoxImg}
+              source={imageURI ? { uri: imageURI } : `${config.protocol}://${config.host_ip}:${config.server_port}/image`}
+              contentFit="cover"
+            />
+          </View>
 					<View style={style.userBoxTextContainer}>
 						<Text style={style.userBoxText_Name}>{getGlobal("myUserInfo").name}</Text>
 						<Text style={style.userBoxText_Ip}>{getGlobal("myUserInfo").ip}</Text>	
@@ -183,7 +186,7 @@ export function HomeScreen() {
 						<RoomsListItem 
 							key={i}
 							overrideStyle={userBtnStyle(user.ipaddr)}
-							imgsrc={`http://${user.ipaddr}:5000/image`}
+							imgsrc={`${config.protocol}://${user.ipaddr}:${config.server_port}/image`}
 							username={user.username} 
 							ipaddr={user.ipaddr} 
 							onPress={onOpenChat}

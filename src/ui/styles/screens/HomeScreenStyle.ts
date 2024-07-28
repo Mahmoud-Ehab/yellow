@@ -30,14 +30,19 @@ export const getHomeScreenStyle = () => StyleSheet.create({
       padding: isTabletDevice() ? 5 : 25,
 			backgroundColor: colors.darkPrimary
 		},
-			userBoxImg: {
+			userBoxImgContainer: {
 				flex: isTabletDevice() ? 1 : 2,
 				width: "75%",
 				height: isTabletDevice() ? '80%' : 'auto',
 				margin: 5,
         borderRadius: 15,
+        overflow: "hidden",
         ...shadows.normal
 			},
+        userBoxImg: {
+          width: "100%",
+          height: "100%"
+        },
 			userBoxTextContainer: {
 				flex: isTabletDevice() ? 3 : 1,
 				justifyContent: "center",

@@ -11,6 +11,7 @@ import { newGlobal } from '../../inits/globals.init';
 import { NAV_VALUES, screensNavigator } from '../../inits/screensNavigator.init';
 
 import { controller } from '../../inits/controller.init'
+import config from '../../../yellow.config.mjs'
 
 export function GetStartedScreen() {
 	const style = getGetStartedScreenStyle();
@@ -21,19 +22,19 @@ export function GetStartedScreen() {
   const [connected, setConnected] = useState(true);
   
   useEffect(() => {
-        fetch("http://localhost:5000/")
-        .then(res => res.json())
-        .then(res => res.response)
-        .then(payload => {
-            setUserName(payload.username)
-            setUserIp(payload.ipaddr)
-            setConnected(true)
-        })
-        .catch(err => {
-            setConnected(false);
-            console.error(err);
-        })
-    }, [])
+    fetch(`${config.protocol}://${config.host_ip}:${config.server_port}/`)
+    .then(res => res.json())
+    .then(res => res.response)
+    .then(payload => {
+        setUserName(payload.username)
+        setUserIp(payload.ipaddr)
+        setConnected(true)
+    })
+    .catch(err => {
+        setConnected(false);
+        console.error(err);
+    })
+  }, [])
 	
 	const getStartedHandler = () => {
 		if (!userName || !userIp)

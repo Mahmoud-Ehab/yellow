@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { Image } from "expo-image";
 import { List } from "react-native-paper";
+import { io } from "socket.io-client"
 
 import { Textarea } from "../mini-components/Textarea";
 
@@ -12,7 +13,7 @@ import { controller } from "../../inits/controller.init"
 import { notifier } from "../../inits/notifier.init"
 import { getGlobal, newGlobal, updateGlobal } from "../../inits/globals.init"
 
-import { io } from "socket.io-client"
+import config from "../../../yellow.config.mjs"
 
 export function ChatFragment({ username, ipaddr }) {
     const style = getChatFragmentStyle();
@@ -32,7 +33,7 @@ export function ChatFragment({ username, ipaddr }) {
 
     const reconnect = async () => {
       notifier.notify({text: `Trying to reach ${ipaddr} in 10 seconds...`, type: "warning"});
-      fetch(`http://${ipaddr}:5000`, { signal: AbortSignal.timeout(10000) })
+      fetch(`${config.protocol}://${ipaddr}:${config.server_port}`, { signal: AbortSignal.timeout(10000) })
       .then(res => res.json())
       .then(payload => {
         if (!payload.response.ipaddr) {
@@ -52,7 +53,7 @@ export function ChatFragment({ username, ipaddr }) {
         return; 
       }
 
-      const socket = io(`http://${ipaddr}:5000`)
+      const socket = io(`${config.protocol}://${ipaddr}:${config.server_port}`)
       socket.on("listening", () => setConnected(true))
       socket.on("message", ({ msgs_texts }) => {
         const msgsArr = []
