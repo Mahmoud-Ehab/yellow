@@ -17,7 +17,7 @@
     "@types/react": "^18.2.79",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
-    "cracksdb": "^1.0.0",
+    "cracksdb": "^1.0.1",
     "electron": "^31.2.1",
     "expo": "^51.0.22",
     "expo-image": "^1.12.13",
