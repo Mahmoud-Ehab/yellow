@@ -11,8 +11,24 @@ const __dirname = dirname(__filename);
 
 import config from "./yellow.config.mjs"
 
-let mainWindow;
+import handler from 'serve-handler'
+import http from 'http'
 
+if (!isDiv) {
+  const server = http.createServer((request, response) => {
+    // You pass two more arguments for config and middleware
+    // More details here: https://github.com/vercel/serve-handler#options
+    return handler(request, response, {
+      public: "dist"
+    });
+  });
+
+  server.listen(config.app_port, config.host_ip, () => {
+    console.log(`serve running at http://${config.host_ip}:${config.app_port}`);
+  });
+}
+
+let mainWindow;
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,
@@ -21,11 +37,9 @@ function createWindow() {
       nodeIntegration: true,
       preload: path.join(__dirname, "electron.preload.mjs")
     },
-  });
-  
-  const startURL = isDiv ? `${config.protocol}://${config.host_ip}:${config.app_port}` : `file://${config.htmlpath}` 
-  mainWindow.loadURL(startURL);
-  mainWindow.on('closed', () => (mainWindow = null));
+  })
+  mainWindow.loadURL(`${config.protocol}://${config.host_ip}:${config.app_port}`)
+  mainWindow.on('closed', () => (mainWindow = null))
 }
 
 app.on('ready', createWindow);
