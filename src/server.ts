@@ -42,7 +42,9 @@ export const Actions = {
   SET_IMAGE: "setImage",
   GET_CONTACTS: "getContacts",
   ADD_CONTACT: "addContact",
-  RMV_CONTACT: "rmvContact"
+  RMV_CONTACT: "rmvContact",
+  GET_MESSAGES: "getMessages",
+  ADD_MESSAGES: "addMessages"
 }
 
 export const getInfo = (): ActionReturn => {
@@ -119,18 +121,89 @@ export const rmvContact = (ipaddr: string): ActionReturn => {
 
 /*** socket.io server for chatting rooms ***/
 import { Server } from "socket.io"
+import { 
+  Message,
+  getMsgs,
+  saveMsgs,
+  addMsgs,
+  getPendingMsgs,
+  adjustPendings
+} from "./inits/stateManager.init"
 
 const io = new Server(server, {
   cors: {
     origin: "*"
   }
 })
+const sockets = {}
 
 io.on("connection", (socket) => {
-  console.log("a user connected")
-  socket.on("disconnect", () => console.log("user disconnected"))
+  const ipaddr = socket.handshake.address.split(":").reverse()[0] 
+  sockets[ipaddr] = socket
+  console.log("user connected: ", ipaddr)
+  
+  // ensure with the client that a connection has been established
+  // and exchange pending messages
+  socket.emit("listening")
+  const pending_msgs = getPendingMsgs(ipaddr)
+  if (sendMessages(ipaddr, pending_msgs)) {
+    adjustPendings(ipaddr)
+  }
+
+  socket.on("message", ({ msgs_texts }) => {
+    const messages: Array<Message> = []
+    for (let msg_text of msgs_texts) {
+      messages.push({
+        content: msg_text,
+        sender_ip: ipaddr,
+        pending: false
+      })
+    }
+    addMsgs(ipaddr, messages)
+  })
+
+  socket.on("disconnect", () => {
+    saveMsgs(ipaddr)
+    sockets[ipaddr] = undefined
+    console.log("user disconnected: ", ipaddr)
+  })
 })
 
+// ipaddr: the ip of the contacts
+// index: the number of the crack file (from cracksdb), defaults to 0.
+export const getMessages = (ipaddr: string, index?: number): ActionReturn => {
+  return { res: getMsgs(ipaddr, index)  }
+}
+
+export const addMessages = (ipaddr: string, msgs_texts: Array<string>): ActionReturn => {
+  const messages: Array<Message> = []
+  for (let text of msgs_texts) {
+    messages.push({
+      content: text,
+      sender_ip: user.get().ipaddr,
+      pending: true
+    })
+  }
+  const sent = sendMessages(ipaddr, messages)
+  for (let msg of messages) {
+    msg.pending = !sent
+  }
+  addMsgs(ipaddr, messages)
+  return { res: true }
+}
+
+const sendMessages = (ipaddr: string, messages: Array<Message>) => {
+  const socket = sockets[ipaddr]
+  if (!socket) {
+    return false
+  }
+  const msgs_texts = []
+  for (let msg of messages) {
+      msgs_texts.push(msg.content)
+  }
+  socket.emit("message", { msgs_texts })
+  return true
+}
 
 /*** export functions for starting and stopping the server ***/
 export const startServer = () => {

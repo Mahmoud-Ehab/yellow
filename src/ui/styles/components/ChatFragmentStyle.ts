@@ -66,6 +66,7 @@ export const getChatFragmentStyle = () => StyleSheet.create({
             width: '100%',
             padding: isTabletDevice() ? 0 : 20,
             justifyContent: 'flex-end',
+            flexDirection: "column-reverse"
         },
             userMsg: {
                 alignSelf: 'flex-end',

@@ -16,32 +16,19 @@ import { io } from "socket.io-client"
 
 export function ChatFragment({ username, ipaddr }) {
     const style = getChatFragmentStyle();
+    const [msg, setMsg] = useState("");
     const [pulv, setPulv] = useState(false); // pulv: PopUp List Visibility
     const [connected, setConnected] = useState(false);
-    const [socket, setSocket] = useState(null);
+    const [messages, setMessages] = useState([]);
 
     useEffect(() => {
       reconnect()
-    }, [])
-
-    useEffect(() => {
-      if (!connected) { 
-        if (socket) { 
-          socket.disconnect()
-          setSocket(null);
+      controller.getMessages(ipaddr, ({ res, err }) => {
+        if (!err) {
+          setMessages(res as Array<object>)
         }
-        return; 
-      }
-      const socket_tmp = io(`http://${ipaddr}:5000`)
-      setSocket(socket_tmp)
-
-      let func = getGlobal("closeSocketFunc") ? updateGlobal : newGlobal
-      func({
-        name: "closeSocketFunc",
-        value: () => socket_tmp.disconnect(),
-        type: "function"
       })
-    }, [connected])
+    }, [])
 
     const reconnect = async () => {
       notifier.notify({text: `Trying to reach ${ipaddr} in 10 seconds...`, type: "warning"});
@@ -51,12 +38,48 @@ export function ChatFragment({ username, ipaddr }) {
         if (!payload.response.ipaddr) {
           throw Error("not a Yellow server!");
         }
-        setConnected(true);
+        establishSocketConn();
         notifier.notify({text: `${ipaddr} is listening.`, type: "success"});
       })
       .catch(err => {
         setConnected(false)
         notifier.notify({text: `couldn't reach ${ipaddr}`, type: "error"});
+      })
+    }
+
+    const establishSocketConn = () => {
+      if (connected) { 
+        return; 
+      }
+
+      const socket = io(`http://${ipaddr}:5000`)
+      socket.on("listening", () => setConnected(true))
+      socket.on("message", ({ msgs_texts }) => {
+        const msgsArr = []
+        for (let text of msgs_texts) {
+          msgsArr.push({
+            content: text,
+            sender_ip: ipaddr
+          })
+        }
+        setMessages(prev => [...msgsArr, ...prev])
+      })
+      socket.on("disconnect", () => setConnected(false))
+
+      let func = getGlobal("closeSocketFunc") ? updateGlobal : newGlobal
+      func({
+        name: "closeSocketFunc",
+        value: () => socket.disconnect(),
+        type: "function"
+      })
+    }
+
+    const sendHandler = () => {
+      if (msg === "") {
+        return
+      }
+      controller.addMessages(ipaddr, [msg], ({ res }) => {
+        console.log("sending msg callback res: ", res)
       })
     }
 
@@ -119,22 +142,29 @@ export function ChatFragment({ username, ipaddr }) {
                     contentFit="contain"
                 />
                 <ScrollView style={{width: '100%', height: '100%'}} contentContainerStyle={style.msgsContainer}>
-                    <Text style={style.userMsg}>Hi, how are you.</Text>
-                    <Text style={style.friendMsg}>I'm fine. What about you?</Text>
+                  {messages.map((msg, i) => (
+                    <Text key={i} style={msg.sender_ip === ipaddr ? style.userMsg : style.userMsg}>
+                      {msg.content}
+                    </Text>
+                  ))}
                 </ScrollView>
             </View>
 
             <View style={style.msgInputContainer}>
                 <Textarea 
                     style={{...getTextInputStyle(), ...style.msgInput}} 
+                    value={msg}
                     label={""} 
-                    placeholder="Write your message..." 
+                    placeholder="Write your message..."
+                    onChangeText={(val) => setMsg(val)}
                 />
                 <Image 
                     style={style.sendBtn} 
                     source={"../../../assets/send.png"} 
                     contentFit="contain"
-                /> </View>
+                    onPointerDown={() => sendHandler()}
+                /> 
+            </View>
             { pulv ?
             <List.Section style={style.popUpView}>
                 <List.Item 
