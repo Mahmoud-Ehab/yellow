@@ -35,14 +35,23 @@ export const user = {
 }
 
 export const createMsgRoom = function (ipaddr: string) {
-  const sf = SM.add(ipaddr)
-  sf.extendUnitType({ 
-    content: "string", 
-    sender_ip: "string", 
-    pending: "boolean" 
-  })
-  sf.setLimit(25)
-  sf.setSimul(false)
+  try {
+    const sf = SM.add<Message>(ipaddr, ipaddr)
+    sf.extendUnitType({ 
+      content: "string", 
+      sender_ip: "string", 
+      pending: "boolean" 
+    })
+    sf.setLimit(25)
+    sf.setSimul(false)
+  }
+  catch(err) {
+    console.warn(err)
+  }
+}
+
+export const deleteMsgRoom = function (ipaddr: string) {
+  SM.delete(ipaddr, ipaddr)
 }
 
 export const getMsgs = (ipaddr: string, index: number) => {
@@ -66,12 +75,18 @@ export const addMsgs = (ipaddr: string, messages: Array<Message>) => {
 }
 
 export const saveMsgs = (ipaddr: string) => {
-  const sf = SM.get(ipaddr)
-  if (!sf) {
+  try {
+    const sf = SM.get(ipaddr)
+    if (!sf) {
+      return false
+    }
+    sf.save()
+    return true
+  }
+  catch(err) {
+    console.warn(err)
     return false
   }
-  sf.save()
-  return true
 }
 
 export const getPendingMsgs = (ipaddr: string) => {

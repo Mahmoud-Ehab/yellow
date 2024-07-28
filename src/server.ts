@@ -29,7 +29,7 @@ app.get('/image', (_, res) => {
 
 
 /*** Action functions that manipulate the database ***/
-import { user, contacts, createMsgRoom } from "./inits/stateManager.init";
+import { user, contacts, createMsgRoom, deleteMsgRoom } from "./inits/stateManager.init";
 
 export type ActionReturn = {
   err?: string,
@@ -109,6 +109,7 @@ export const rmvContact = (ipaddr: string): ActionReturn => {
         }
         for (let index of indexes) {
             contacts.remove(index)
+            deleteMsgRoom(ipaddr)
         }
         return {res: true}
     }
