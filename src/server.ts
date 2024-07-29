@@ -1,11 +1,6 @@
 import path from "path"
 import fs from 'fs'
-
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
+import process from "node:process"
 
 /*** trivial express server with only two endpoints ***/
 import express from "express"
@@ -25,7 +20,7 @@ app.get('/', (_, res) => {
 })
 
 app.get('/image', (_, res) => {
-    res.sendFile(path.join(__dirname, '/usrimg.jpg'))
+  res.sendFile(path.join(process.cwd(), '/resources/usrimg.jpg'))
 })
 
 /*** export functions for starting and stopping the server ***/
@@ -69,7 +64,7 @@ export const setInfo = (username: string, ipaddr: string): ActionReturn => {
 export const setImage = (imgUri: string): ActionReturn => {
   try {
     fs.writeFileSync(
-      path.join(__dirname, '/usrimg.jpg'),
+      path.join(process.cwd(), '/resources/usrimg.jpg'),
       Buffer.from(imgUri.split(',')[1], 'base64')
     ) 
     return {res: true}
