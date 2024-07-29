@@ -1,4 +1,18 @@
 import { FileManager, StateManager, StateFile } from "cracksdb" 
+import { execSync } from "node:child_process"
+
+function myIpAddr() {
+  const stdout = execSync("ipconfig", { encoding: "utf8" })
+  const start = stdout.search("192")
+  let out: Array<any> = stdout.substring(start, start + 15).split(".")
+  if (out.length < 4) {
+    console.error("couldn't find an ip address!")
+    return ""
+  }
+  out.length = 4
+  out = out.map(elem => parseInt(elem))
+  return out.join(".")
+}
 
 export type Contact = {
     username: string,
@@ -11,19 +25,41 @@ export type Message = {
   pending: boolean
 }
 
+export type Config = {
+  protocol: "http" | "https",
+  host_ip: string,
+  server_port: number,
+  app_port: number
+}
+
 const SM = new StateManager("./resources/js/sfs", new FileManager({}))
 
 let myinfo: StateFile<Contact> = null;
 let contacts: StateFile<Contact> = null;
+let config: StateFile<Config> = null;
 try {
     myinfo = SM.get("myinfo") as StateFile<Contact>;
     contacts = SM.get("contacts") as StateFile<Contact>;
+    config = SM.get("config") as StateFile<Config>;
 }
 catch(err) {
     myinfo = SM.add<Contact>("myinfo");
     myinfo.extendUnitType({ username: "string", ipaddr: "string" })
     myinfo.add({username: "", ipaddr: ""});
     contacts = SM.add<Contact>("contacts");
+    config = SM.add<Config>("config");
+    config.extendUnitType({
+      protocol: "string",
+      host_ip: "string",
+      server_port: "number",
+      app_port: "number"
+    })
+    config.add({
+      protocol: "http",
+      host_ip: myIpAddr() || "localhost",
+      server_port: 5123,
+      app_port: 8123, 
+    })
 }
 
 export { contacts }
@@ -33,6 +69,11 @@ export const user = {
     set: (username: string, ipaddr: string) => {
       myinfo.update(0, () => ({ username, ipaddr }))
     }
+}
+
+export const getConfig = () => config.get(0);
+export const updateConfig = (newconfig: Partial<Config>) => {
+  config.update(0, prev => ({...prev, ...newconfig}))
 }
 
 export const createMsgRoom = function (ipaddr: string) {

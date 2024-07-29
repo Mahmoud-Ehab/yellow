@@ -7,7 +7,13 @@ import express from "express"
 import http from 'http'
 import cors from "cors"
 import bodyParser from "body-parser"
-import config from "./yellow.config"
+import { getConfig } from "./inits/stateManager.init"
+
+const config = getConfig()
+
+export const getConfigObj = (): ActionReturn => {
+  return { res: getConfig() }
+}
 
 const app = express();
 const server = http.createServer(app);

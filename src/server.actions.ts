@@ -11,6 +11,7 @@ export const Actions = {
   ADD_CONTACT: "addContact",
   RMV_CONTACT: "rmvContact",
   GET_MESSAGES: "getMessages",
-  ADD_MESSAGES: "addMessages"
+  ADD_MESSAGES: "addMessages",
+  GET_CONFIG: "getConfig"
 }
 

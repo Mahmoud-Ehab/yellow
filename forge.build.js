@@ -8,11 +8,13 @@ if (!["make", "start"].includes(process.argv[2])) {
 const { execSync } = require("node:child_process")
 const fs = require("fs")
 
+console.log("\x1b[35m > reading package.json...\x1b[0m")
 const package_str = fs.readFileSync("./package.json", { encoding: "utf8" })
 const package_json = JSON.parse(package_str)
 
 const oldMain = "node_modules/expo/AppEntry.js"
 package_json.main = "resources/js/electron.js"
+console.log("\x1b[35m > manipulating package.json...\x1b[0m")
 fs.writeFileSync("./package.json", JSON.stringify(package_json))
 
 console.log(`\x1b[35m > Executing 'npm electron-forge ${process.argv[2]}'...\x1b[0m`)

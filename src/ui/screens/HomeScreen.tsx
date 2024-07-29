@@ -25,8 +25,6 @@ import { getSliderFlexStyle } from '../styles/features/sliderFlexStyle';
 import { getRoomBtnStyle } from '../styles/mini/RoomBtnStyle';
 import { notifier } from '../../inits/notifier.init';
 
-import config from '../../yellow.config';
-
 const slider = new Slider(0.2, 3, 1);
 
 type UserInfo = {
@@ -38,6 +36,7 @@ export function HomeScreen() {
 	// {flex: number} of style.leftPart
 	const [sliderValue, setSliderValue] = useState(slider.value);
 	const [addContactText, setAddContactText] = useState("");
+  const [config, setConfig] = useState({});
 
   const style = getHomeScreenStyle();
 	const sliderStyle = getSliderFlexStyle(sliderValue, style.leftPart);
@@ -67,7 +66,14 @@ export function HomeScreen() {
 	const [usersList, setUsersList] = useState([]);
 
 	useEffect(() => {
-		reloadContacts();
+    setConfig(getGlobal("config"))
+	}, [])
+
+  useEffect(() => {
+    if (!config.protocol) {
+      return
+    }
+    reloadContacts();
     newGlobal({
       name: "reloadContactsFunc",
       value: () => reloadContacts(),
@@ -78,7 +84,7 @@ export function HomeScreen() {
       value: () => closeChatroom(),
       type: "function"
     })
-	}, [])
+  }, [config])
 
 	const reloadContacts = () => {
     closeChatroom();

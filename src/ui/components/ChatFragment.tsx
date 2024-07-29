@@ -13,23 +13,29 @@ import { controller } from "../../inits/controller.init"
 import { notifier } from "../../inits/notifier.init"
 import { getGlobal, newGlobal, updateGlobal } from "../../inits/globals.init"
 
-import config from "../../yellow.config"
-
 export function ChatFragment({ username, ipaddr }) {
     const style = getChatFragmentStyle();
     const [msg, setMsg] = useState("");
     const [pulv, setPulv] = useState(false); // pulv: PopUp List Visibility
     const [connected, setConnected] = useState(false);
     const [messages, setMessages] = useState([]);
+    const [config, setConfig] = useState({});
 
     useEffect(() => {
+      setConfig(getGlobal("config"))
+    }, [])
+
+    useEffect(() => {
+      if (!config.protocol) {
+        return
+      }
       reconnect()
       controller.getMessages(ipaddr, ({ res, err }) => {
         if (!err) {
           setMessages(res as Array<object>)
         }
       })
-    }, [])
+    }, [config])
 
     const reconnect = async () => {
       notifier.notify({text: `Trying to reach ${ipaddr} in 10 seconds...`, type: "warning"});

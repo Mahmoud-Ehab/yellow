@@ -25,4 +25,7 @@ export class ElectronController implements Controller {
   addMessages(ipaddr: string, msgs_texts: string[], callback: Callback) {
     (window as any).electron.addMessages(ipaddr, msgs_texts, callback)
   }
+  getConfig(callback: Callback) {
+    (window as any).electron.getConfig(callback)
+  }
 }

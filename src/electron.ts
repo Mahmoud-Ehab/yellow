@@ -5,11 +5,13 @@ import { Actions } from './server.actions'
 import handler from 'serve-handler'
 import http from 'http'
 import path from 'path'
-import config from "./yellow.config"
 import { argv } from 'node:process'
+
+import { getConfig } from "./inits/stateManager.init"
 
 try {
   if (require('electron-squirrel-startup')) app.quit();
+  const config = getConfig()
 
   if (argv[2] != "--dev") {
     const server = http.createServer((request, response) => {
@@ -67,7 +69,8 @@ import {
   addContact,
   rmvContact,
   getMessages,
-  addMessages
+  addMessages,
+  getConfigObj
 } from './server'
 
 try {
@@ -80,6 +83,8 @@ try {
 
   ipcMain.handle(Actions.GET_MESSAGES, (_, ipaddr) => getMessages(ipaddr))
   ipcMain.handle(Actions.ADD_MESSAGES, (_, ipaddr, msgs_texts) => addMessages(ipaddr, msgs_texts))
+  
+  ipcMain.handle(Actions.GET_CONFIG, () => getConfigObj())
 }
 catch(err) {
   console.error(err)

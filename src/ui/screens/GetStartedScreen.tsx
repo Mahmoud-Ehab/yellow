@@ -11,7 +11,6 @@ import { newGlobal } from '../../inits/globals.init';
 import { NAV_VALUES, screensNavigator } from '../../inits/screensNavigator.init';
 
 import { controller } from '../../inits/controller.init'
-import config from '../../yellow.config'
 
 export function GetStartedScreen() {
 	const style = getGetStartedScreenStyle();
@@ -20,9 +19,22 @@ export function GetStartedScreen() {
 	const [userName, setUserName] = useState("");
 	const [userIp, setUserIp] = useState("");
   const [connected, setConnected] = useState(true);
+  const [config, setConfig] = useState({});
   
   useEffect(() => {
-    fetch(`${config.protocol}://${config.host_ip}:${config.server_port}/`)
+    controller.getConfig(res => setConfig(res))
+  }, [])
+
+  useEffect(() => {
+    if (!config.res) {
+      return
+    }
+    newGlobal({
+      name: "config",
+      value: config.res,
+      type: "config"
+    })
+    fetch(`${config.res.protocol}://${config.res.host_ip}:${config.res.server_port}/`)
     .then(res => res.json())
     .then(res => res.response)
     .then(payload => {
@@ -34,8 +46,8 @@ export function GetStartedScreen() {
         setConnected(false);
         console.error(err);
     })
-  }, [])
-	
+  }, [config])
+  	
 	const getStartedHandler = () => {
 		if (!userName || !userIp)
 			return Error("You shall write username and user ip to get started.");

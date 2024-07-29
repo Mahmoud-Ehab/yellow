@@ -34,7 +34,8 @@ export default [
       "electron",
       "electron-is-dev",
       "serve-handler",
-      "node:process"
+      "node:process",
+      "node:child_process"
     ]
 	},
 ];  

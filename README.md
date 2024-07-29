@@ -69,8 +69,7 @@ Yellow is an open-source, cross-platform, decentralized chat application. It can
 │   │       └── ...
 │   ├── electron.ts 
 │   ├── electron.preload.ts
-│   ├── server.ts
-│   └── yellow.config.ts
+│   └── server.ts
 ├── App.js *** The EntryPoint of expo 
 ├── app.json
 ├── babel.config.js

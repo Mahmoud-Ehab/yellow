@@ -9,4 +9,7 @@ export interface Controller {
   getContacts: (callback: Callback) => void, 
   addContact: (username: string, ipaddr: string, callback: Callback) => void,
   rmvContact: (ipaddr: string, callback: Callback) => void,
+  getMessages: (ipaddr: string, callback: Callback) => void,
+  addMessages: (ipaddr: string, msgs_texts: string[], callback: Callback) => void,
+  getConfig: (callback: Callback) => void
 }
