@@ -11,5 +11,6 @@ export interface Controller {
   rmvContact: (ipaddr: string, callback: Callback) => void,
   getMessages: (ipaddr: string, callback: Callback) => void,
   addMessages: (ipaddr: string, msgs_texts: string[], callback: Callback) => void,
-  getConfig: (callback: Callback) => void
+  getConfig: (callback: Callback) => void,
+  updateConfig: (host_ip: string, server_port: number, app_port: number, callback: Callback) => void
 }

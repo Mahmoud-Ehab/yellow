@@ -9,21 +9,25 @@ import { argv } from 'node:process'
 
 import { getConfig } from "./inits/stateManager.init"
 
+let app_server = null
+
 try {
   if (require('electron-squirrel-startup')) app.quit();
   const config = getConfig()
-
   if (argv[2] != "--dev") {
-    const server = http.createServer((request, response) => {
+    app_server = http.createServer((request, response) => {
       // You pass two more arguments for config and middleware
       // More details here: https://github.com/vercel/serve-handler#options
       return handler(request, response, {
         public: "resources/web"
       });
     });
-    server.listen(config.app_port, config.host_ip, () => {
+    app_server.listen(config.app_port, config.host_ip, () => {
       console.log(`serve running at http://${config.host_ip}:${config.app_port}`);
     });
+  }
+  else {
+    config.app_port = 8081
   }
 
   let mainWindow: BrowserWindow;
@@ -44,6 +48,7 @@ try {
 
   app.on('window-all-closed', () => {
     closeServer();
+    if (app_server) app_server.close()
     app.quit();
   });
 
@@ -57,6 +62,8 @@ try {
 }
 catch(err) {
   console.error(err)
+  closeServer()
+  if (app_server) app_server.close()
   app.quit()
 } 
 
@@ -70,7 +77,8 @@ import {
   rmvContact,
   getMessages,
   addMessages,
-  getConfigObj
+  getConfigObj,
+  updateConfigObj
 } from './server'
 
 try {
@@ -85,8 +93,21 @@ try {
   ipcMain.handle(Actions.ADD_MESSAGES, (_, ipaddr, msgs_texts) => addMessages(ipaddr, msgs_texts))
   
   ipcMain.handle(Actions.GET_CONFIG, () => getConfigObj())
+  ipcMain.handle(Actions.UPDATE_CONFIG, (_, config) => {
+    const actionReturn = updateConfigObj(config as unknown)
+    if (actionReturn.res === true) {
+      closeServer()
+      if (app_server) app_server.close()
+      app.quit()
+    }
+    else {
+      return actionReturn
+    }
+  })
 }
 catch(err) {
   console.error(err)
+  closeServer()
+  if (app_server) app_server.close()
   app.quit()
 }

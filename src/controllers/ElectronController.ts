@@ -28,4 +28,7 @@ export class ElectronController implements Controller {
   getConfig(callback: Callback) {
     (window as any).electron.getConfig(callback)
   }
+  updateConfig(host_ip: string, server_port: number, app_port: number, callback: Callback) {
+    (window as any).electron.updateConfig(host_ip, server_port, app_port, callback)
+  }
 }

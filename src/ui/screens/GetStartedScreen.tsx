@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Image } from 'expo-image';
+import { ConfigForm } from "../components/ConfigForm"
 
 import { getGetStartedScreenStyle } from '../styles/screens/GetStartedScreenStyle';
 import { Textarea } from '../mini-components/Textarea';
@@ -19,10 +20,14 @@ export function GetStartedScreen() {
 	const [userName, setUserName] = useState("");
 	const [userIp, setUserIp] = useState("");
   const [connected, setConnected] = useState(true);
+  const [configForm, setConfigForm] = useState(false);
   const [config, setConfig] = useState({});
   
   useEffect(() => {
-    controller.getConfig(res => setConfig(res))
+    controller.getConfig(res => {
+      setConfig(res)
+      setUserIp(res.host_ip)
+    })
   }, [])
 
   useEffect(() => {
@@ -39,7 +44,9 @@ export function GetStartedScreen() {
     .then(res => res.response)
     .then(payload => {
         setUserName(payload.username)
-        setUserIp(payload.ipaddr)
+        if (payload.ipaddr !== "") {
+          setUserIp(payload.ipaddr)
+        }
         setConnected(true)
     })
     .catch(err => {
@@ -68,45 +75,53 @@ export function GetStartedScreen() {
       screensNavigator.navTo(NAV_VALUES.HOME);
     })
 	}
-    
-    return (
-        <View style={style.main}>
-            <View style={style.container}>
-                <View style={style.containerTopPart}>
-                    <Image
-                        style={style.logo}
-                        source={'logo.svg'}
-                        contentFit="cover"
-                        transition={1000}
-                    />
-                    <View style={style.form}>
-                        <Textarea 
-                            value={userName}
-                            label='Your Nickname' 
-                            style={textinputStyle} 
-                            placeholder='Jack Smith' 
-                            onChangeText={(value) => setUserName(value)}
-                        />
-                        <Textarea 
-                            value={userIp}
-                            label='Ip Address' 
-                            style={textinputStyle} 
-                            placeholder='000.000.0.000' 
-                            keyboardType='numeric'
-                            onChangeText={(value) => setUserIp(value)}
-                        />
-                    </View>
-                </View>
-                <View style={style.containerBotPart}>
-                    <Button 
-                    contentStyle={style.buttonBody}
-                    labelStyle={style.buttonLabel}
-                    onPress={getStartedHandler}
-                    disabled={!connected}>
-                        {connected ? "Get Started" : "Cannot reach the server!"}
-                    </Button>
-                </View>
-            </View>
-        </View>
+
+  const onConfigChange = ({ host_ip, server_port, app_port }) => {
+    controller.updateConfig(host_ip, server_port, app_port, () => {})
+  }
+  
+  return (
+      <View style={style.main}>
+          <View style={style.container}>
+              <View style={style.containerTopPart}>
+                  <Image
+                      style={style.logo}
+                      source={'logo.svg'}
+                      contentFit="cover"
+                      transition={1000}
+                  />
+                  <View style={style.form}>
+                      <Textarea 
+                          value={userName}
+                          label='Your Nickname' 
+                          style={textinputStyle} 
+                          placeholder='Jack Smith' 
+                          onChangeText={(value) => setUserName(value)}
+                      />
+                      <Textarea 
+                          value={userIp}
+                          label='Ip Address' 
+                          style={textinputStyle} 
+                          placeholder='000.000.0.000' 
+                          keyboardType='numeric'
+                          onChangeText={(value) => setUserIp(value)}
+                      />
+                  </View>
+              </View>
+              <View style={style.containerBotPart}>
+                  <Button 
+                  contentStyle={style.buttonBody}
+                  labelStyle={style.buttonLabel}
+                  onPress={getStartedHandler}
+                  disabled={!connected}>
+                      {connected ? "Get Started" : "Cannot reach the server!"}
+                  </Button>
+                  <Button labelStyle={{color: style.buttonLabel.color}} onPress={() => setConfigForm(true)} >
+                    Settings
+                  </Button>
+              </View>
+          </View>
+          { configForm && <ConfigForm onChange={(con) => onConfigChange(con)} closeFunc={() => setConfigForm(false)} /> }
+      </View>
     );
 }

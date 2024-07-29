@@ -11,4 +11,9 @@ contextBridge.exposeInMainWorld('electron', {
   getMessages: (ipaddr: string, callback: Function) => ipcRenderer.invoke(Actions.GET_MESSAGES, ipaddr).then(res => callback(res)),
   addMessages: (ipaddr: string, msgs_texts: Array<string>, callback: Function) => ipcRenderer.invoke(Actions.ADD_MESSAGES, ipaddr, msgs_texts).then(res => callback(res)),
   getConfig: (callback: Function) => ipcRenderer.invoke(Actions.GET_CONFIG).then(res => callback(res)),
+  updateConfig: (host_ip: string, server_port: number, app_port: number, callback: Function) => ipcRenderer.invoke(Actions.UPDATE_CONFIG, {
+    host_ip,
+    server_port,
+    app_port
+  }).then(res => callback(res)),
 })

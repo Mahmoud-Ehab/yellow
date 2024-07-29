@@ -7,13 +7,23 @@ import express from "express"
 import http from 'http'
 import cors from "cors"
 import bodyParser from "body-parser"
-import { getConfig } from "./inits/stateManager.init"
+import { getConfig, updateConfig, Config } from "./inits/stateManager.init"
 
 const config = getConfig()
 
 export const getConfigObj = (): ActionReturn => {
   return { res: getConfig() }
 }
+export const updateConfigObj = (con: Partial<Config>): ActionReturn => {
+  try {
+    updateConfig(con)
+    return { res: true }
+  }
+  catch(err) {
+    console.error(err)
+    return { res: false, err }
+  }
+} 
 
 const app = express();
 const server = http.createServer(app);
