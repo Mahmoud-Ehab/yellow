@@ -3,6 +3,10 @@
 # dependencies
 node_modules/
 
+# compilations
+out
+resources
+
 # Expo
 .expo/
 dist/
@@ -34,5 +38,3 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
-# compilation files
-js

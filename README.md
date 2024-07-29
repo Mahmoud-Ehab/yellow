@@ -152,6 +152,7 @@ You can build yellow compiled files into an executable file (exe) with the comma
 ```
 npm run build-exe
 ```
+> It executes forge.build.js file which temporary manipulates package.json. Therefore, cannot be executed with start-expo or build-web.
 
 ## NPM build-apk
 Not implemented yet...

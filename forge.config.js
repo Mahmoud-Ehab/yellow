@@ -1,8 +1,10 @@
 module.exports = {
   packagerConfig: {
+    name: "Yellow",
     asar: true,
     extraResource: [
-      "./dist"
+      "./resources/web",
+      "./resources/js"
     ],
     icon: "./public/icon.png"
   },

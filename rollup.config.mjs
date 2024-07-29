@@ -11,7 +11,7 @@ export default [
     ],
 		output: [
 			{
-				dir: "out/js",
+				dir: "resources/js",
 				format: "cjs",
 			}
 		],
