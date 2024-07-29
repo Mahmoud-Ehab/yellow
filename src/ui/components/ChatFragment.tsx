@@ -19,7 +19,7 @@ export function ChatFragment({ username, ipaddr }) {
     const [pulv, setPulv] = useState(false); // pulv: PopUp List Visibility
     const [connected, setConnected] = useState(false);
     const [messages, setMessages] = useState([]);
-    const [config, setConfig] = useState({});
+    const [config, setConfig] = useState({ protocol: "", host_ip: "", server_port: 0, app_port: 0 });
 
     useEffect(() => {
       setConfig(getGlobal("config"))

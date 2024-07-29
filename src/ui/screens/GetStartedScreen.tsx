@@ -13,6 +13,13 @@ import { NAV_VALUES, screensNavigator } from '../../inits/screensNavigator.init'
 
 import { controller } from '../../inits/controller.init'
 
+type Config = {
+  protocol: string,
+  host_ip: string,
+  server_port: number,
+  app_port: number
+}
+
 export function GetStartedScreen() {
 	const style = getGetStartedScreenStyle();
 	const textinputStyle = getTextInputStyle();
@@ -21,25 +28,25 @@ export function GetStartedScreen() {
 	const [userIp, setUserIp] = useState("");
   const [connected, setConnected] = useState(true);
   const [configForm, setConfigForm] = useState(false);
-  const [config, setConfig] = useState({});
+  const [config, setConfig] = useState({ protocol: "", host_ip: "", server_port: 0, app_port: 0 });
   
   useEffect(() => {
-    controller.getConfig(res => {
-      setConfig(res)
-      setUserIp(res.host_ip)
+    controller.getConfig(({ res }) => {
+      setConfig(res as Config)
+      setUserIp((res as Config).host_ip)
     })
   }, [])
 
   useEffect(() => {
-    if (!config.res) {
+    if (!config) {
       return
     }
     newGlobal({
       name: "config",
-      value: config.res,
+      value: config,
       type: "config"
     })
-    fetch(`${config.res.protocol}://${config.res.host_ip}:${config.res.server_port}/`)
+    fetch(`${config.protocol}://${config.host_ip}:${config.server_port}/`)
     .then(res => res.json())
     .then(res => res.response)
     .then(payload => {
@@ -95,7 +102,7 @@ export function GetStartedScreen() {
                           value={userName}
                           label='Your Nickname' 
                           style={textinputStyle} 
-                          placeholder='Jack Smith' 
+                          placeholder='Your Nickname...' 
                           onChangeText={(value) => setUserName(value)}
                       />
                       <Textarea 

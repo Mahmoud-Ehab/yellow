@@ -36,7 +36,7 @@ export function HomeScreen() {
 	// {flex: number} of style.leftPart
 	const [sliderValue, setSliderValue] = useState(slider.value);
 	const [addContactText, setAddContactText] = useState("");
-  const [config, setConfig] = useState({});
+  const [config, setConfig] = useState({ protocol: "", host_ip: "", server_port: 0, app_port: 0 });
 
   const style = getHomeScreenStyle();
 	const sliderStyle = getSliderFlexStyle(sliderValue, style.leftPart);

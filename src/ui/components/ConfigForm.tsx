@@ -4,7 +4,7 @@ import { Button } from "react-native-paper"
 import { getConfigFormStyle } from "../styles/components/ConfigFormStyle"
 import { getTextInputStyle } from "../styles/mini/TextInputStyle2"
 
-import { getGlobal, updateGlobal } from "../../inits/globals.init.ts"
+import { getGlobal, updateGlobal } from "../../inits/globals.init"
 
 type Props = {
   onChange?: Function,
@@ -34,8 +34,8 @@ export function ConfigForm({ onChange, closeFunc }: Props) {
   const changeHandler = () => {
     const config = {
       host_ip,
-      server_port: parseInt(server_port),
-      app_port: parseInt(app_port)
+      server_port,
+      app_port
     }
     console.log(config)
     if (onChange) {
@@ -55,14 +55,14 @@ export function ConfigForm({ onChange, closeFunc }: Props) {
         label="Server Port"
         value={String(server_port)}
         style={textareaStyle}
-        onChangeText={(val) => setServerPort(val)}
+        onChangeText={(val) => setServerPort(parseInt(val))}
         keyboardType={"numeric"}
       />
       <Textarea 
         label="App Port"
         value={String(app_port)}
         style={textareaStyle}
-        onChangeText={(val) => setAppPort(val)}
+        onChangeText={(val) => setAppPort(parseInt(val))}
         keyboardType={"numeric"}
       />
       <Button onPress={changeHandler}>Change</Button>
