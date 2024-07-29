@@ -1,3 +1,3 @@
 export const fonts = {
-    Jua: 'Jua-Regular',
-}
+  Jua: "Jua-Regular",
+};

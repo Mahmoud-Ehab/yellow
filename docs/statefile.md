@@ -6,7 +6,6 @@ A StateFile contains and defines the structure of units of data to be hold, it s
 
 Lastly, saved files shall have a conventional naming syntax that would facilitate automatically reaching it, and it shall contain a header or a metadata part in it, that contains the name of the substate it belongs to, and the order in which it's been created among other cracks (saved files).
 
-
 # Implementation
 
 One feasible implementation of the concepts and features mentioned above is concretely discussed in the following sections and illustrated in the diagram below.
@@ -18,7 +17,6 @@ One feasible implementation of the concepts and features mentioned above is conc
 5. StateManager
 6. FileManager
 
-
 ![StateFile Class Diagram](./diagrams/StateFile.ClassDiagram.drawio.svg)
 
 ## 1. Naming Syntax & File Structure
@@ -26,7 +24,6 @@ One feasible implementation of the concepts and features mentioned above is conc
 In this implementation, the physical state file name and the information it contains, or some of, are strictly coupled. First of all, a state file is a JSON file that basically has three attributes: _meta_, _data_, and _unittype_. _data_ is a list of units of data, where each data unit structure shall be in accordance with _unittype_; meanly it must has, at least, the same fields as _unittype_. _meta_ is where the coupling established between the name and the contents; it has, at least, two fields (the name of the substate and the crack order), as mentioned before, that are essentailly manifested in the file name. And accordingly, the file name syntax is `sf.[order].[substate_name].json`.
 
 The prefix `sf` makes it way easier for a StateFile to look for state files and automatically load the application state. Once a state file is found, it gets validated by checking the order and the substate name in both the file name and its content. Once a state file is validated, it gets loaded by a StateFile object. Last thing to mention, is that the order is involved in the name in order to make it possible for the StateFile to load just the lastest crack of data of the corresponding substate.
-
 
 ## 2. Storing, Loading and Cracking Data
 
@@ -48,7 +45,6 @@ By default, a crack file gets sealed when it reaches a limit of 100 data unit wi
 
 One final noteworthy propery to mention here is that it's quite reasonable, more reliable, and less error-prone that a StateFile object contains at most one unsealed crack file. And that unsealed crack file shall be the last in the list that leaves behind the old sealed ones.
 
-
 ## 3. Access and Manipulate Data
 
 Users can retrieve a specifc data unit either by specifying an index or a search condition. In the same manner, users can retrieve a set of units of data, however the first way shall involve a range of two indexes. And for this purpose, four methods may be defined: `get(index)`, `getWhere(condition)`, `getList(index, index)`, and `getListWhere(condition)`. A typical definition or implementation, so to speak, of the search condition parameter might be a lambda function that takes a data unit and returns a boolean value. Furthermore, `getIndexOf(condition)` returns the index of the first data unit that applies the condition, or -1 in case nothing is found.
@@ -56,7 +52,6 @@ Users can retrieve a specifc data unit either by specifying an index or a search
 Adding data units, updating existing ones values, or removing them... each of these operations corresponds respectively with the methods: `add(object)`, `update(index | condition, object)`, and `remove(index | condition)`; in case an index is provided the method should update/remove only one unit, in case of a condition, on the other hand, it shall update/remove the set of units that meets the condition.
 
 Just one rather subtle feature is left. When data is manipulated, should StateFile writes data automatically on the disk? or should it leave it for the user to manually invoke instead?... _simul_ is another StateFile private local variable of type boolean with true as its default value. When simul is true the StateFile will save data automatically, however, it shall rewrite only the crack file that holds the added/updated/removed data unit. On the other hand, when simul is false, the only way to save data permanently is by invoking the `save` method which will rewrite all crack files.
-
 
 ## 4. Typer
 
@@ -66,7 +61,6 @@ Typer is used by StateFile to generate a unittype object, to extend a unittype o
 
 Typer.Type has a recursive definition whereas it's a map from a string to one of the following values: "number", "string", "boolean", and Typer.Type.
 
-
 ## 5. StateManager
 
 Users can create StateFiles and access them only by using StateManager. A StateManager creates StateFiles with `add(substate_name)` method and stores it in a local variable. Users can access and remove StateFiles with methods: `get(substate_name)` and `remove(substate_name)`.
@@ -75,11 +69,10 @@ At the construction of StateManager, users shall provide the root directory path
 
 Removed StateFiles are only removed from the local variable of the StateManager, however, to remove them entirely from persistence, users may invoke `delete(substate_name, passkey)` method. The _passkey_ parameter bestows some security for users, so that sf files don't get easly or accedentally deleted. It's compared to the passkey attached in each sf file meta part, if there isn't a passkey in there then the sf file considered undeletable by the StateManager.
 
-
 ## 6. FileManager
 
 A File object is considered as a virtual file that stores the path of the physical file and its content in local variable. And it contains methods to retrieve, set, and update the content. However, manipulating the content using File methods only happens virtually, it's not persistent.
 
 From here, a FileManager can be simply stated as a collection of File objects with a specified unique name for each of which. Users can create, read, update or remove Files only with the methods provied by FileManager. Furthermore, users can configure files to be written automatically on disk whenever its value change by invoking the method `simulFile(file)`. And can turn it off with `unsimulFile(file)`.
 
-There shall exist only one instance of FileManager that gets passed through StateManager, StateFileFactory, and StateFileContainer. As it's shown in the diagram [above](#Implementation).  
+There shall exist only one instance of FileManager that gets passed through StateManager, StateFileFactory, and StateFileContainer. As it's shown in the diagram [above](#Implementation).

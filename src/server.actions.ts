@@ -1,7 +1,7 @@
 export type ActionReturn = {
-  err?: string,
-  res: object | Array<any> | boolean
-}
+  err?: string;
+  res: object | Array<any> | boolean;
+};
 
 export const Actions = {
   GET_INFO: "getInfo",
@@ -13,6 +13,5 @@ export const Actions = {
   GET_MESSAGES: "getMessages",
   ADD_MESSAGES: "addMessages",
   GET_CONFIG: "getConfig",
-  UPDATE_CONFIG: "updateConfig"
-}
-
+  UPDATE_CONFIG: "updateConfig",
+};

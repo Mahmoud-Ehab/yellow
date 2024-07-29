@@ -1,24 +1,21 @@
 // rollup.config.js
-import typescript from '@rollup/plugin-typescript';
-import commonjs from '@rollup/plugin-commonjs';
+import typescript from "@rollup/plugin-typescript";
+import commonjs from "@rollup/plugin-commonjs";
 
 export default [
   {
-		input: [
+    input: [
       "./src/server.ts",
       "./src/electron.ts",
-      "./src/electron.preload.ts"
+      "./src/electron.preload.ts",
     ],
-		output: [
-			{
-				dir: "resources/js",
-				format: "cjs",
-			}
-		],
-		plugins: [
-      commonjs(),
-      typescript(),
+    output: [
+      {
+        dir: "resources/js",
+        format: "cjs",
+      },
     ],
+    plugins: [commonjs(), typescript()],
     external: [
       "fs",
       "cracksdb",
@@ -35,7 +32,7 @@ export default [
       "electron-is-dev",
       "serve-handler",
       "node:process",
-      "node:child_process"
-    ]
-	},
-];  
+      "node:child_process",
+    ],
+  },
+];

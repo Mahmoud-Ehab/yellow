@@ -1,48 +1,47 @@
 export class Slider {
-    private minValue: number;
-    private maxValue: number;
-    private curValue: number;
+  private minValue: number;
+  private maxValue: number;
+  private curValue: number;
 
-    private initValue: number;
-    private onMovingListener: Function;
+  private initValue: number;
+  private onMovingListener: Function;
 
-    constructor(minValue: number, maxValue: number, curValue?: number) {
-        this.minValue = minValue;
-        this.maxValue = maxValue;
-        this.curValue = curValue || minValue;
+  constructor(minValue: number, maxValue: number, curValue?: number) {
+    this.minValue = minValue;
+    this.maxValue = maxValue;
+    this.curValue = curValue || minValue;
+  }
+
+  get value() {
+    return this.curValue;
+  }
+
+  setInitValue(initValue: number) {
+    this.initValue = initValue;
+  }
+
+  private setCurValue(newValue: number) {
+    if (newValue > this.minValue && newValue < this.maxValue) {
+      this.curValue = newValue;
+    }
+  }
+
+  moveTo(movingValue: number, alpha?: number) {
+    if (!this.initValue) {
+      this.setInitValue(movingValue);
+      return;
     }
 
-    get value() {
-        return this.curValue;
-    }
+    if (!alpha) alpha = 1;
+    let delta = (this.initValue - movingValue) / movingValue;
 
-    setInitValue(initValue: number) {
-        this.initValue = initValue;
-    }
+    this.setCurValue(this.curValue + delta * alpha);
 
-    private setCurValue(newValue: number) {
-        if (newValue > this.minValue && newValue < this.maxValue) {
-            this.curValue = newValue
-        }
-    }
+    this.setInitValue(movingValue);
+    if (this.onMovingListener) this.onMovingListener();
+  }
 
-    moveTo(movingValue: number, alpha?: number) {
-        if (!this.initValue) {
-            this.setInitValue(movingValue)
-            return;
-        }
-
-        if (!alpha) alpha = 1;
-        let delta = (this.initValue - movingValue) / movingValue;
-
-        this.setCurValue(this.curValue + delta * alpha);
-        
-        this.setInitValue(movingValue);
-        if (this.onMovingListener)
-            this.onMovingListener();
-    }
-
-    setOnMoving(listener: Function) {
-        this.onMovingListener = listener;
-    }
+  setOnMoving(listener: Function) {
+    this.onMovingListener = listener;
+  }
 }

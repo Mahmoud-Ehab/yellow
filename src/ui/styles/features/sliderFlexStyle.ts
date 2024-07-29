@@ -1,8 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
-export const getSliderFlexStyle = (slideValue: number, extend?: object) => StyleSheet.create({
+export const getSliderFlexStyle = (slideValue: number, extend?: object) =>
+  StyleSheet.create({
     main: {
-        ...extend,
-        flex: slideValue,
-    }
-});
+      ...extend,
+      flex: slideValue,
+    },
+  });
