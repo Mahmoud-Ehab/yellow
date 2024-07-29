@@ -34,7 +34,7 @@ Yellow is an open-source, cross-platform, decentralized chat application. It can
 │       ├── desktop-getstarted.png
 │       ├── mobile-getstarted.png
 │       └── ...
-├── out *** All compiled files and exports shall reside here
+├── resources *** All compiled files and exports shall reside here
 │   ├── js
 │   ├── web 
 │   └─ ...
@@ -74,6 +74,8 @@ Yellow is an open-source, cross-platform, decentralized chat application. It can
 ├── App.js *** The EntryPoint of expo 
 ├── app.json
 ├── babel.config.js
+├── forge.build.js
+├── forge.config.js
 ├── LICENSE
 ├── package.json
 ├── package-lock.json
