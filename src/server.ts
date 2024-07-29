@@ -12,7 +12,7 @@ import express from "express"
 import http from 'http'
 import cors from "cors"
 import bodyParser from "body-parser"
-import config from "../yellow.config.mjs"
+import config from "./yellow.config"
 
 const app = express();
 const server = http.createServer(app);
@@ -49,22 +49,7 @@ export const closeServer = () => {
 
 /*** Action functions that manipulate the database ***/
 import { user, contacts, createMsgRoom, deleteMsgRoom } from "./inits/stateManager.init";
-
-export type ActionReturn = {
-  err?: string,
-  res: object | Array<any> | boolean
-}
-
-export const Actions = {
-  GET_INFO: "getInfo",
-  SET_INFO: "setInfo",
-  SET_IMAGE: "setImage",
-  GET_CONTACTS: "getContacts",
-  ADD_CONTACT: "addContact",
-  RMV_CONTACT: "rmvContact",
-  GET_MESSAGES: "getMessages",
-  ADD_MESSAGES: "addMessages"
-}
+import { ActionReturn } from "./server.actions"
 
 export const getInfo = (): ActionReturn => {
     return {res: user.get()}

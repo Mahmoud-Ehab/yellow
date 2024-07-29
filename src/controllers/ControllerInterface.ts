@@ -1,4 +1,4 @@
-import { ActionReturn } from '../server'
+import { ActionReturn } from '../server.actions'
 
 export type Callback = (res: ActionReturn) => void;
 

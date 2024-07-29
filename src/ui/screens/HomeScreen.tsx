@@ -25,7 +25,7 @@ import { getSliderFlexStyle } from '../styles/features/sliderFlexStyle';
 import { getRoomBtnStyle } from '../styles/mini/RoomBtnStyle';
 import { notifier } from '../../inits/notifier.init';
 
-import config from '../../../yellow.config.mjs';
+import config from '../../yellow.config';
 
 const slider = new Slider(0.2, 3, 1);
 
@@ -198,7 +198,7 @@ export function HomeScreen() {
 			<View style={style.screenDivider} onTouchStart={onSliderStart} onTouchMove={onSliderMove}>
 				<Image 
 					style={style.screenDividerImg}
-					source={"../../../assets/dividerScroll.svg"}
+					source={"dividerScroll.svg"}
 					contentFit="contain"
 				/>
 			</View>
@@ -213,7 +213,7 @@ export function HomeScreen() {
 				<>
 					<Image 
 						style={style.rightPartImg}
-						source={"../../../assets/home.png"}
+						source={"home.png"}
 						contentFit="contain"
 					/>
 					<View style={style.addFriendSection}>

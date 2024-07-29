@@ -11,7 +11,7 @@ export type Message = {
   pending: boolean
 }
 
-const SM = new StateManager("./js/sfs", new FileManager({}))
+const SM = new StateManager("./out/js/sfs", new FileManager({}))
 
 let myinfo: StateFile<Contact> = null;
 let contacts: StateFile<Contact> = null;

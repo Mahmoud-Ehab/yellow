@@ -11,7 +11,7 @@ import { newGlobal } from '../../inits/globals.init';
 import { NAV_VALUES, screensNavigator } from '../../inits/screensNavigator.init';
 
 import { controller } from '../../inits/controller.init'
-import config from '../../../yellow.config.mjs'
+import config from '../../yellow.config'
 
 export function GetStartedScreen() {
 	const style = getGetStartedScreenStyle();
@@ -63,7 +63,7 @@ export function GetStartedScreen() {
                 <View style={style.containerTopPart}>
                     <Image
                         style={style.logo}
-                        source={'../../../assets/logo.svg'}
+                        source={'logo.svg'}
                         contentFit="cover"
                         transition={1000}
                     />

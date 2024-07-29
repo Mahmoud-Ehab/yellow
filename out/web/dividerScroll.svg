@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <g id="Slide">
+    <path d="M0 18C0 18 8.05887 18 18 18C27.9411 18 36 18 36 18C36 18 27.9411 36 18 36C8.05888 36 0 18 0 18Z" id="Oval" fill="#E9DEB9" fill-rule="evenodd" stroke="none" />
+    <path d="M0 18C0 18 8.05888 0 18 0C27.9412 0 36 18 36 18C36 18 27.9412 18 18 18C8.05887 18 0 18 0 18Z" id="Oval-2" fill="#DEB52D" fill-rule="evenodd" stroke="none" />
+  </g>
+</svg>

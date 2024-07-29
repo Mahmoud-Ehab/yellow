@@ -1,6 +1,6 @@
 # About
 
-Yellow is an open-source, cross-platform, decentralized chat application. It can be used locally or globally; all that needed, to establish a connection between two users, is to share their ip addresses to on another. The front-end is mainly implemented with React Native, however, with a flexible design that would let it feasible to integrate Electron.js afterforward. On the other hand, the back-end is implemented with Express.js and Socket.io. When a Yellow application (React/ElectorJS Application) gets started, it initially shall start its own socket server in the background.
+Yellow is an open-source, cross-platform, decentralized chat application. It can be used locally or globally; all that needed, to establish a connection between two users, is to share their ip addresses to on another. The front-end is mainly implemented with Expo; it ultimately shall be bundled into SPA that could be used by electron and capacitorJS. On the other hand, the back-end is implemented with Express.js and Socket.io (packages for different mobile platforms are not determined yet).
 
 
 # UI Prototype
@@ -24,7 +24,7 @@ Yellow is an open-source, cross-platform, decentralized chat application. It can
 # Project Structure
 ```sh
 .
-├── assets
+├── public 
 │   ├── adaptive-icon.png
 │   ├── user.png
 │   ├── favicon.png
@@ -34,31 +34,44 @@ Yellow is an open-source, cross-platform, decentralized chat application. It can
 │       ├── desktop-getstarted.png
 │       ├── mobile-getstarted.png
 │       └── ...
+├── out *** All compiled files and exports shall reside here
+│   ├── js
+│   ├── web 
+│   └─ ...
 ├── src
-│   ├── components *** Exports various views to be used by screens.
-│   │   ├── header.tsx
-│   │   └── ...
 │   ├── modules
 │   │   ├── StateManager
 │   │   ├── Globals
 │   │   └── ...
-│   ├── mini-components *** Exports various views to be used by components
-│   │   ├── Textarea.tsx
+│   ├── controllers *** Decoubles the ui and the server or node application
+│   │   ├── ControllerInterface.ts 
+│   │   ├── ElectronContoller.ts
 │   │   └── ...
-│   ├── screen *** Holds the ultimate view files, that would be compiled by Rollup, and used by App.js
-│   │   ├── HomeScreen.tsx
-│   │   └── ...
-│   ├── styles *** All CSS style js-objects are stored here
-│   │   ├── colors.ts
-│   │   ├── fonts.ts
-│   │   ├── mediaQuery.ts *** Exports set of functions to be used in css styles objects (e.g. isMobileDevice(): boolean)
-│   │   ├── HomeScreenStyle.ts
-│   │   ├── TextInputStyle.ts
-│   │   └── ...
-│   └── inits *** contains initialization files of some modules 
-│       ├── globals.init.ts *** initializes and exports a Globals instance (to be shared everywhere else)
-│       └── ...
-├── App.js *** The EntryPoint of react application
+│   ├── inits *** contains initialization files of some modules 
+│   │   ├── globals.init.ts *** initializes and exports a Globals instance (to be shared everywhere else)
+│   │   └── ...
+│   ├── ui 
+│   │   ├── components *** Exports various views to be used by screens.
+│   │   │   ├── header.tsx
+│   │   │   └── ...
+│   │   ├── mini-components *** Exports various views to be used by components
+│   │   │   ├── Textarea.tsx
+│   │   │   └── ...
+│   │   ├── screen *** Holds the ultimate view files, that would be compiled by Rollup, and used by App.js
+│   │   │   ├── HomeScreen.tsx
+│   │   │   └── ...
+│   │   └── styles *** All CSS style js-objects are stored here
+│   │       ├── colors.ts
+│   │       ├── fonts.ts
+│   │       ├── mediaQuery.ts *** Exports set of functions to be used in css styles objects (e.g. isMobileDevice(): boolean)
+│   │       ├── HomeScreenStyle.ts
+│   │       ├── TextInputStyle.ts
+│   │       └── ...
+│   ├── electron.ts 
+│   ├── electron.preload.ts
+│   ├── server.ts
+│   └── yellow.config.ts
+├── App.js *** The EntryPoint of expo 
 ├── app.json
 ├── babel.config.js
 ├── LICENSE
@@ -116,7 +129,7 @@ After, successfully, installing the dependencies, you can run the following comm
 npm run compile
 ```
 
-## NPM start-react
+## NPM start-expo
 Once compilation is passed successfully, you can execute the following command to start your react application powered by Expo:
 ```
 npm run start-expo
@@ -129,14 +142,19 @@ npm run start-electron
 ```
 
 ## NPM build-web
-You may use this command to export your static html/css/js files from expo.
+You may use this command to export your SPA html/css/js files by expo:
 ```
 npm run build-web 
 ```
 
 ## NPM build-exe
-Not implemented yet...
+You can build yellow compiled files into an executable file (exe) with the command:
+```
+npm run build-exe
+```
 
 ## NPM build-apk
 Not implemented yet...
 
+## NPM build-ios
+Not implemented yet...

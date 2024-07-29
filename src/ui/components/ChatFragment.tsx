@@ -13,7 +13,7 @@ import { controller } from "../../inits/controller.init"
 import { notifier } from "../../inits/notifier.init"
 import { getGlobal, newGlobal, updateGlobal } from "../../inits/globals.init"
 
-import config from "../../../yellow.config.mjs"
+import config from "../../yellow.config"
 
 export function ChatFragment({ username, ipaddr }) {
     const style = getChatFragmentStyle();
@@ -128,14 +128,14 @@ export function ChatFragment({ username, ipaddr }) {
             <View style={style.topBar}>
                 <Image 
                     style={style.conStatusBtn} 
-                    source={`../../../assets/${connected ? 'connected' : 'disconnected'}.png`} 
+                    source={`${connected ? 'connected' : 'disconnected'}.png`} 
                     contentFit="contain"
                     onPointerDown={reconnect}
                 />
                 <Text style={style.topBarText}>{ username }</Text>
                 <Image 
                     style={style.threeDotsBtn} 
-                    source={"../../../assets/threedots.png"} 
+                    source={"threedots.png"} 
                     contentFit="contain"
                     onPointerDown={() => setPulv(!pulv)}
                     onTouchStart={() => setPulv(!pulv)}
@@ -145,7 +145,7 @@ export function ChatFragment({ username, ipaddr }) {
             <View style={style.chatContainer} onPointerDown={() => setPulv(false)} onTouchStart={() => setPulv(false)}>
                 <Image 
                     style={style.chatImg} 
-                    source={"../../../assets/chatroom.png"} 
+                    source={"chatroom.png"} 
                     contentFit="contain"
                 />
                 <ScrollView style={{width: '100%', height: '100%'}} contentContainerStyle={style.msgsContainer}>
@@ -167,7 +167,7 @@ export function ChatFragment({ username, ipaddr }) {
                 />
                 <Image 
                     style={style.sendBtn} 
-                    source={"../../../assets/send.png"} 
+                    source={"send.png"} 
                     contentFit="contain"
                     onPointerDown={() => sendHandler()}
                 /> 
