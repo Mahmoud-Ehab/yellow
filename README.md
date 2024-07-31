@@ -119,7 +119,7 @@ Yellow is an open-source, cross-platform, decentralized chat application. It can
 - [x] Implement ElectronController and use it in the application with an init.ts file.
 - [x] Implement WebSocket connection in the server.
 - [x] Implement Initial messaging chat implementation.
-- [ ] Refactor the server component.
+- [x] Refactor the server component.
 - [ ] Allow sending images in the chat.
 - [ ] Add group rooms in the application.
 
