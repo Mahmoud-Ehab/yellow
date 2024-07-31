@@ -8,7 +8,7 @@ import { getGetStartedScreenStyle } from "../styles/screens/GetStartedScreenStyl
 import { Textarea } from "../mini-components/Textarea";
 import { getTextInputStyle } from "../styles/mini/TextInputStyle";
 
-import { newGlobal } from "../../inits/globals.init";
+import { newGlobal, updateGlobal } from "../../inits/globals.init";
 import {
   NAV_VALUES,
   screensNavigator,
@@ -43,13 +43,18 @@ export function GetStartedScreen() {
       setConfig(res as Config);
       setUserIp((res as Config).host_ip);
     });
+    newGlobal({
+      name: "config",
+      value: config,
+      type: "config",
+    });
   }, []);
 
   useEffect(() => {
     if (!config) {
       return;
     }
-    newGlobal({
+    updateGlobal({
       name: "config",
       value: config,
       type: "config",
