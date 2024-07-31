@@ -1,19 +1,18 @@
 import { app, BrowserWindow } from "electron";
 import { startServer, closeServer } from "./server";
-import { Actions } from "./server.actions";
 
 import handler from "serve-handler";
 import http from "http";
 import path from "path";
 import { argv } from "node:process";
 
-import { getConfig } from "./inits/stateManager.init";
+import * as actions from "./server_lib/server.actions";
 
 let app_server = null;
 
 try {
   if (require("electron-squirrel-startup")) app.quit();
-  const config = getConfig();
+  const config = actions.getConfig().res as unknown as any;
   if (argv[2] != "--dev") {
     app_server = http.createServer((request, response) => {
       // You pass two more arguments for config and middleware
@@ -70,39 +69,27 @@ try {
 }
 
 import { ipcMain } from "electron";
-import {
-  getInfo,
-  setInfo,
-  setImage,
-  getContacts,
-  addContact,
-  rmvContact,
-  getMessages,
-  addMessages,
-  getConfigObj,
-  updateConfigObj,
-} from "./server";
-
 try {
-  ipcMain.handle(Actions.GET_INFO, (_) => getInfo());
+  const Actions = actions.Actions;
+  ipcMain.handle(Actions.GET_INFO, (_) => actions.getInfo());
   ipcMain.handle(Actions.SET_INFO, (_, username, ipaddr) =>
-    setInfo(username, ipaddr),
+    actions.setInfo(username, ipaddr),
   );
-  ipcMain.handle(Actions.SET_IMAGE, (_, imguri) => setImage(imguri));
-  ipcMain.handle(Actions.GET_CONTACTS, (_) => getContacts());
+  ipcMain.handle(Actions.SET_IMAGE, (_, imguri) => actions.setImage(imguri));
+  ipcMain.handle(Actions.GET_CONTACTS, (_) => actions.getContacts());
   ipcMain.handle(Actions.ADD_CONTACT, (_, username, ipaddr) =>
-    addContact(username, ipaddr),
+    actions.addContact(username, ipaddr),
   );
-  ipcMain.handle(Actions.RMV_CONTACT, (_, ipaddr) => rmvContact(ipaddr));
+  ipcMain.handle(Actions.RMV_CONTACT, (_, ipaddr) => actions.rmvContact(ipaddr));
 
-  ipcMain.handle(Actions.GET_MESSAGES, (_, ipaddr) => getMessages(ipaddr));
+  ipcMain.handle(Actions.GET_MESSAGES, (_, ipaddr) => actions.getMessages(ipaddr));
   ipcMain.handle(Actions.ADD_MESSAGES, (_, ipaddr, msgs_texts) =>
-    addMessages(ipaddr, msgs_texts),
+    actions.addMessages(ipaddr, msgs_texts),
   );
 
-  ipcMain.handle(Actions.GET_CONFIG, () => getConfigObj());
+  ipcMain.handle(Actions.GET_CONFIG, () => actions.getConfig());
   ipcMain.handle(Actions.UPDATE_CONFIG, (_, config) => {
-    const actionReturn = updateConfigObj(config as unknown);
+    const actionReturn = actions.updateConfig(config as unknown);
     if (actionReturn.res === true) {
       closeServer();
       if (app_server) app_server.close();

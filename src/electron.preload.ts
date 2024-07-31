@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from "electron";
-import { Actions } from "./server.actions";
+import { Actions } from "./server_lib/server.actions";
 
 contextBridge.exposeInMainWorld("electron", {
   getInfo: (callback: Function) =>
