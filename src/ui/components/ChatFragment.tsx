@@ -176,7 +176,7 @@ export function ChatFragment({ username, ipaddr }) {
           {messages.map((msg, i) => (
             <Text
               key={i}
-              style={msg.sender_ip === ipaddr ? style.userMsg : style.userMsg}
+              style={msg.sender_ip === ipaddr ? style.userMsg : style.friendMsg}
             >
               {msg.content}
             </Text>
