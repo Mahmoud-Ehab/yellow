@@ -18,14 +18,19 @@ console.log("\x1b[35m > manipulating package.json...\x1b[0m");
 fs.writeFileSync("./package.json", JSON.stringify(package_json));
 
 console.log(
-  `\x1b[35m > Executing 'npm electron-forge ${process.argv[2]}'...\x1b[0m`,
+  `\x1b[35m > Executing 'npm electron-forge ${process.argv.slice(2, process.argv.length).join(' ')}'...\x1b[0m`,
 );
 console.warn("  - it may take a while...");
 
-const stdout = execSync(`npx electron-forge ${process.argv[2]}`, {
-  encoding: "utf8",
-});
-console.log(stdout);
+try {
+  const stdout = execSync(`npx electron-forge ${process.argv.slice(2, process.argv.length).join(' ')}`, {
+    encoding: "utf8",
+  });
+  console.log(stdout);
+}
+catch(err) {
+  console.error(err);
+}
 
 console.log("\x1b[35m > recovering package.json...\x1b[0m");
 package_json.main = oldMain;
